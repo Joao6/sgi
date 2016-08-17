@@ -1,0 +1,87 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/07/2015, 11:12:27
+    Author     : Aliane Leal
+*/
+
+.area-principal#incubadora-list,
+.area-principal#incubadora-new{
+  border:1px solid #AAA;
+  padding-top: 3%;
+  background-color: #FFF;
+}
+/*@media screen and (max-width: 1292px){
+  body{
+    width: 1360px;
+  }
+}*/
+.area-principal#incubadora-list{
+  width: 71%;
+  min-height: 394px;
+  padding-bottom: 0px;
+}
+
+.area-principal#incubadora-new{
+  width: 50%;
+  height: 70px;
+  min-height: 394px;
+  padding-bottom: 0px;
+}
+
+.area-principal#incubadora-list > table{
+  font-size: 11pt;
+  margin-top:3%;
+  border:1px solid #CCC;
+}
+.input-item{
+  margin-left: 5%;
+  font-size: 11pt;
+  margin-bottom: 5px;
+}
+#btn-submit.botao{
+  margin-top: 0px;
+}
+.btn-add,
+.btn-add:active,
+.btn-add:visited{
+  text-decoration: none;
+  border:1px solid #000;
+  background-color: #FFF;
+  margin-left: 5%;
+  margin-top: 15px;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 10pt;
+  color: #000;
+  font-weight: bold;
+}
+
+.btn-add:hover{
+  border: 2px solid #000;
+  font-weight: bold;
+  padding-top: 9px;
+  padding-left: 29px;
+  padding-right: 29px;
+  text-decoration: none;
+  color:#000;
+}
+.table .glyphicon.glyphicon-trash,
+.table .glyphicon.glyphicon-edit{
+  font-size: 13pt;
+  padding: 0px;
+}
+
+.table .glyphicon.glyphicon-trash{
+  color: red;
+  margin-left: 18%;
+}
+.table .glyphicon.glyphicon-edit{
+  color: blue;
+  margin-left: 18%;
+}

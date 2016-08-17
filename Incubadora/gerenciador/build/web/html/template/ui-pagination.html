@@ -1,0 +1,13 @@
+<div>
+<script type="text/ng-template" id="paginationControl.html">
+   <ul class="pagination center"  data-ng-show="paginator.pageCount() > 1">
+   <li data-ng-click="paginator.firstPage()" ng-class="paginator.isFirstPage() && 'disabled'" class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+   <li data-ng-click="paginator.setPage(i)" ng-repeat="i in [] | forLoop:paginator.lowerLimit():paginator.pageCount() | limitTo : paginator.limitPerPage" data-ng-class="paginator.page==i && 'active'">
+   <a href="#!">
+   {{i+1}}
+   </a>
+   </li>
+   <li data-ng-click="paginator.perviousPage()" ng-class="paginator.isFirstPage() && 'disabled'" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+   </ul>
+</script>
+</div>

@@ -1,0 +1,103 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17/08/2015, 15:22:30
+    Author     : William
+*/
+
+
+
+@media screen and (max-width: 1292px){
+   body{
+      width: 1360px;
+   }
+}
+
+.area-principal{
+   min-width: 70%;
+
+}
+
+.btn-add,
+.btn-add:active,
+.btn-add:visited{
+   text-decoration: none;
+   border:1px solid #000;
+   background-color: #FFF;
+   margin-left: 5%;
+   margin-top: 15px;
+   padding-top: 10px;
+   padding-bottom: 8px;
+   padding-left: 30px;
+   padding-right: 30px;
+   font-size: 10pt;
+   color: #000;
+   font-weight: bold;
+}
+
+.btn-add:hover{
+   border: 2px solid #000;
+   font-weight: bold;
+   padding-top: 9px;
+   padding-left: 29px;
+   padding-right: 29px;
+   text-decoration: none;
+}
+
+#btn-add{
+   position: relative;
+   top:41px;
+   font-family: sans-serif;
+}
+
+textarea{
+   width: 90%;
+   margin-left: 5%;
+   padding: 0px;  
+}
+
+.select-categoria{
+ margin-left: 5%;
+ width: 90%;
+ outline: none;
+ height: 35px;
+ margin-bottom: 2%;
+ margin-top: 1%;
+ font-size: 12pt;
+}
+
+.btn.botao{
+   margin-bottom: 0px;
+   margin-top: 0px;
+}
+
+.form-title{
+   top: 15px;
+   position: relative;
+}
+
+.table.table-list{
+  font-size: 10.5pt;
+  margin-top:3%;
+  border:1px solid #CCC;
+}
+
+.table.table-list td{
+   background-color: #FFF;
+}
+
+
+.glyphicon.glyphicon-edit,
+.glyphicon.glyphicon-trash,
+.glyphicon.glyphicon-search{
+  font-size: 12pt;
+  margin-left: 12%;
+  text-align: center;
+}
+
+.glyphicon.glyphicon-trash{
+  color: red;
+}

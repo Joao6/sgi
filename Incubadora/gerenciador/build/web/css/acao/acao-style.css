@@ -1,0 +1,141 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 31/07/2015, 13:31:57
+    Author     : Aliane Leal
+*/
+
+.area-principal#planejamento-new,
+.area-principal#planejamento-list,
+.area-principal#planejamento-detail{
+  border:1px solid #AAA;
+  padding-top: 3%;
+  background-color: #FFF;
+  margin-bottom: 2%;
+  padding-bottom: 0px;
+  width: 70%;
+}
+
+.area-principal#planejamento-list  table{
+  font-size: 10.5pt;
+  padding-left: 10px; 
+  border:1px solid #CCC;
+}
+.area-principal#planejamento-detail  table{
+  font-size: 10.5pt;
+  padding-left: 10px;
+  border: 1px solid #CCC;
+  margin-top: 0px;
+}
+#title-menu{
+  margin-left: 15%;
+  margin-bottom: 0%;
+  font-size: 11pt; 
+}
+#title-planejamento{
+  margin-left: 15%;
+  margin-bottom: 0%;
+  font-size: 11pt;
+}
+.form-inline-planejamento{
+  // border: 1px solid blue;
+  font-size: 12pt;
+  margin-left: 50px;
+}
+.input-planejamento{
+  width: 40%;
+  height: 35px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+  font-family: sans-serif;
+}
+#orientacoes{
+  margin-left: 140px;
+  margin-bottom: 10px;
+  font-size: 12pt;
+  padding-left: 5px;
+}
+.categoria{
+   position: relative;
+  border: 1px solid #CCC; 
+  border-bottom: 0px;
+  outline: transparent;
+  font-size: 11pt;
+  font-weight: 600;
+  color: #333;
+  margin-left: 23em;
+  padding: 5px;
+}
+#btn-submit-planejamento{
+  margin-left: 50px;
+  margin-bottom: 0px;
+  margin-top: 8%;
+}
+.menu-planejamento{
+  margin-left: 15px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-size: 12.5pt;
+}
+.title-menu:hover{
+  text-decoration:underline;  
+}
+.table .glyphicon.glyphicon-trash{
+  color: red;
+  margin-left: 0.8em;
+}
+.table .glyphicon.glyphicon-edit{
+  color: blue;
+  margin-left: 1em;
+}
+.table .glyphicon.glyphicon-search{
+  color: purple;
+  margin-left: 1.5em;
+}
+
+.popover{
+   border-radius: 0px;
+   box-shadow: 0px 1px 1px 1px #EFEFEF;
+}
+
+.popover-title{
+   background-color: #FFCB04;
+   border-radius: 0px;
+   text-align: center;
+   font-weight: 600;
+}
+
+#orientacoes-popover{
+   margin-top: -170px; 
+   position:absolute;
+}
+
+.input-group,
+.input-group-addon{
+   //border:1px solid red;
+   border-radius: 0px;   
+   padding: 0px;   
+}
+
+.input-group{
+   //border: 1px solid blue;
+   width: 38%;
+   margin-bottom: 5px;
+}
+
+.input-group-addon{
+   padding-left: 5%;
+   padding-right: 5%;
+   background-color: #FFF;
+   border: 1px solid #AAA;
+   width: 40%;
+   border: 1px solid blue;
+}
+
+input[type=date]{
+     width: 100%;
+     margin-bottom: 0px;
+}

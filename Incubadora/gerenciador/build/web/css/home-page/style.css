@@ -1,0 +1,227 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20/05/2015, 16:56:13
+    Author     : William
+*/
+
+@charset "UTF-8";
+@font-face{
+  font-family: Pioret;
+  src:url(../fonts/PoiretOne-Regular.ttf);
+}
+body{
+  width: 100%;
+  margin: auto;
+  //background: url(../img/empresas.jpg);
+  background-position-y: 120px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+.dropdown-menu{
+  border-radius: 0px;
+  border:1px solid #CCC;
+}
+
+.navbar.navbar-default{
+  //background-color: rgba(255,255,255,0.9);
+  background-color: #FFF;
+  border-bottom: 1px solid #CCC;
+  height: 120px;
+  padding: 0px; 
+  border-radius: 0px;
+  margin: 0px;
+}
+a, .navbar-brand{
+  margin: 0px;
+  position: relative;
+  height: 119px;
+  //border: 1px solid #000;
+  padding: 0px;
+  width: 120px;
+}
+
+
+.navbar-header {
+  height: 99px;
+  padding: 0px;
+}
+img{
+  padding: 0px;
+  //border:1px solid #000;
+  margin: 0px;
+  margin-top: 30px;
+  margin-left: 40%;
+}
+
+
+#section1,
+#section2{
+  width: 100%;
+  height: 380px;
+  padding: 0px;
+  //border: 1px solid #000;
+  position: relative;
+  margin: 0px;  
+
+}
+
+#section1{
+  background-color: #F6BD00;
+  color: #FFF;
+  margin-top: 13%;
+}
+#section2{
+  margin-top: 5%;
+  background-color: #FFF;
+  background: url(../img/empresas.jpg);
+}
+
+section h1,small{
+  margin-top: 5%;
+  margin-left: 5%;     
+  font-family: Pioret;
+}
+
+
+#section1 h1{
+  font-size: 40pt;
+  font-style: inherit;
+}
+
+#section1 small{
+  font-size: 15pt;
+}
+
+footer{
+  height: 70px;
+  width: 100%;
+  background-color: #444;
+  margin-top: 5%;
+}
+
+footer a{
+  color:#FFF;
+  left: 50%;
+  top:30%;
+}
+
+a:hover{
+  color:#327CCB;
+}
+
+#menuLogin,
+#navLogin{
+  //border:1px solid #000;
+  width: 35px;
+  height: 30px;
+  float: left;
+  padding: 0px;
+  margin: 0px;    
+}
+
+#menuLogin,
+#navLogin{
+  background-color: #FFF;
+  background-color: transparent;
+}
+
+#menuLogin{
+  //border:1px solid #000;
+  margin-left: 70%;
+  position: relative;   
+}
+#navLogin{
+  right:-250%;
+  //border:1px solid #000;
+  position: relative;
+  margin-top: -73%;
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: medium;
+  color: #000;    
+}
+#formLogin{
+  padding: 0px;
+  width: 200px;    
+}
+
+#formLogin > input > a{
+  float: left;
+}
+
+.form-control input{
+  border-radius: 0px;
+}
+
+input[type="submit"]{
+  border: 1px solid #327CCB; 
+  background-color:#FFF;
+  border-radius: 0px;
+  width: 100%;
+
+}
+
+input[type="submit"]:hover{
+  background-color: rgba(50,124,203,0.01);
+}
+
+input[type="text"],
+input[type="password"]{
+  border: 1px solid #327CCB;
+  border-radius: 0px;
+  margin-top: 20px;
+}
+.caret{
+  float: left;
+  right: -30px;
+}
+
+.menuBar li{
+  float: left;
+  width: 180px;
+  list-style: none;
+  //border: 1px solid #000;
+  font-family: sans-serif;
+  font-size: 15pt;
+  font-weight: 100;
+  text-decoration: none;  
+  text-align: center;
+}
+
+.menuBar li a{
+  color: #000;
+}
+
+.menuBar li a:hover{
+  text-decoration: none;
+}
+
+.menuBar{
+  margin-left: 20%;
+  padding: 0px;
+  margin-top: 6%;
+}
+
+.participe,
+.participe:hover,
+.participe:visited,
+.participe:active{
+  text-decoration: none;
+  border: 1px solid #FFF;
+  height: 60px;
+  background: transparent;
+  color: #FFF;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 13pt;
+  margin-left: 5%;
+  margin-top: 15px;
+  font-family:  sans-serif;
+}
+

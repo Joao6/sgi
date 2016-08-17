@@ -1,0 +1,184 @@
+.area-principal#pratica-new,
+.area-principal#pratica-list{
+  border:1px solid #AAA;
+  padding-top: 3%;
+  padding-bottom: 0px;
+  min-height: 394px;
+  background-color: #FFF;
+}
+@media screen and (max-width: 1292px){
+  body{
+    width: 1360px;
+  }
+}
+.area-principal#pratica-new{
+  width: 71%;    
+}
+
+form{
+  margin-left: 7%;
+  margin-bottom: 0px;
+  //border:1px solid #000;
+  min-height: 320px;
+}
+.area-principal#pratica-list{
+  width: 71%;
+  min-height: 394px;
+  padding-bottom: 0px;
+
+}
+.area-principal#pratica-list > table{
+  font-size: 11pt;
+  margin-top:3%;
+  border:1px solid #CCC;
+}
+
+#btn-add,
+#btn-sub{
+  border:1px solid #000;
+  border-radius: 0px;
+  background-color: #FFF;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: 7.5%;  
+  margin-bottom: 2%;
+}
+
+#btn-add:hover,
+#btn-add:active,
+#btn-add:visited,
+#btn-add:focus,
+#btn-sub:hover,
+#btn-sub:visited,
+#btn-sub:focus,
+#btn-sub:active{
+  border:2px solid #000;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  outline: transparent;
+}
+
+.glyphicons.glyphicon-plus-sign{
+  font-weight: 300;
+  font-style: normal; 
+}
+
+.btn.botao#btn-salvar{
+  margin-left: 7.5%;
+  margin-bottom: 2%;
+  margin-top: 5%;
+}
+
+.row-1,
+.row-2{
+  width: 100%;
+  margin: auto;
+  padding: 3px;
+  padding-left: 7.5%;
+  //border:1px solid #A0A0A0;
+}
+
+.row-2{
+  margin-bottom: 2%;
+}
+
+.date-group{
+  //border:1px solid #AAA;
+  width: 185px;
+  float: right;
+  margin-left: 499px;
+  margin-top: -85px;
+  position: absolute;
+  
+}
+
+#input-data-certificacao{
+  width: 185px;
+  
+}
+#input-data-evolucao{  
+  width: 185px;
+  margin-bottom: 7px;
+}
+
+.group-input{
+  //border:1px solid red;
+}
+
+.group-input button.btn.btn-danger{
+  border-radius:0px;
+  position: initial;
+  float: right;
+  margin-top: -102px;
+  margin-right: 60px;
+  display: block;
+  background-color: #FFF;
+  border: 1px solid #AAA;
+  color:red;
+  font-size: 11pt;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 3px;
+  padding-top: 5px;
+
+
+}
+.input{
+  height: 35px;
+  border: 1px solid #AAA;   
+  border-radius: 0px;
+  background-color: #FFF;
+  padding: 5px;
+  margin-left: 0%;
+  //width: 24.45%;
+  font-size: 11pt;
+}
+#text-descricao{  
+  width: 492px;
+  height: 78px;
+}
+
+#input-estagio-evolucao{
+  width: 185px;
+  // float: right;
+  //margin-right: 16.2%; 
+  //border:1px solid #AAA;
+  border-radius: 0px;
+}
+
+
+#input-estagio-evolucao option{
+  border-radius: 0px;
+}
+
+#input-nome{
+  width: 492px;
+  min-width: 100px;
+}
+
+#title-form-pratica{
+  margin-left: 15%;
+  margin-bottom: 3%;
+  font-size: 11pt;
+}
+
+
+.table .glyphicon.glyphicon-trash{
+  color: red;
+  margin-left: 25%;
+}
+
+.table .glyphicon.glyphicon-paperclip{
+  color: #A0A0A0;
+  margin-left: 27%;
+}
+
+.table .glyphicon.glyphicon-edit{
+  color: blue;
+  margin-left: 25%;
+}
+

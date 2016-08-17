@@ -1,0 +1,35 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/10/2015, 13:33:22
+    Author     : Rafael
+*/
+
+.empreendimento-invisible{
+    display: none;
+}
+
+.list-group-item{
+    padding: 0;
+}
+
+.empreendimento-info{
+    padding: 5px;
+    border: #acacac solid 1px;
+}
+
+.nome-info{
+    font-weight: bold;
+}
+
+.empreendimento-info div{
+    padding: 2px;
+    border-bottom: #acacac solid 1px;
+}
+
+.opcao-empreendimento{
+    margin-bottom: 10px;
+}

@@ -1,0 +1,273 @@
+@charset "utf-8";
+
+@font-face {
+   font-family: 'Material Icons';
+   font-style: normal;
+   font-weight: 400;
+   src: url(../../fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
+   src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(../../fonts/material-design-icons/MaterialIcons-Regular.woff2) format('woff2'),
+      url(../../fonts/material-design-icons/MaterialIcons-Regular.woff) format('woff'),
+      url(../../fonts/material-design-icons/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.card-panel, .card{
+   border-radius: 0px !important;
+}
+
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav, .collapsible, .collapsible-header, .collapsible-body {
+   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.card, .card-panel, .card-content, .card-action, .card-title,
+ table .dropdown-content, .dropdown{
+   border-radius: 0px !important;
+}
+.material-icons {
+   font-family: 'Material Icons';
+   font-weight: normal;
+   font-style: normal;
+   font-size: 24px;  /* Preferred icon size */
+   display: inline-block;
+   width: 1em;
+   height: 1em;
+   line-height: 1;
+   text-transform: none;
+   letter-spacing: normal;
+   word-wrap: normal;
+   white-space: nowrap;
+   direction: ltr;
+
+   /* Support for all WebKit browsers. */
+   -webkit-font-smoothing: antialiased;
+   /* Support for Safari and Chrome. */
+   text-rendering: optimizeLegibility;
+
+   /* Support for Firefox. */
+   -moz-osx-font-smoothing: grayscale;
+
+   /* Support for IE. */
+   font-feature-settings: 'liga';
+}
+
+
+
+body, html{
+   margin: 0px;
+   padding: 0px;
+   width: auto;
+}
+
+.navbar-top{
+   padding-left: 2%;
+   padding-right: 2%;
+}
+
+span.badge.new:after {
+   content: " Nova(s)";
+}
+
+
+span.badge.new {
+   font-weight: 300 !important;
+   font-size: 0.8rem;
+   color: #FFF;
+   background-color: #2196F3 !important;
+   border-radius: 25px !important;
+   border: 1px solid #2196F3 !important;
+   font-weight: 500 !important;
+   box-shadow: 1px 1px 1px 1px #eee !important;
+}
+
+#modal-detalhes.modal .modal-content {
+   padding: 15px 0px 0px 0px !important;  
+}
+
+#modal-detalhes .card-panel{   
+   margin:0px !important;
+
+}
+
+.realizada{
+   background-color: #81c784  !important;
+   color: #FFF !important;	
+}
+
+.dropdown-content li a{
+   color: #000 !important;	
+}
+
+.card-content .card-title{
+   color: #000 !important;
+}
+
+.collapsible-header{
+   color:#000 !important;
+}
+
+.collapsible-header:hover{
+   background-color: #e0e0e0 !important;
+}
+
+
+.brand-logo img{
+   margin-top: 7%;
+}
+
+/* DATEPICKER */
+
+.picker { outline: none; } /* Optional feature */
+/* Header - Day of the week */
+.picker__weekday-display { background-color:#ffc107 }
+/* Body - Today info */
+.picker__date-display { background-color: #ffc107; }
+/* Buttons of actions */
+.picker__nav--prev:hover { background-color: #fff3e0; }
+.picker__nav--next:hover { background-color: #fff3e0; }
+.picker__nav--prev:before {
+   border-left: 0;
+   border-right: 0.75em solid #ffb74d;
+}
+.picker__nav--next:before {
+   border-right: 0;
+   border-left: 0.75em solid #ffb74d;
+}
+.picker__today { color: #fb8c00; }
+.picker__clear { /* If you want to customize */ }
+.picker__close { color: #fb8c00; }
+.btn-flat.picker__today:active { background-color: #fff3e0; }
+.btn-flat.picker__close:active { background-color: #fff3e0; }
+.btn-flat.picker__clear:active { background-color: #fff3e0; }
+/* Select months of the year */
+.picker__select--month.browser-default {
+   display: inline;
+   background-color: #FFFFFF;
+   width: 40%;
+   border: none;
+   outline: none;
+}
+/* Every month of the year except: today */
+.picker__day { /* If you want to customize */ }
+.picker__day:hover { /* If you want to customize */ }
+.picker__day--infocus:hover { color: #f57c00; }
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected { color: #f57c00; }
+.picker__day.picker__day--infocus.picker__day--selected.picker__day--highlighted { background-color: #ffcc80; }
+/* Today */
+.picker__day.picker__day--infocus.picker__day--today.picker__day--selected.picker__day--highlighted { background-color: #ff9800; }
+.picker__day.picker__day--today { color: #f57c00; }
+
+input,textarea{
+   color: #000 !important;
+   box-shadow: 0 1px 0 0 #2648a6 !important;   
+   border:0px !important;
+}
+
+input:focus{
+   transition: ease-in-out;
+   border-bottom: 1px solid #607ABE !important;
+}
+
+textarea:focus{
+   transition: ease-in-out;
+   border-bottom: 1px solid #607ABE !important;
+}
+
+.active{
+   color:#607ABE !important;
+}
+
+button.btn-floating{
+   margin-top: 3%;
+   margin-bottom: 0px
+}
+
+table tr th{
+   text-transform: uppercase !important;
+   font-weight: 500 !important;
+   font-size: 11pt !important;
+   color: #555;
+}
+
+#modal-detalhes tr th{
+   color:#445BC4!important;
+}
+
+@media screen and (max-width: 400px){
+   .card-title{
+      font-size: 14pt !important;
+   }
+   .material-icons{
+      font-size: 15pt !important;     
+      padding: 0px !important;
+      margin-top: -5px !important;
+
+
+   }
+
+   table tr th{
+      font-size: 10pt !important;      
+   }
+
+   .card-content{
+      padding: 1px 0px 0px 10px !important;
+   }
+   .btn-floating {
+      display: inline-block;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      width: 27px !important;
+      height: 27px !important;
+      line-height: 27px !important;
+      padding: 0;
+      background-color: #26a69a;
+      border-radius: 50%;
+      transition: .3s;
+      cursor: pointer;
+      vertical-align: middle;
+   }
+}
+
+
+.modal {
+   display: none;
+   position: fixed;
+   left: 0;
+   right: 0;
+   background-color: rgba(255, 193, 7, 0.88) !important;
+   padding: 0;
+   max-height: 70%;
+   width: 55%;
+   margin: auto;
+   overflow-y: auto;
+   border-radius: 2px;
+   will-change: top, opacity;
+   border-radius: 0px !important;
+   border: 3px solid rgba(255,255,255,1);
+}
+
+.modal .modal-close {
+   border: 2px solid #CA8E36;
+   cursor: pointer;
+   border-radius: 0px;
+}
+
+.modal-footer .btn-flat {
+   float: right;
+   margin: 6px 0;
+   margin-right: 0.5rem !important;
+   border: 2px solid #A0A691;
+   border-radius: 0px;
+}
+
+.modal .modal-content{
+   color: #FFF !important;
+}
+
+textarea.materialize-textarea {
+   padding: 0px !important;
+   margin-bottom: 0px !important;
+}
+

@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27/10/2015, 11:32:30
+    Author     : Rafael
+*/
+
+@media(max-width: 767px){
+    .col-lg-6{
+        padding: 0; 
+    }
+
+    .col-md-8{
+        padding: 0;
+    }
+
+    .form-title{
+        padding: 0 18px;
+    }
+}
+
+.eixo{
+    padding: 5px 10px;
+    margin: 0 0 10px 0;
+    border: #CCC solid 1px;
+}
+
+.eixo h3{
+    margin-bottom: 20px;
+}
+h4{
+    font-weight: bold;
+}

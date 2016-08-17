@@ -1,0 +1,57 @@
+<!-- Área Principal -->
+<div class="area-principal">
+
+   <div class="col s12 l8" >
+
+      <div class="col s12 m12 l12">
+         <div class="card-panel ember" style="padding-top: 0px !important">   
+            <div class="card center white">
+               <div class="card-content black-text valign-wrapper">
+                  <i class="material-icons small valign">business</i>&nbsp;&nbsp;
+                  <span class="card-title" style="font-size: 13pt">Cadastro de proposta para o empreendimento &nbsp;<strong data-ng-bind="empreendimentoList[0].nome"></strong> </span>
+               </div>
+
+            </div>
+
+            <div class="card-content">
+               <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos cadastrados!</strong></h6>          
+
+               <ul class="collection card" data-ng-hide="isEmpreendimentoListEmpty()">
+                  <li class="collection-item">
+                     <div class="card-panel valign-wrapper">
+                        <span class="valign-wrapper">
+                           <i class="material-icons">trending_up</i>&nbsp;&nbsp;&nbsp;
+                           <span class="valign" style="font-size: 14pt;">Aspectos Mercadol&oacute;gicos</span>
+                        </span>                        
+                        <span style="height: 27px; width: 27px; line-height: normal; right: 3rem; position: absolute"><i class="material-icons blue-text">looks_4</i></span>
+                     </div>
+                     <div class="card card-content">
+                        <form>
+                           <div class="row">
+                              <div class="col s12 m12 l12">
+                                 <label for="identificacao">Identifica&ccedil;&atilde;o de clientes, concorrentes e fornecedores.</label>
+                                 <textarea id="identificacao" placeholder="Máx. 400 caracteres." data-ng-model="apresentacaoNegocio.identificacao" class="materialize-textarea validate" maxlength="400"></textarea>
+
+                                 <label for="conhecimento" style="margin-top: 2rem">Conhecimento de mercado alvo.</label>
+                                 <textarea id="conhecimento" placeholder="Máx. 400 caracteres." data-ng-model="apresentacaoNegocio.mercadoAlvo" class="materialize-textarea" maxlength="400"></textarea>
+                                 
+                                 <label for="vantagem" style="margin-top: 2rem">Vantagem competitiva comparada &agrave; concorr&ecirc;ncia.</label>
+                                 <textarea id="vantagem" placeholder="Máx. 400 caracteres." data-ng-model="apresentacaoNegocio.vantagemCompetitiva" class="materialize-textarea" maxlength="400"></textarea>
+                              </div>
+                           </div>
+                        </form>
+                        <div class="row center">                           
+
+                           <a data-ng-href="#/proposta/page/5" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Pr&oacute;ximo</a>
+                           <a href="#/proposta/page/3" class="btn blue valign white-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Voltar</a> 
+                        </div>
+
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>

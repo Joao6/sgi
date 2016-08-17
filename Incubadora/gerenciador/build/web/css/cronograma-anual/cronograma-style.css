@@ -1,0 +1,161 @@
+
+/* 
+    Created on : 25/06/2015, 11:36:06
+    Author     : Aliane Leal
+*/
+.form-control{
+   background-color: #fff;
+   padding: 1px 5px 1px 5px; 
+   max-height: 150px; 
+   width: 420px
+}
+
+.row{
+   margin: 0px;
+}
+
+.input-pratica,
+.input-responsavel{
+   margin-top: 2%;
+   margin-left: 0.1em;
+   width: 100%;
+
+}
+
+.input-group-addon a, 
+.input-group-addon a:hover{
+   color: #FFF;
+   text-decoration: none;
+   outline: none;
+   font-size: 20pt;
+
+}
+
+.input-group-addon{
+   padding-top: 0px;
+   padding-bottom:0px;
+   padding-left: 0%;
+   outline: none;
+   border-left: 0px;
+}
+
+.input-pratica .form-control[readonly],
+.input-group-addon{
+   background-color: #6F90CC;
+   color: #FFF;
+   height: 31px;                 
+}
+
+.form-control{
+   box-shadow: none;            
+}
+
+.form-control[readonly]{
+   border-right: 0px;           
+}
+
+input{
+   height: 10px;
+}
+
+button[type="submit"],
+.btn.btn-warning{
+   margin-top: 15%;
+   margin-right: 5px;
+}
+
+#btn-add-praticas,
+#btn-add-responsaveis{
+   margin-top: 5%;
+   margin-right: 8%;
+   font-size: 12pt;            
+   font-family: sans-serif, 'Georgia';
+   padding: 0.5em;
+   outline: none;
+}
+.row{
+   padding: 0px;
+   margin: 0px;
+}
+
+.label{
+   color: #333;
+   font-size: 12pt;
+}
+input[type=checkbox]{
+   margin-right: 5px;
+}
+.modal-body{
+   position: relative;
+   min-height: 300px;
+   max-height: 400px;
+   overflow-y: scroll;
+}
+
+.modal-body .alert-info{
+   position: fixed;
+   width: 80%;
+}
+
+table{
+   margin-top: 10%;
+}
+.chip {
+   margin-top: 1%;
+   border: 1px solid #343434;
+   display: inline-block;
+   height: 32px;
+   font-size: 13px;
+   font-weight: 500;
+   color: rgba(0, 0, 0, 0.8);
+   line-height: 32px;
+   padding: 0 12px;
+   border-radius: 16px;
+   background-color: #e4e4e4;     
+}
+
+.chip button,
+.chip button:hover,
+.chip button:focus,
+.chip button:visited{
+   margin-top: 5px;
+   margin-left: 5px;
+   position: relative;
+   color:#000;
+   outline: transparent;
+}
+
+.card-panel {
+   transition: box-shadow .25s;
+   padding: 20px;
+   margin: 0.5rem 0 1rem 0;           
+   border-radius: 2px;
+   background-color: #fff;
+   border: 1px solid #AAA;
+/*   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);*/
+}
+
+
+.list-praticas li,
+.list-responsaveis li{
+   display: inline-block;
+   list-style-type: none;
+   margin-top: 1%;
+}
+
+.list-responsaveis,
+.list-praticas{  
+   padding: 0px;
+}
+
+@media screen and (min-width: 959px){
+   .card-panel.card-responsaveis{
+      margin-left: 8%;
+   }
+}
+
+#select-pratica,
+#select-responsavel{
+   width: 100%;
+   position: relative;
+}

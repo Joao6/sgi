@@ -1,0 +1,53 @@
+   <!-- Modal View detalhes -->
+      <div id="modal-detalhes" class="modal amber hide-on-small-only" style="border-radius: 0px !important; height: auto !important; overflow: hidden">            
+         <div class="modal-content white-text" style="border-radius: 0px !important">
+            <div class="row">
+               <div class="col s12 m12 l12">
+                  <div class="card-panel white">
+
+                     <table class="black-text table-condensed table-detalhes table-striped">
+                        <thead class="blue-text">
+                           <tr>
+                              <th data-field="id">Nome</th>
+                              <th data-field="name">Sobrenome</th>
+                              <th data-field="cpf">CPF</th>
+                           </tr>
+                        </thead>
+
+                        <tbody>
+                           <tr>
+                              <td data-ng-bind="empreendedor.nome"></td>
+                              <td data-ng-bind="empreendedor.sobrenome"></td>
+                              <td data-ng-bind="empreendedor.cpf"></td>
+                           </tr>                          
+                        </tbody>
+
+                        <thead class="blue-text">
+                           <tr>
+                              <th>Telefone</th>
+                              <th>Empresa</th>
+                              <th>E-mail</th>
+                           </tr>
+                        </thead>
+
+                        <tbody>
+                           <tr>
+                              <td data-ng-bind="empreendedor.telefone"></td>
+                              <td data-field="empresa">
+                                 <ul>
+                                    <li data-ng-repeat="empreendimento in empreendedor.empreendimentoList track by empreendimento.id">{{empreendimento.nome}}</li>
+                                 </ul>
+                              </td>
+                              <td data-ng-bind="empreendedor.email"></td>
+                           </tr>                          
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <a href="#!"  class=" modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+         </div>
+      </div>
+

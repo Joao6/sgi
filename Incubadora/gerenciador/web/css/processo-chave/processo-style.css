@@ -1,0 +1,137 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11/06/2015, 11:27:42
+    Author     : Aliane Leal
+*/
+
+
+.area-principal#processo-list,
+.area-principal#processo-new{
+  border:1px solid #AAA;
+  //margin-top: -27px;
+  padding-top: 3%;
+  background-color: #FFF;
+}
+
+@media screen and (max-width: 1292px){
+  body{
+    width: 1360px;
+  }
+}
+
+.area-principal#processo-list{
+  width: 71%;
+  min-height: 394px;
+  min-width: 940px;
+  padding-bottom: 0px;
+}
+
+.area-principal#processo-new{
+  padding-bottom: 0px;
+  width: 50%;
+}
+
+.area-principal#processo-list > table{
+  font-size: 11pt;
+  margin-top:3%;
+  border:1px solid #CCC;
+}
+
+.button,
+.button:active,
+.button:visited{
+  text-decoration: none;
+  border:1px solid #000;
+  background-color: #FFF;
+  margin-left: 5%;
+  margin-top: 15px;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 10pt;
+  color: #000;
+  font-weight: bold;
+}
+
+.button:hover{
+  border: 2px solid #000;
+  font-weight: bold;
+  padding-top: 9px;
+  padding-left: 29px;
+  padding-right: 29px;
+  text-decoration: none;
+  color:#000;
+}
+
+.input-nome{
+  width:90%;
+  margin-left:5%;
+  margin-top: 0px;
+  margin-bottom: 5%;
+  height: 35px;
+  font-size: 11pt;
+  font-weight: 300;
+  padding-left: 10px;
+}
+
+.form-inline{
+  margin-top:0px;
+  width:100%;
+  /*border:1px solid red;*/
+  padding-top: 0px;
+}
+
+.form{
+  width:40%;
+}
+
+.botao-arq{
+  margin-top: 0px;
+  font-size: 11pt;
+}
+.input-botao{
+  height: 35px;
+  // border: 1px solid #000;
+  margin-left: 5%;
+}
+#btn-salvar{
+  margin-top: 108px;
+}
+.table .glyphicon.glyphicon-trash,
+.table .glyphicon.glyphicon-plus-sign,
+.table .glyphicon.glyphicon-paperclip,
+.table .glyphicon.glyphicon-edit,
+.table .glyphicon.glyphicon-search{
+  font-size: 13pt;
+  padding: 0px;
+}
+
+.table .glyphicon.glyphicon-trash{
+  color: red;
+  margin-left: 18%;
+}
+
+.table .glyphicon.glyphicon-plus-sign{
+  color:green;
+  margin-left: 25%;
+}
+
+.table .glyphicon.glyphicon-paperclip{
+  color: #A0A0A0;
+  margin-left: 18%;
+}
+
+.table .glyphicon.glyphicon-edit{
+  color: blue;
+  margin-left: 18%;
+}
+
+.table .glyphicon.glyphicon-search{
+  color: purple;
+  margin-left: 20%;
+}

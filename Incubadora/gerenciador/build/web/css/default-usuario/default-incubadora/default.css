@@ -1,0 +1,390 @@
+@charset "UTF-8";
+/*@font-face{
+  font-family: PoiretOne;
+  src:url(../../../fonts/PoiretOne-Regular.ttf);
+
+}*/
+@media screen and (max-width: 1053px){
+  body{
+    width: 1053px;
+  }
+}
+
+/*@font-face{
+  font-family: OpenSansLite;
+  src:url(../../../fonts/OpenSans-Light.ttf);  
+}*/
+
+
+
+a,a:hover,a:active,a:after,
+a:visited{
+  text-decoration: none;
+  outline: transparent;
+}
+
+body,html{
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+}
+
+button{
+  outline: transparent;
+}
+
+input,table,select,textarea{
+  font-family: PoiretOne, OpenSansLite, sans-serif;
+}
+
+a:hover{
+  color: #000;
+  text-decoration: none;
+}
+.container{
+  border-left:1px solid #AAA;
+  border-right:1px solid #AAA;
+  //border-bottom:1px solid #AAA;
+  border-top: 0px;
+  background-color: transparent;
+  //background: url(../../../img/bgT.png);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin: auto;
+  padding-right:0px;
+  padding-left: 0px;
+  padding-top: 0px;
+  padding-bottom: 1%;
+  margin-top: 0%;
+  width: 100%;
+  height: 100%;  
+  /*box-shadow: 1px 1px 1px #CCC;*/
+}
+
+.container{
+  //min-height: 580px;
+}
+
+/**
+ * ESTILO DE FORMULÁRIO E CAMPOS DE FORMULÁRIO
+ **/
+
+.form-cadastro{
+  border:1px solid #999;
+  width: 40%;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: 5%;
+  padding-top: 0%;	
+}
+
+.form-title{
+  margin-left: 5%;
+  width:90%;
+  font-family: OpenSansLite, monospace;
+  font-weight: bold;
+}
+.btn.botao{
+  margin: 5%;
+}
+
+textarea{
+  resize: none;
+}
+
+.input-item{
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  padding-right: 5px;
+  margin-top: 2px;
+  box-shadow: none;
+  font-family: Pioret, Arial, sans-serif;
+  outline: transparent;
+}
+
+.close{
+  outline: none;
+}
+.input-item[type="text"],
+textarea.input-item{
+  border:1px solid #999;
+}
+
+textarea.input-item{
+  margin-top: 15px;
+}
+
+.input-group{	
+  border:0px solid #AAA;
+  margin:0px;
+  width:90%;
+  padding: 0px;
+}
+
+
+.input-item{  
+  margin-left: 5%;
+  width:90%;
+}
+
+.select{	
+  margin-top: 15px;
+  padding-top: 7px;
+  padding-left: 10px;
+  padding-right: 5px;
+  box-shadow: none;
+  background: #FFF;
+  margin-left: 5%;
+}
+
+
+.input-data{
+  width:147px;
+}
+
+.btn.btn-default,
+.dropdown-menu{
+  position:absolute;    
+  border-radius: 0px;
+  background-color: #FFF;
+  /*border:1px solid red;*/
+
+}
+
+.dropdown-menu{
+  margin-left: 86%;
+  margin-top: 0px;
+  border-top:0px;
+}
+
+.btn.btn-default{
+  border:0px;
+  height:100%;
+  margin-left: 80%;
+}
+
+.navbar-default,
+.container-fluid{
+  /*border:1px solid #AAA;*/
+  border-radius: 0px; 
+  border-top:0px;
+  margin:0px;
+  border:0px; 
+  box-shadow: none;
+  background-color: #FFF;
+}
+
+.navar.navbar-default{
+  //background-color: red;
+}
+
+.container-fluid{
+  //background-color: blue;
+  height: 70px;
+}
+
+.btn.btn-default,
+.dropdown-menu{
+  position:absolute;
+  border-radius: 0px;
+  background-color: #FFF;
+  border-left: 1px solid #AAA;
+  border-right: 1px solid #AAA;
+  border-bottom: 1px solid #AAA;
+  box-shadow: none;
+}
+
+
+.btn.btn-default{
+  border:0px;
+  height:100%;
+}
+
+.btn.btn-danger{
+  border-radius: 0px;
+  border:2px solid #E25C09;
+  background-color:#E25C09;
+  color: #FFF;
+  font-weight: 600;
+}
+
+
+.select{	
+  margin-top: 15px;
+  padding-top: 0px;
+  padding-left: 10px;
+  padding-right: 5px;
+  box-shadow: none;
+  border:1px solid #999;
+  background: #FFF;
+  margin-left: 5%;
+}
+
+#file{
+  padding:0px;
+  margin-left: 5%;
+  margin-top: 5px;
+  border-radius: 0px;
+}
+
+.breadcrumb{
+  background-color: #FFCB04;
+  border-radius: 0px;
+  color:#000;
+}
+
+.breadcrumb li a{
+  color:#000;
+}
+.breadcrumb .active{
+  color:#FFF;
+}
+
+
+.input-data{
+  height: 33px;
+  margin-left: 5%;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  padding-right: 5px;
+  margin-left: 5%;
+  margin-top: 2px;
+  border:1px solid #999;
+  box-shadow: none;
+}
+
+.btn.botao{
+  border:1px solid  #000;
+  border-radius: 0px;
+  background-color: #FFF;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color:#000;
+  position: relative;
+  font-size: 12pt;
+  font-weight: 600;
+  font-family: sans-serif;	
+  width: 100px;
+  outline: transparent;
+
+}
+
+
+.btn.botao:hover,
+.btn.botao:active,
+.btn.botao:visited,
+.btn.botao:after{
+  background-color: #FFF;
+  border:2px solid  #000;
+  color:#000;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;   
+  outline: transparent;
+
+}
+
+
+.form-control{
+  margin:0px;
+  border-radius: 0px;	
+}
+
+/**
+ * MENU LATERAL DA PÁGINA DO GESTOR DA INCUBADORA
+ **/
+
+
+/**
+ * ESTILO COMPARTILHADO ENTRE NAVBAR E SEUS ITEM
+ **/
+.sidebar-nav,
+.sidebar-nav li{
+  list-style: none;    
+  margin: 0px;   
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+  text-decoration: none;
+  background-color: #FFF;    
+}
+
+.sidebar-nav li{
+  //  border:1px solid #327CCB;
+  background-color: #FFCB04;
+  color: #000;
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  font-size: 12pt;
+}
+.sidebar-nav li a{
+  color:#FFF;
+  text-decoration: none;
+}
+
+.ativo:hover,
+.ativo:active{
+  color: #000;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.sidebar-nav h1{
+  margin-bottom: 15%;   
+  padding-left: 8%;
+  padding-right: 8%;   
+}
+.sidebar-nav{    
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5%;
+  margin-top: 43px;
+  margin-left: 2%;
+  width: 300px;
+  height: 394px;
+  border:1px solid #AAA;
+  font-size: 15pt;
+  font-family: sans-serif;
+  float: left;
+}
+
+.area-principal{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5%;
+  margin-top: 43px;
+  margin-left: 2%;
+  float: left;
+  border:1px solid #AAA;
+  font-size: 15pt;
+  font-family: sans-serif;
+  min-height: 394px;
+}
+
+.modal-body{
+  padding: 0px;
+}
+
+.modal-content{
+  border-radius: 0px;
+}
+p.alert{
+  margin: 0px;
+  font-size: 12pt;
+  border-radius: 0px;
+}
+
+.glyphicon.glyphicon-alert{
+  color: #E25C09;
+}
+

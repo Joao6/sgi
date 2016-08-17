@@ -1,0 +1,106 @@
+/* 
+    Created on : 05/06/2015, 03:45:51
+    Author     : William
+*/
+
+@charset "UTF-8";
+
+.area-principal#empreendedor-list,
+.area-principal#empreendedor-new{
+   border:1px solid #AAA;
+   padding-top: 3%;
+   background-color: #FFF;
+}
+@media screen and (max-width: 1292px){
+   body{
+      width: 1360px;
+   }
+}
+.area-principal#empreendedor-list{
+   width: 71%;
+   min-height: 394px;
+   padding-bottom: 0px;
+}
+.area-principal#empreendedor-new{
+   width: 50%;
+   min-height: 394px;
+   padding-bottom: 0px;
+}
+.area-principal#empreendedor-list > table{
+   font-size: 11pt;
+   margin-top:3%;
+   border:1px solid #CCC;
+}
+.area-principal#empreendedor-new input[type="text"],
+.area-principal#empreendedor-new input[type="email"],
+.area-principal#empreendedor-new input[type="password"]{
+   margin-bottom: 5px;
+}
+#btn-submit.botao{
+   margin-top: 0px;
+}
+.btn-add,
+.btn-add:active,
+.btn-add:visited{
+   text-decoration: none;
+   border:1px solid #000;
+   background-color: #FFF;
+   margin-left: 5%;
+   margin-top: 15px;
+   padding-top: 10px;
+   padding-bottom: 8px;
+   padding-left: 30px;
+   padding-right: 30px;
+   font-size: 10pt;
+   color: #000;
+   font-weight: bold;
+}
+.btn-add:hover{
+   border: 2px solid #000;
+   font-weight: bold;
+   padding-top: 9px;
+   padding-left: 29px;
+   padding-right: 29px;
+   text-decoration: none;
+   color:#000;
+}
+.table .glyphicon.glyphicon-edit,
+.table .glyphicon.glyphicon-trash{
+   font-size: 12pt;
+   text-align: left;
+   margin-left: 11%;
+}
+.glyphicon.glyphicon-trash{
+   color: red;
+}
+.table .glyphicon.glyphicon-edit{
+   color: blue;
+}
+#logo{
+   width: 50px;
+   height: 30px;
+}
+.input-item{
+   margin-left: 5%;
+   font-size: 11pt;
+}
+#painel-plano{
+   //border: 1px solid #269abc;
+   background-color: #FFCB04;
+   padding-bottom: 3px;
+   padding-top: 3px;
+   color: #000;
+   font-size: 12pt;
+}
+.collapsed{
+   padding-left: 7.5%;
+}
+#analise-ambiente{
+   margin-left: 8%;
+   padding-left: 0px;
+}
+.panel-body li a{
+   color: #000;
+}
+
+
