@@ -2,7 +2,6 @@ package gerenciador.incubadora.model.dao;
 
 import gerenciador.incubadora.model.base.BaseDAO;
 import gerenciador.incubadora.model.entity.Avaliacao;
-import gerenciador.incubadora.model.entity.Avaliador;
 import gerenciador.incubadora.model.entity.CriterioAvaliacao;
 import gerenciador.incubadora.model.entity.Usuario;
 import java.sql.Connection;
