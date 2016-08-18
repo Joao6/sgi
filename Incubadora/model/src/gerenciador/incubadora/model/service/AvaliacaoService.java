@@ -52,9 +52,9 @@ public class AvaliacaoService implements BaseAvaliacaoService {
     }
 
     @Override
-    public Map<Usuario, List<Avaliacao>> getAvaliacaoEmpreendimento(Long idEmpreendimento) throws Exception {
+    public Map<String, List<Avaliacao>> getAvaliacaoEmpreendimento(Long idEmpreendimento) throws Exception {
 
-        Map<Usuario, List<Avaliacao>> avaliacaoAvaliador = new HashMap<>();
+        Map<String, List<Avaliacao>> avaliacaoAvaliador = new HashMap<>();
 
         Connection conn = ConnectionManager.getInstance().getConnection();
 

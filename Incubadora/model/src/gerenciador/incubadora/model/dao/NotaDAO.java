@@ -165,26 +165,7 @@ public class NotaDAO implements BaseDAO<Nota> {
         rs.close();
         ps.close();
         return avaliacao;
-    }
-    
-    public Map<Long, String> getAvaliadorEmpreendimento(Long idEmpreendimento, Connection conn) throws Exception{
-        
-        Map<Long, String> avaliadorEmpreendimentoList = new HashMap<Long, String>();
-        
-        String sql = "select usuario.id, usuario.nome from usuario where id in";
-        sql+= "(select distinct n.avaliador_fk as id from nota n where n.empreendimento_fk=?)";
-        
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setLong(1, idEmpreendimento);
-        
-        ResultSet rs = ps.executeQuery();
-        while(rs.next()){
-            avaliadorEmpreendimentoList.put(rs.getLong("id"), rs.getString("nome"));
-        }
-        rs.close();
-        ps.close();
-        return avaliadorEmpreendimentoList;
-    }
+    }       
     
     public Map<String, Double> getNotaAvaliador(Long idAvaliador, Long idEmpreendimento, Connection conn) throws Exception{
         Map<String, Double> notaAvaliador = new HashMap<String, Double>();

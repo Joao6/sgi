@@ -12,6 +12,6 @@ import java.util.Map;
  */
 public interface BaseAvaliacaoService extends BaseService<Avaliacao> {
     
-    public Map<Usuario, List<Avaliacao>> getAvaliacaoEmpreendimento(Long idEmpreendimento) throws Exception;
+    public Map<String, List<Avaliacao>> getAvaliacaoEmpreendimento(Long idEmpreendimento) throws Exception;       
     
 }

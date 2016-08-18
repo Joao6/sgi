@@ -20,6 +20,13 @@
       <script src="<c:url value="/js/painel-avaliador/value/empreendimento-value.js"/>"></script>
       <script src="<c:url value="/js/painel-avaliador/service/empreendimento-services.js"/>"></script>
       <script src="<c:url value="/js/painel-avaliador/controller/empreendimento-controller.js"/>"></script>
+      
+      <script>
+          $(document).ready(function () {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
+        });
+      </script>
 
    </head>
    <body data-ng-app="painelAvaliador">

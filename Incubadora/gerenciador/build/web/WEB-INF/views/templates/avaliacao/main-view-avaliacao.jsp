@@ -28,19 +28,20 @@
                                 <c:forEach items="${avaliacaoAvaliador}" var="notaEmpre">
                                     <div class="card-content">
                                         <div class="card-panel">
-                                            <spam>Avaliador <strong>${notaEmpre.key.nome} ${notaEmpre.key.sobrenome}</strong></spam>
+                                            <spam><strong>Avaliador ${notaEmpre.key}</strong></spam>
+                                            <hr>
                                             <table class="table bordered">
-                                                <thead>
+                                                <thead>                                                    
                                                     <tr>
                                                         <th>Critério</th>
-                                                        <th>Nota</th>
+                                                        <th>Nota</th>                                                        
                                                     </tr>
                                                 </thead>
                                                 <c:forEach items="${notaEmpre.value}" var="mapNota">
-                                                    <tbody>
+                                                    <tbody>                                                        
                                                         <tr>
                                                             <td>${mapNota.criterioAvaliacao.nome}</td>
-                                                            <td>${mapNota.nota}</td>
+                                                            <td>${mapNota.nota}</td>                                                            
                                                         </tr>  
                                                     </tbody>
                                                 </c:forEach>

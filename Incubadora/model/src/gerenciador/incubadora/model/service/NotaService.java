@@ -110,16 +110,7 @@ public class NotaService implements BaseNotaService {
         Map<String, Double> avaliacao = dao.getAvaliacao(idEmpreendimento, conn);
         conn.close();
         return avaliacao;
-    }
-
-    @Override
-    public Map<Long, String> getAvaliadorEmpreendimento(Long idEmpreendimento) throws Exception {
-        Connection conn = ConnectionManager.getInstance().getConnection();
-        NotaDAO dao = new NotaDAO();
-        Map<Long, String> avaliadorEmpreendimentoList = dao.getAvaliadorEmpreendimento(idEmpreendimento, conn);
-        conn.close();
-        return avaliadorEmpreendimentoList;
-    }
+    }   
 
     @Override
     public Map<String, Double> getNotaAvaliador(Long idAvaliador, Long idEmpreendimento) throws Exception {

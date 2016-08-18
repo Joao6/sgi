@@ -428,15 +428,12 @@ public class EmpreendimentoController {
             avaliacaoEmpreendimento = ServiceLocator.getNotaService().getAvaliacao(id);
             
             Empreendimento empreendimento = new Empreendimento();
-            empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
+            empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);            
             
-            Map<Long, String> avaliadorList = ServiceLocator.getNotaService().getAvaliadorEmpreendimento(id);                       
-            
-            Map<Usuario, List<Avaliacao>> avaliacaoAvaliador = ServiceLocator.getAvaliacaoService().getAvaliacaoEmpreendimento(id);
+            Map<String, List<Avaliacao>> avaliacaoAvaliador = ServiceLocator.getAvaliacaoService().getAvaliacaoEmpreendimento(id);            
             
             mv = new ModelAndView("empreendimento/gestao/avaliacao");
             mv.addObject("avaliacaoAvaliador", avaliacaoAvaliador);
-            mv.addObject("avaliadorList", avaliadorList);
             mv.addObject("empreendimento", empreendimento);
             mv.addObject("avaliacaoEmpreendimento", avaliacaoEmpreendimento);
                         
@@ -445,24 +442,7 @@ public class EmpreendimentoController {
             mv.addObject("e", e);
         }        
 
-        return mv;
-
-        /*ModelAndView mv;
-        try {            
-            Map<String, Object> criteria = new HashMap<String, Object>();
-            criteria.put(NotaDAO.CRITERION_EMPREENDIMENTO_ID, id);            
-            List<Nota> notaList = ServiceLocator.getNotaService().readByCriteria(criteria);
-        
-            Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
-            
-            mv = new ModelAndView("empreendimento/gestao/avaliacao");
-            mv.addObject("notaList", notaList);
-            mv.addObject("empreendimento", empreendimento);
-        } catch (Exception e) {
-            mv = new ModelAndView("error");
-            mv.addObject("e", e);
-        }
-        return mv;*/
+        return mv;       
     }
 
     /**
