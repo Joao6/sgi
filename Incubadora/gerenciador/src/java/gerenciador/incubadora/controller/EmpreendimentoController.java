@@ -378,12 +378,20 @@ public class EmpreendimentoController {
                         nota.setCriterioAvaliacao(criterioAvaliacao);
 
                         Empreendimento empreendimento = new Empreendimento();
-                        empreendimento.setId(id);
+                        empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
+//                        empreendimento.setId(id);
+                        empreendimento.getNome();
                         nota.setEmpreendimento(empreendimento);
                         nota.setDataHora(new java.util.Date());
                         nota.setNota(criterioNota[i]);
 
-                        ServiceLocator.getNotaService().create(nota);                                                
+                        ServiceLocator.getNotaService().create(nota);
+//                        String email = usuario.getEmail();
+//                        String assunto = "Avaliação de Empreendimento";
+//                        String texto = "Olá, Gestor."
+//                                + "O empreendimento "+empreendimento.getId()+" acabou de ser avaliado pelo avaliador "+usuario.getNome()+" "+usuario.getSobrenome()+"!"
+//                                + "Caso queira visualizar as notas referentes à esta avaliação, acesse o sistema.";
+//                        ServiceLocator.getEmailService().sendEmail(email, assunto, texto);
 
 //                        Empreendimento e = ServiceLocator.getEmpreendimentoService().readById(id);
 //                        e.setStatus(Empreendimento.EMPREENDIMENTO_STATUS_AV_REALIZADA);

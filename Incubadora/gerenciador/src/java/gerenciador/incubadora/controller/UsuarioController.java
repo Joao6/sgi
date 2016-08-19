@@ -159,7 +159,7 @@ public class UsuarioController {
       } else if (usuarioAutenticado.getTipoUsuario().equals(Usuario.TIPO_USUARIO_AVALIADOR)) {
          session.setAttribute("usuarioLogado", usuarioAutenticado);
          mv = new ModelAndView("redirect:/avaliador/home");
-
+         mv.addObject("usuarioLogado", usuarioAutenticado);
       }
 
       return mv;
