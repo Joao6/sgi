@@ -125,6 +125,11 @@
                     <h5 class="center-align card-title card">Nenhum eixo cadastrado para avaliação.</h5>
                 </c:if>
 
+                <c:if test="${errors != null}">
+                    <!--<h1>Campos Obrigatórios!</h1>-->
+                    <script> Materialize.toast('Todos os campos são obrigatórios!', 3000, 'rounded red');</script>
+                </c:if>
+
                 <c:if test="${eixoListSize > 0}">
                     <c:if test="${avaliacao == false}">
                         <div class="card-panel  white">
@@ -230,6 +235,10 @@
             $('.btn-previous').click(function () {
                 $(this).parent('.eixo').hide();
                 $(this).parent('.eixo').prev('.eixo').show();
+            });
+
+            $(document).ready(function () {
+                $('.tooltipped').tooltip({delay: 50});
             });
         </script>
 

@@ -365,7 +365,7 @@ public class EmpreendimentoController {
                 }
 
                 Map<Long, String> errors = ServiceLocator.getNotaService().validateForCreateNota(fields);
-                if (0 == 0) {
+                if (errors.isEmpty()) {
                     for (int i = 0; i < criterioID.length; i++) {
 
                         Nota nota = new Nota();
@@ -384,7 +384,7 @@ public class EmpreendimentoController {
                         nota.setEmpreendimento(empreendimento);
                         nota.setDataHora(new java.util.Date());
                         nota.setNota(criterioNota[i]);
-
+                                                
                         ServiceLocator.getNotaService().create(nota);
 //                        String email = usuario.getEmail();
 //                        String assunto = "Avaliação de Empreendimento";
@@ -411,9 +411,9 @@ public class EmpreendimentoController {
                         eixoMap.put(aux, criterioAvaliacaoList);
                     }
 
-                    mv = new ModelAndView("/empreendimento/gestao/form-avaliacao");
-                    mv.addObject("eixoMap", eixoMap);
-                    mv.addObject("eixoMapSize", eixoMap.size());
+                    mv = new ModelAndView("redirect:/empreendimento/{id}/avaliar");
+//                    mv.addObject("eixoMap", eixoMap);
+//                    mv.addObject("eixoMapSize", eixoMap.size());
                     mv.addObject("errors", errors);
                     mv.addObject("fields", fields);
                 }
