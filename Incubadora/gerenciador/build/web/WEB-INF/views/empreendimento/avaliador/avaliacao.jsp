@@ -15,7 +15,7 @@
 
         <style>
             label{
-                font-size: 12pt !important;           
+                font-size: 13pt !important;           
             }
             button, a{
                 border-radius: 0px !important;
@@ -35,8 +35,7 @@
                 }
             }
 
-            .eixo{
-                border: #CCC solid 1px;
+            .eixo{                
                 margin: 0 0 5px 0;
 
             }
@@ -49,10 +48,10 @@
                 text-align: center;
             }
 
-            /*.input-criterio{
+            .input-criterio{
                 float: right;
                 width: 15%;
-            }*/
+            }
 
 
             @media(min-width: 767px){
@@ -60,11 +59,11 @@
                 .descricao{
                     margin: 0px;
                     width: 77%;
-                    float: left;
+                    float: left;                                      
                 }
 
                 .input-criterio{
-                    width: 20%;
+                    width: 30%;
                     float: right;
                 }
             }
@@ -73,11 +72,29 @@
                 clear: both;
             }
 
+            .input-nota{
+                margin: 0;
+                width: 50%;
+                float: left;
+            }
+
             @media(max-width: 420px){
 
                 #nomeEixo{
                     font-size: 14pt;
                     font-weight: bold;
+                }
+
+                .input-nota{
+                    margin: 0;
+                    width: 100%;
+                    float: left;
+                }
+                
+                .descricao{
+                    margin: 0px;
+                    width: 77%;
+                    float: left;                                      
                 }
             }
 
@@ -125,21 +142,21 @@
                     <h5 class="center-align card-title card">Nenhum eixo cadastrado para avaliação.</h5>
                 </c:if>
 
-                <c:if test="${errors != null}">
+                <c:if test="${erro == true}">
                     <!--<h1>Campos Obrigatórios!</h1>-->
                     <script> Materialize.toast('Todos os campos são obrigatórios!', 3000, 'rounded red');</script>
-                </c:if>
+                </c:if>                         
 
                 <c:if test="${eixoListSize > 0}">
                     <c:if test="${avaliacao == false}">
-                        <div class="card-panel  white">
+                        <div class="card-panel white">
                             <div class="card-content valign-wrapper">
                                 <form method="post" class="col s12 m12 l12">
                                     <c:forEach items="${eixoMap}" var="eixo" varStatus="id">
                                         <div class="eixo eixo${id.index} col s12 m12 l12">
-                                            <h2 id="nomeEixo">${eixo.key.nome}</h2>
-                                            <table class="centered">
-                                                <th>Critério</th>
+                                            <h2 id="nomeEixo">Eixo ${eixo.key.nome}</h2>
+                                            <table class="centered table">
+                                                <th>Critério de Avaliação</th>
                                                 <th>Nota</th>
 
 
@@ -147,19 +164,19 @@
                                                     <tr>
                                                         <c:set var="criterioID" value="${criterio.id}"/>
                                                         <c:if test="${criterio.ativo == true}">
-                                                        <div class="criterio">                                                
-                                                            <td><div class="descricao"><p>${criterio.nome}</p></div></td>
+                                                        <div class="criterio">                                                                                                            
+                                                            <td><label for="${criterio.id}" class="black-text left-align descricao">${criterio.nome}</label></td>
 
-                                                            <div class="input-criterio">
-                                                                <!--<label for="${criterio.id}" class="label">Nota</label>-->
+                                                            <div class="input-criterio">                                                                
                                                                 <div class="col s12 m12 l12">
-                                                                    <input type="hidden" name="criterioID" value="${criterio.id}">
-                                                                    <td><input type="text" name="criterioNota" class="form-control form-criterio" id="${criterio.id}" value="<c:if test="${not empty notaMap}">${notaMap[criterio.id]}</c:if><c:if test="${empty notaMap}">${fields[criterio.id]}</c:if>" placeholder="Nota"></td>
-                                                                    <c:if test="${errors[criterio.id] != null}"><p class="text-danger">${errors[criterio.id]}</p></c:if>
-                                                                    </div>
+                                                                    <input type="hidden" name="criterioID" value="${criterio.id}">                                                                    
+                                                                    <td class="input-nota"><input type="text" name="criterioNota" id="${criterio.id}" placeholder="Insira a nota"></td>
+                                                                    <!--value="<c:if test="${not empty notaMap}">${notaMap[criterio.id]}</c:if><c:if test="${empty notaMap}">${fields[criterio.id]}</c:if>"-->
+                                                                    <%--<c:if test="${errors[criterio.id] != null}"><p class="text-danger">${errors[criterio.id]}</p></c:if>--%>
                                                                 </div>
-                                                                <div class="clear"></div>
                                                             </div>
+                                                            <div class="clear"></div>
+                                                        </div>
                                                     </c:if>
                                                     </tr>
                                                 </c:forEach>

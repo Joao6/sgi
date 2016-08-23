@@ -62,7 +62,7 @@
                 .descricao{
                     margin: 0px;
                     width: 77%;
-                    float: left;
+                    float: left;                    
                 }
 
                 .input-criterio{

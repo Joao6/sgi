@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class EmpreendimentoController {
@@ -311,8 +312,8 @@ public class EmpreendimentoController {
             
             
 
-            //estava para empreendimento/avaliador/avaliacao
-            mv = new ModelAndView("/empreendimento/avaliador/avaliacao");
+            //estava para empreendimento/avaliador/avaliacao            
+            mv = new ModelAndView("/empreendimento/avaliador/avaliacao");            
             Integer eixoListSize = eixoList.size();
             mv.addObject("eixoListSize", eixoListSize);
             mv.addObject("eixoMap", eixoMap);
@@ -399,6 +400,7 @@ public class EmpreendimentoController {
                     }
 
                     mv = new ModelAndView("/usuario/avaliador/confirmacao-avaliacao");
+                    session.setAttribute("erro", false);
                 } else {
                     List<Eixo> eixoList = ServiceLocator.getEixoService().readByCriteria(null);
 
@@ -411,11 +413,12 @@ public class EmpreendimentoController {
                         eixoMap.put(aux, criterioAvaliacaoList);
                     }
 
-                    mv = new ModelAndView("redirect:/empreendimento/{id}/avaliar");
+                    session.setAttribute("erro", true);
+                    mv = new ModelAndView("redirect:/empreendimento/{id}/avaliar");                     
 //                    mv.addObject("eixoMap", eixoMap);
 //                    mv.addObject("eixoMapSize", eixoMap.size());
-                    mv.addObject("errors", errors);
-                    mv.addObject("fields", fields);
+//                    mv.addObject("errors", errors);
+//                    mv.addObject("fields", fields);
                 }
             }
 
