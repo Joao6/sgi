@@ -31,6 +31,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.btnStatusOk = false;
     $scope.ramoAtividadeList = [];
     $scope.nextStatus = 'Alterar Status';
+    $scope.statusResult = 'Reprovado';
     var statusList = [];
     var configModal = {
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -51,6 +52,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     statusList[2] = 'Apresentação Realizada';
     statusList[3] = 'Avaliação Realizada';
     statusList[4] = 'Aprovado';
+    statusList[5] = 'Reprovado';
 
     var status = $("#status").val();
     var idEmpreendimento = $("#empreendimento-id").val();
@@ -58,7 +60,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
 
     var app = this;
-    
+
     function _getEmpreendimentos() {
         try {
             EmpreendimentoService.getEmpreendimentos().success(function (data) {
@@ -93,7 +95,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     }
 
     _getAvaliadores();
-    
+
     //(JP)
 //    function _getEmpreendedores() {
 //        try {
@@ -201,12 +203,12 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
         return $scope.empreendedorList.lenght < 1;
     };
     //(JP-)
-    
+
     $scope.addAvaliador = function (avaliador) {
         $scope.empreendimento.avaliadorList.push(avaliador);
         console.log($scope.empreendimento.avaliadorList);
     };
-    
+
     //(JP--)
     $scope.addEmpreendedor = function (empreendedor) {
         $scope.empreendimento.empreendedorList.push(empreendedor);
@@ -273,25 +275,25 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     // Eifeito accordion
     $(document).on('click', 'a.emp-accordion-link', function () {
-        var id = $(this).attr('id');     
+        var id = $(this).attr('id');
         accordion(id);
 
     });
 
     var _onShow = {id: '0', show: false};
     function accordion(id) {
-       
-        if (!_onShow['id-'+id] || !_onShow.show) {
-            _onShow['id-'+id] = id;
+
+        if (!_onShow['id-' + id] || !_onShow.show) {
+            _onShow['id-' + id] = id;
             _onShow.show = true;
 
-            $("a#"+ id).parents('.collection-item ').find('.card-content').fadeIn(500, function () {
+            $("a#" + id).parents('.collection-item ').find('.card-content').fadeIn(500, function () {
                 $(this).show();
             });
             console.log(_onShow);
         } else {
-            _onShow.show = false;                                        
-            $("a#"+id).parents('.collection-item').find(".card-content").fadeOut(80);
+            _onShow.show = false;
+            $("a#" + id).parents('.collection-item').find(".card-content").fadeOut(80);
             console.log(_onShow);
         }
 
@@ -305,7 +307,9 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.validStatus = function (empreendimento, status) {
         return statusList.indexOf(empreendimento.status) >= statusList.indexOf(status);
     };
-
+    $scope.validStatusReprovado = function (empreendimento) {
+        return (empreendimento.status === $scope.statusResult);
+    };
 
 
     $scope.openModal = function (id, empreendimento) {
@@ -337,10 +341,22 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
                     if (index < statusList.length - 1) {
                         $scope.nextStatus = statusList[index + 1];
                         $(".btn-status").text($scope.nextStatus);
+
+//                        $(".btn-status-result").text($scope.statusResult);
                     }
+
                     $("#modal-" + id).openModal(configModal);
                     break;
                 case 4:
+                    if (index < statusList.length - 1) {
+                        $scope.nextStatus = statusList[index + 1];
+                        $(".btn-status").text($scope.nextStatus);
+                    }
+                    $(".btn-status").text("Processo Finalizado");
+                    $(".btn-status").attr({'disabled': true});
+                    $("#modal-" + id).openModal(configModal);
+                    break;
+                case 5:
                     if (index < statusList.length - 1) {
                         $scope.nextStatus = statusList[index + 1];
                         $(".btn-status").text($scope.nextStatus);
@@ -435,7 +451,36 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
             console.log(e);
             Materialize.toast('Erro ao tentar comunicar com o servidor', 4000, 'red rounded');
         }
-
+    };
+    $scope.setStatusAprovado = function (id, status) {
+        var emp = {id: id, status: status};
+        try {
+            EmpreendimentoService.alterarStatus(emp)
+                    .success(function () {
+                        _getEmpreendimentos();
+                        //$("#modal-2").closeModal(configModal);
+                    }).error(function () {
+                Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');
+            });
+        } catch (e) {
+            console.log(e);
+            Materialize.toast('Erro ao tentar comunicar com o servidor', 4000, 'red rounded');
+        }
+    };
+    $scope.setStatusReprovado = function (id, status) {
+        var emp = {id: id, status: status};
+        try {
+            EmpreendimentoService.alterarStatus(emp)
+                    .success(function () {
+                        _getEmpreendimentos();
+                        $("#modal-7").closeModal(configModal);
+                    }).error(function () {
+                Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');
+            });                    
+        } catch (e) {
+            console.log(e);
+            Materialize.toast('Erro ao tentar comunicar com o servidor', 4000, 'red rounded');
+        }
     };
     $scope.addAvaliador = function (avaliador) {
         if (avaliador.id !== "" && avaliador.id !== undefined) {

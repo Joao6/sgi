@@ -1,6 +1,7 @@
 package gerenciador.incubadora.model.dao;
 
 import gerenciador.incubadora.model.base.BaseDAO;
+import gerenciador.incubadora.model.entity.Empreendedor;
 import gerenciador.incubadora.model.entity.Empreendimento;
 import gerenciador.incubadora.model.entity.EmpreendimentoEmpreendedor;
 import java.sql.Connection;
@@ -31,14 +32,11 @@ public class EmpreendimentoEmpreendedorDAO implements BaseDAO<EmpreendimentoEmpr
 
     @Override
     public List<EmpreendimentoEmpreendedor> readByCriteria(Map<String, Object> criteria, Connection conn) throws Exception {
-        String sql = "select * from empreendedor e"
-                + " left join empreendimento_empreendedor ee "
-                + " on ee.empreendedor_fk=e.usuario_fk";
+        String sql = "select e.*, u.*, emp.id emp_id, emp.nome emp_nome, emp.email emp_email, emp.razao_social emp_razao_social, emp.cnpj emp_cnpj, emp.inscricao_estadual emp_inscricao_estadual, emp.fax emp_fax, emp.missao emp_missao, emp.valores emp_valores from empreendedor e left join usuario u on e.usuario_fk=u.id left join empreendimento_empreendedor ee on e.usuario_fk=ee.empreendedor_fk";
 
-        Long criterionEmpreendimentoId = (Long) criteria.get(CRITERION_EMPREENDEDOR_ID);
+        Long criterionEmpreendimentoId = (Long) criteria.get(CRITERION_EMPREENDIMENTO_ID);
         if (criterionEmpreendimentoId != null) {
-            sql += " left join empreendimento emp "
-                    + " on ee.empreendimento_fk=" + criterionEmpreendimentoId;
+            sql += "  right join empreendimento emp on ee.empreendimento_fk=emp.id where emp.id=" + criterionEmpreendimentoId;
         }
 
         Statement s = conn.createStatement();
@@ -47,10 +45,18 @@ public class EmpreendimentoEmpreendedorDAO implements BaseDAO<EmpreendimentoEmpr
         while (rs.next()) {
             Empreendimento empreendimento = new Empreendimento();
             //Empreendedor empreendedor = new Empreendedor();
-            empreendimento.setId(rs.getLong("id"));
-            empreendimento.setNome(rs.getString("nome"));
+            empreendimento.setId(rs.getLong("emp_id"));
+            empreendimento.setNome(rs.getString("emp_nome"));
+            
+            Empreendedor empreendedor = new Empreendedor();
+            empreendedor.setId(rs.getLong("id"));
+            empreendedor.setNome(rs.getString("nome"));
+            empreendedor.setSobrenome(rs.getString("sobrenome"));
+            empreendedor.setEmail(rs.getString("email"));
+            
             
             EmpreendimentoEmpreendedor ee = new EmpreendimentoEmpreendedor();
+            ee.setEmpreendedor(empreendedor);
             ee.setEmpreendimento(empreendimento);
             
             eeList.add(ee);

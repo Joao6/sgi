@@ -48,7 +48,7 @@
                             <div class="card-content">
                                 
                                 <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Apresentação Agendada' && empreendimento.dataHoraApresentacao !== undefined">                                    
-                                    <p class="left-align col l2 m6 l5 push-l1">Apresentação marcada para: <strong>{{empreendimento.dataHoraApresentacao| date:'dd/MM/yyyy'}}</strong></p>
+                                    <p class="left-align col l2 m6 l5 push-l1">Apresentação marcada para: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>
                                     <p class="left-align col l2 m6 l5 push-l1">Horário: <strong>{{empreendimento.dataHoraApresentacao| date:'hh:mm'}}</strong></p>
                                     <p class="left-align col l2 m6 l5 push-l1">Local: <strong>{{empreendimento.localApresentacao}}</strong></p>                              
                                 </div>

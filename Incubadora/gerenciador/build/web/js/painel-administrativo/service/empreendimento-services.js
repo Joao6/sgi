@@ -41,7 +41,7 @@
 
       var _alterarStatus = function (empreendimento) {
          return $http.post(EmpreendimentoValues.url_change_state, empreendimento, HEADERS);
-      };
+      };            
 
       var _agendarApresentacao = function (apresentacao) {
          return $http.post(EmpreendimentoValues.url_agendar_apresentacao, apresentacao, HEADERS);

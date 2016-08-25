@@ -74,8 +74,8 @@
                                 <div class="card-panel grey lighten-4">
                                     <h6>ALTERAR STATUS DO EMPREENDIMENTO: <strong>{{empreendimento.nome}}</strong></h6>
                                     <h6>STATUS ATUAL: <strong>{{empreendimento.status}}</strong></h6>
-                                </div>
-                                <button data-ng-click="setStatus(empreendimento.id)" data-ng-disabled="btnStatusOk" class="btn blue col s12 m12 l12 btn-status"></button>
+                                </div>                                
+                                <button data-ng-click="setStatus(empreendimento.id)" data-ng-disabled="btnStatusOk" class="btn blue col s12 m12 l12 btn-status"></button>                                                                        
                                 <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
                             </div>
                         </div>
@@ -137,7 +137,7 @@
 
                     </div>               
                     <!-- FIM MODAL AVALIADORES -->
-                    
+
                     <!-- MODAL EMPREENDEDORES (JP) -->
                     <div class="modal" style="background-color: #FFF !important" id="modal-5">
                         <div class="modal-body card white">
@@ -173,28 +173,60 @@
                         </div>       
 
                     </div>               
-                     <!-- FIM MODAL EMPREENDEDORES (JP) -->
-                    
+                    <!-- FIM MODAL EMPREENDEDORES (JP) -->
+
                     <!-- MODAL EXCLUIR EMPREENDIMENTO (JP) -->
                     <div class="modal alert-modal-excluir card-panel" id="modal-6">
-                      <div class="modal-content">
-                         <h3 class="valign-wrapper" style="font-size: 25pt"><i class="material-icons valign" style="margin-right:2%; font-size: 25pt !important">warning</i> <span class="valign">Alerta de Exclus&atilde;o</span></h3>
-                         <h5>Esta opera&ccedil;&atilde;o n&atilde;o poder&aacute; ser desfeita posteriormente.</h5>
-                         <p>Obs.: os dados deste empreendimento ser&atilde;o exclu&iacute;dos de todos os locais.</p>
-                      </div>
-                      <div class="modal-footer card-action">
-                         <a href="#!" data-ng-click="remover(empreendimento.id)" class="waves-effect waves-orange btn-flat modal-close">Excluir</a>
-                         <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Cancelar</a>
-                      </div>
+                        <div class="modal-content">
+                            <h3 class="valign-wrapper" style="font-size: 25pt"><i class="material-icons valign" style="margin-right:2%; font-size: 25pt !important">warning</i> <span class="valign">Alerta de Exclus&atilde;o</span></h3>
+                            <h5>Esta opera&ccedil;&atilde;o n&atilde;o poder&aacute; ser desfeita posteriormente.</h5>
+                            <p>Obs.: os dados deste empreendimento ser&atilde;o exclu&iacute;dos de todos os locais.</p>
+                        </div>
+                        <div class="modal-footer card-action">
+                            <a href="#!" data-ng-click="remover(empreendimento.id)" class="waves-effect waves-orange btn-flat modal-close">Excluir</a>
+                            <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Cancelar</a>
+                        </div>
                     </div>
                     <!-- FIM MODAL EXCLUIR EMPREENDIMENTO (JP)-->
+
+                    <!-- MODAL REPROVAR EMPREENDIMENTO -->
+                    <div class="modal" style="background-color: #FFF !important" id="modal-7">
+                        <!--<div class="modal-body card-panel white">-->
+                            <div class="card-panel grey lighten-3">
+                                <div class="card-title center">
+                                    <h6><strong>REPROVAÇÃO DE EMPREENDIMENTO</strong></h6>  
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="card-panel grey lighten-4">                                    
+                                    <h6>NOME: <strong>{{empreendimento.nome}}</strong></h6>                                  
+                                    <span><strong>INSIRA ABAIXO O MOTIVO DA REPROVAÇÃO:</strong></span>                                 
+                                    <br/>
+                                    <div class="row">
+                                        <form class="col s12 m12 l12" method="post" action="empreendimento/reprovar">
+                                            <div class="row">
+                                                <div class="input-field col s12 m12 l12 left-align">                                                    
+                                                    <textarea id="inputReprova" name="motivo" class="materialize-textarea"></textarea>
+                                                    <label for="inputReprova" class="black-text">Motivo</label>
+                                                    <input type="hidden" name="idEmpreendimento" id="id" value="{{empreendimento.id}}">
+                                                </div>
+                                            </div>
+                                            <button type="submit"  data-ng-disabled="btnStatusOk" class="btn blue col s12 m12 l12 modal-close">CONFIRMAR</button>                                                                                                                    
+                                        </form>
+                                        <button class="btn orange modal-close center large col s12 m12 l12" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                                    </div>                                    
+                                </div>                                
+                            </div>
+                        <!--</div>-->
+                    </div>               
+                    <!-- FIM MODAL REPROVAR EMPREENDIMENTO-->
 
                     <div class="card-content">
                         <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos cadastrados!</strong></h6>          
 
 
                         <ul class="collection card" data-ng-hide="isEmpreendimentoListEmpty()">
-                            
+
                             <li class="collection-item" data-ng-repeat="empreendimento in empreendimentoList| orderBy:'nome'">
                                 <div class="card-panel valign-wrapper">
                                     <span class="valign-wrapper">
@@ -204,7 +236,7 @@
                                     <!-- #################################################################################-->
                                     <a data-ng-href="#!" id="btn-excluir-empreendimento" data-ng-click="openModal(6, empreendimento)" class="waves-effect waves-light white grey-text"  style="right: 3rem; position: absolute"><i class="material-icons">clear</i></a>
                                 </div>
-                                
+
                                 <div class="empreendimento card-content">
                                     <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Apresentação Agendada' && empreendimento.dataHoraApresentacao !== undefined">
 
@@ -227,14 +259,22 @@
                                         <a data-ng-href="#!" id="btn-ver-proposta" data-ng-click="openModal(1, empreendimento)" class="btn modal-trigger blue white-text valign col s12 m2 l3 push-l1 push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Proposta</a>
                                         <a data-ng-href="#!" id="btn-detalhes" data-ng-click="openModal(3, empreendimento)" class="btn blue valign white-text accent-5 col s12 m2 l3  push-l1  push-m1  tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Detalhes</a> 
                                         <a data-ng-href="#!" id="btn-status" data-ng-click="openModal(2, empreendimento)" class="btn blue valign white-text accent-5 col s12 m3 l3  push-l1  push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
-                                            <span data-ng-if="validStatus(empreendimento, 'Apresentação Agendada')"><span class="hide-on-small-only">Alterar</span> Status</span> 
+                                            <span data-ng-if="validStatus(empreendimento, 'Apresentação Agendada')" data-ng-disabled="validStatus(empreendimento, 'Apresentação Agendada')"><span class="hide-on-small-only">Alterar</span> Status</span> 
                                             <span data-ng-if="!validStatus(empreendimento, 'Apresentação Agendada')">Apresentação</span> 
                                         </a> 
                                         <!-- BOTAO EDITAR PODE SER REMOVIDO -->
                                         <!-- <a data-ng-href="#!" id="btn-editar" class="btn blue valign white-text accent-5 col s12 m2 l2  push-l1  push-m1 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Editar</a> -->
                                         <a data-ng-href="#!" id="btn-add-avaliador" class="btn blue valign white-text accent-5 col s12 m6 l3 push-l2 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(4, empreendimento)" data-ng-disabled="isAvaliadorListEmpty()"><span style="font-size: 16pt">+</span> Avaliador</a> 
-                                        <a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l3 push-12 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>
-
+                                        <a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l3 push-12 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>                                                                                                                        
+                                    </div>
+                                    <!--NESTA DIV CONTEM OS BOTOES ONDE O GESTOR IRÁ APROVAR OU REPROVAR UM EMPREENDIMENTO-->
+                                    <div class="row center">
+                                        <a data-ng-href="#!" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" id="btn-aprovar" data-ng-click="setStatusAprovado(empreendimento.id, 'Aprovado')" class="btn green valign white-text accent-5 col s12 m4 l4  push-l2  push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
+                                            <span><span class="hide-on-small-only"></span>Aprovar</span>                                             
+                                        </a>
+                                        <a data-ng-href="#!" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" id="btn-reprovar" data-ng-click="openModal(7, empreendimento)" class="btn red valign white-text accent-5 col s12 m4 l4  push-l2  push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
+                                            <span><span class="hide-on-small-only"></span>Reprovar</span>                                             
+                                        </a>
                                     </div>
                                     <div class="row hide-on-small-only">                                
                                         <hr class="divider white" style="border: 0px"/>
@@ -267,7 +307,7 @@
                                                 <p class="hide-on-small-only" style="margin-top: 0.3rem">Avalia&ccedil;&atilde;o Realizada</p>
                                             </li>
                                             <li class="col s2 m2 l2">                                 
-                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Aprovado'), 'grey':!validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
+                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Aprovado'), 'grey': !validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
                                                     5
                                                 </button>
                                                 <p class="hide-on-small-only" style="margin-top: 0.3rem">Aprovado</p>

@@ -43,6 +43,7 @@ angular.module('painelEmpreendedor').controller('EmpreendimentoCtrl', function (
    statusList[2] = 'Apresentação Realizada';
    statusList[3] = 'Avaliação Realizada';
    statusList[4] = 'Aprovado';
+   statusList[5] = 'Reprovado';
 
 
 
