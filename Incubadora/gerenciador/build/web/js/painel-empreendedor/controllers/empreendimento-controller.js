@@ -182,7 +182,15 @@ angular.module('painelEmpreendedor').controller('EmpreendimentoCtrl', function (
    };
    $scope.validStatus = function (empreendimento, status) {
       return statusList.indexOf(empreendimento.status) >= statusList.indexOf(status);
-   };
-
+   }; 
+       $scope.validStatusResult = function (empreendimento) {
+        return ((empreendimento.status === 'Aprovado') || (empreendimento.status === 'Reprovado'));
+    };
+    $scope.validStatusReprovado = function (empreendimento) {
+        return (empreendimento.status === 'Reprovado');
+    };
+    $scope.validStatusAprovado = function (empreendimento) {
+        return (empreendimento.status === 'Aprovado');
+    };
 
 });

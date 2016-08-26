@@ -307,10 +307,15 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.validStatus = function (empreendimento, status) {
         return statusList.indexOf(empreendimento.status) >= statusList.indexOf(status);
     };
-    $scope.validStatusReprovado = function (empreendimento) {
-        return (empreendimento.status === $scope.statusResult);
+    $scope.validStatusResult = function (empreendimento) {
+        return ((empreendimento.status === 'Aprovado') || (empreendimento.status === 'Reprovado'));
     };
-
+    $scope.validStatusReprovado = function (empreendimento) {
+        return (empreendimento.status === 'Reprovado');
+    };
+    $scope.validStatusAprovado = function (empreendimento) {
+        return (empreendimento.status === 'Aprovado');
+    };
 
     $scope.openModal = function (id, empreendimento) {
         delete $scope.empreendimento;
@@ -476,7 +481,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
                         $("#modal-7").closeModal(configModal);
                     }).error(function () {
                 Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');
-            });                    
+            });
         } catch (e) {
             console.log(e);
             Materialize.toast('Erro ao tentar comunicar com o servidor', 4000, 'red rounded');

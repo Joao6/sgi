@@ -46,7 +46,7 @@
 
                             </div>
                             <div class="card-content">
-                                
+
                                 <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Apresentação Agendada' && empreendimento.dataHoraApresentacao !== undefined">                                    
                                     <p class="left-align col l2 m6 l5 push-l1">Apresentação marcada para: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>
                                     <p class="left-align col l2 m6 l5 push-l1">Horário: <strong>{{empreendimento.dataHoraApresentacao| date:'hh:mm'}}</strong></p>
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="row center">
                                     <hr class="divider white" style="border: 0px"/>
-                                    <a data-ng-href="/gerenciador/empreendimento/{{empreendimento.id}}/enviar-proposta" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Cadastrar Proposta</a>
+                                    <a data-ng-if="empreendimento.status === '-- Sem proposta enviada --'" data-ng-href="/gerenciador/empreendimento/{{empreendimento.id}}/enviar-proposta" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Cadastrar Proposta</a>                                    
                                     <a href="#!" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a> 
                                 </div>
                                 <div class="row hide-on-small-only">
@@ -92,10 +92,14 @@
                                             <p class="hide-on-small-only" style="margin-top: 0.3rem">Avalia&ccedil;&atilde;o Realizada</p>
                                         </li>
                                         <li class="col s2 m2 l2">                                 
-                                            <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Aprovado'), 'grey':!validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
+                                            <button class="btn-floating circle" data-ng-class="{'red':validStatusReprovado(empreendimento),'green': validStatusAprovado(empreendimento), 'grey':!validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
                                                 5
                                             </button>
-                                            <p class="hide-on-small-only" style="margin-top: 0.3rem">Aprovado</p>
+                                            <p class="hide-on-small-only" style="margin-top: 0.3rem">
+                                                <span data-ng-if="validStatusAprovado(empreendimento)">Aprovado</span>
+                                                <span data-ng-if="validStatusReprovado(empreendimento)">Reprovado</span>
+                                                <span data-ng-if="!validStatus(empreendimento, 'Aprovado')">Resultado Final</span>
+                                            </p>
                                         </li>                             
                                     </ul>
                                 </div>

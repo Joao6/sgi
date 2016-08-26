@@ -75,7 +75,7 @@
                                     <h6>ALTERAR STATUS DO EMPREENDIMENTO: <strong>{{empreendimento.nome}}</strong></h6>
                                     <h6>STATUS ATUAL: <strong>{{empreendimento.status}}</strong></h6>
                                 </div>                                
-                                <button data-ng-click="setStatus(empreendimento.id)" data-ng-disabled="btnStatusOk" class="btn blue col s12 m12 l12 btn-status"></button>                                                                        
+                                <button data-ng-click="setStatus(empreendimento.id)" data-ng-disabled="btnStatusOk, validStatus(empreendimento, 'Avaliação Realizada')" class="btn blue col s12 m12 l12 btn-status"></button>                                                                        
                                 <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
                             </div>
                         </div>
@@ -208,19 +208,35 @@
                                                 <div class="input-field col s12 m12 l12 left-align">                                                    
                                                     <textarea id="inputReprova" name="motivo" class="materialize-textarea"></textarea>
                                                     <label for="inputReprova" class="black-text">Motivo</label>
-                                                    <input type="hidden" name="idEmpreendimento" id="id" value="{{empreendimento.id}}">
+                                                    <input type="hidden" name="idEmpreendimento" id="idEmpreendimento" value="{{empreendimento.id}}">
                                                 </div>
                                             </div>
-                                            <button type="submit"  data-ng-disabled="btnStatusOk" class="btn blue col s12 m12 l12 modal-close">CONFIRMAR</button>                                                                                                                    
+                                            <button data-ng-disabled="btnStatusOk" class="btn blue col s12 m12 l12 modal-close" style="width: 100% !important; margin-top: 1rem; border-color: transparent">CONFIRMAR</button>
+                                            <!--<button class="btn orange modal-close center large col s12 m12 l12" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>-->
+                                            <input type="button" class="btn orange modal-close center large col s12 m12 l12 white-text" style="width: 100% !important; margin-top: 1rem; border-color: transparent" value="Fechar">
                                         </form>
-                                        <button class="btn orange modal-close center large col s12 m12 l12" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                                        
                                     </div>                                    
                                 </div>                                
                             </div>
                         <!--</div>-->
                     </div>               
                     <!-- FIM MODAL REPROVAR EMPREENDIMENTO-->
-
+                    
+                    <!-- MODAL APROVAR EMPREENDIMENTO-->
+                    <div class="modal alert-modal-excluir card-panel" id="modal-8">
+                        <div class="modal-content">
+                            <h3 class="valign-wrapper" style="font-size: 25pt"><i class="material-icons valign" style="margin-right:2%; font-size: 25pt !important">warning</i> <span class="valign">Aprovação de Empreendimento</span></h3>
+                            <h5>Você confirma que deseja aprovar o empreendimento e notificar os empreendedores relacionados a este empreendimento?</h5>
+                            <p>Obs.: esta operação não pode ser revertida</p>
+                        </div>
+                        <div class="modal-footer card-action">
+                            <a href="#!" data-ng-click="setStatusAprovado(empreendimento.id, 'Aprovado')" class="waves-effect waves-orange btn-flat modal-close">Aprovar</a>
+                            <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Cancelar</a>
+                        </div>
+                    </div>
+                    <!-- FIM MODAL APROVAR EMPREENDIMENTO-->
+                    
                     <div class="card-content">
                         <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos cadastrados!</strong></h6>          
 
@@ -259,7 +275,7 @@
                                         <a data-ng-href="#!" id="btn-ver-proposta" data-ng-click="openModal(1, empreendimento)" class="btn modal-trigger blue white-text valign col s12 m2 l3 push-l1 push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Proposta</a>
                                         <a data-ng-href="#!" id="btn-detalhes" data-ng-click="openModal(3, empreendimento)" class="btn blue valign white-text accent-5 col s12 m2 l3  push-l1  push-m1  tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Detalhes</a> 
                                         <a data-ng-href="#!" id="btn-status" data-ng-click="openModal(2, empreendimento)" class="btn blue valign white-text accent-5 col s12 m3 l3  push-l1  push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
-                                            <span data-ng-if="validStatus(empreendimento, 'Apresentação Agendada')" data-ng-disabled="validStatus(empreendimento, 'Apresentação Agendada')"><span class="hide-on-small-only">Alterar</span> Status</span> 
+                                            <span data-ng-if="validStatus(empreendimento, 'Apresentação Agendada')" data-ng-disabled="validStatusResult(empreendimento)"><span class="hide-on-small-only">Alterar</span> Status</span> 
                                             <span data-ng-if="!validStatus(empreendimento, 'Apresentação Agendada')">Apresentação</span> 
                                         </a> 
                                         <!-- BOTAO EDITAR PODE SER REMOVIDO -->
@@ -268,13 +284,16 @@
                                         <a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l3 push-12 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>                                                                                                                        
                                     </div>
                                     <!--NESTA DIV CONTEM OS BOTOES ONDE O GESTOR IRÁ APROVAR OU REPROVAR UM EMPREENDIMENTO-->
-                                    <div class="row center">
-                                        <a data-ng-href="#!" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" id="btn-aprovar" data-ng-click="setStatusAprovado(empreendimento.id, 'Aprovado')" class="btn green valign white-text accent-5 col s12 m4 l4  push-l2  push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
-                                            <span><span class="hide-on-small-only"></span>Aprovar</span>                                             
-                                        </a>
-                                        <a data-ng-href="#!" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" id="btn-reprovar" data-ng-click="openModal(7, empreendimento)" class="btn red valign white-text accent-5 col s12 m4 l4  push-l2  push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
-                                            <span><span class="hide-on-small-only"></span>Reprovar</span>                                             
-                                        </a>
+                                    <div class="row center">                                        
+                                        <!--<a data-ng-href="#!" data-ng-disabled="validStatusReprovado(empreendimento, 'Aprovado')" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" id="btn-aprovar" data-ng-click="setStatusAprovado(empreendimento.id, 'Aprovado')" class="btn green valign white-text accent-5 col s12 m6 l3 push-l2 push-m3 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">-->
+                                            <!--<span><span class="hide-on-small-only"></span>Aprovar</span>-->                                             
+                                        <!--</a>-->
+                                        <button data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')"  data-ng-disabled="validStatusResult(empreendimento)" id="btn-aprovar" data-ng-click="openModal(8, empreendimento)" class="btn green valign white-text accent-5 col s12 m6 l3 push-l2 push-m3 truncate" data-ng-disabled="validStatusReprovado(empreendimento, 'Aprovado')" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Aprovar</button>
+                                        <!--<button data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')"  data-ng-disabled="validStatusResult(empreendimento)" id="btn-aprovar" data-ng-click="setStatusAprovado(empreendimento.id, 'Aprovado')" class="btn green valign white-text accent-5 col s12 m6 l3 push-l2 push-m3 truncate" data-ng-disabled="validStatusReprovado(empreendimento, 'Aprovado')" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Aprovar</button>-->
+                                        <!--<a data-ng-href="#!" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" id="btn-reprovar" data-ng-click="openModal(7, empreendimento)" class="btn red valign white-text accent-5 col s12 m6 l3 push-l3 push-m3 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">-->
+                                            <!--<span><span class="hide-on-small-only"></span>Reprovar</span>-->                                             
+                                        <!--</a>-->
+                                        <button data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" data-ng-disabled="validStatusResult(empreendimento)" id="btn-reprovar" data-ng-click="openModal(7, empreendimento)" class="btn red valign white-text accent-5 col s12 m6 l3 push-l3 push-m3 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Reprovar</button>
                                     </div>
                                     <div class="row hide-on-small-only">                                
                                         <hr class="divider white" style="border: 0px"/>
@@ -307,10 +326,14 @@
                                                 <p class="hide-on-small-only" style="margin-top: 0.3rem">Avalia&ccedil;&atilde;o Realizada</p>
                                             </li>
                                             <li class="col s2 m2 l2">                                 
-                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Aprovado'), 'grey': !validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
+                                                <button class="btn-floating circle" data-ng-class="{'red': validStatusReprovado(empreendimento), 'green': validStatusAprovado(empreendimento), 'grey': !validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
                                                     5
                                                 </button>
-                                                <p class="hide-on-small-only" style="margin-top: 0.3rem">Aprovado</p>
+                                                <p class="hide-on-small-only" style="margin-top: 0.3rem">
+                                                    <span data-ng-if="validStatusAprovado(empreendimento)">Aprovado</span>
+                                                    <span data-ng-if="validStatusReprovado(empreendimento)">Reprovado</span>
+                                                    <span data-ng-if="!validStatus(empreendimento, 'Aprovado')">Resultado Final</span>
+                                                    </p>
                                             </li>                             
                                         </ul>
                                     </div>
