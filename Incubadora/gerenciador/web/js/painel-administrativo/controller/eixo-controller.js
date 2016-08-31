@@ -141,7 +141,7 @@
                   Materialize.toast(app.MESSAGE_CRITERIO_ADD_SUCCESS, 4000, 'green rounded');
                   _getCriterioList();
                   $("#modal-4").closeModal();
-                  delete $scope.criterioAvaliacao;
+                  //delete $scope.criterioAvaliacao;
                }).error(function () {
                   Materialize.toast(app.MESSAGE_ERROR_ADD_CRITERIO_AVALIACAO, 4000, 'orange rounded');
                });

@@ -10,7 +10,7 @@
 
       var _getAvaliadores = function () {
          return $http.get(AvaliadorValues.url_obter_avaliadores, HEADERS);
-      };
+      };         
 
       var _getAvaliadorById = function (id) {
          return $http.get(AvaliadorValues.url_get_avaliador + id, HEADERS);
@@ -94,7 +94,7 @@
 
 
       return {
-         getAvaliadores: _getAvaliadores,
+         getAvaliadores: _getAvaliadores,       
          getItens: _getItens,
          addAvaliador: _addAvaliador,
          removerAvaliador: _removerAvaliador,

@@ -96,25 +96,6 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     _getAvaliadores();
 
-    //(JP)
-//    function _getEmpreendedores() {
-//        try {
-//            EmpreendimentoService.getEmpreendedores().success(function (data) {
-//                $scope.empreendedorList = _getEmpreendedores();
-//                $scope.empreendedores = angular.copy($scope.empreendedorList);
-//            }).error(function () {
-//                Materialize.toast(app.MESSAGE_GET_EMPREENDEDORES_ERROR, 4000, 'orange rounded');
-//            });
-//        } catch (e) {
-//            Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'orange rounded');
-//            console.log(e);
-//        }
-//
-//    }
-//
-//    _getEmpreendedores();
-    //(JP)
-
     if (status === "create") {
         function getEditais() {
             try {
@@ -197,24 +178,12 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     $scope.isAvaliadorListEmpty = function () {
         return $scope.avaliadorList.length < 1;
-    };
-    //(JP-)
-    $scope.isEmpreendedorListEmpty = function () {
-        return $scope.empreendedorList.lenght < 1;
-    };
-    //(JP-)
+    };    
 
     $scope.addAvaliador = function (avaliador) {
         $scope.empreendimento.avaliadorList.push(avaliador);
         console.log($scope.empreendimento.avaliadorList);
-    };
-
-    //(JP--)
-    $scope.addEmpreendedor = function (empreendedor) {
-        $scope.empreendimento.empreendedorList.push(empreendedor);
-        console.log($scope.empreendimento.empreendedorList);
-    };
-    //(JP--)
+    };    
 
     $scope.setActive = function (empreendimento) {
         if (empreendimento.show !== true) {
@@ -391,26 +360,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
                     }
                 }
                 $scope.avaliadores = aux;
-            }
-            /////////JP
-            if ($scope.empreendimento.empreendedorList.length > 0) {
-                _getEmpreendimentos();
-                // Garante que somente os empreendedores que não estão associados ao empreendimento
-                // Sejam exibidos no Select.
-                var aux = [];
-                for (var i = 0; i < $scope.empreendedores.length; ++i) {
-                    var found = $scope.empreendimento.empreendedorList.some(function (av) {
-                        return (av.id === $scope.empreendedores[i].id);
-                    });
-
-                    if (!found) {
-                        aux.push($scope.empreendedores[i]);
-                    }
-                }
-                $scope.empreendedores = aux;
-            }
-            /////////JP
-
+            }            
             $("#modal-" + id).openModal(configModal);
         }
     };
@@ -527,50 +477,5 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
             Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION);
         }
 
-    };
-
-    //(JP)
-    $scope.addEmpreendedor = function (empreendedor) {
-        if (empreendedor.id !== "" && empreendedor.id !== undefined) {
-            // Remover do select
-            $scope.empreendedores = $scope.empreendedores.filter(function (a) {
-                if (a.id != empreendedor.id) {
-                    return a;
-                } else {
-                    $scope.empreendimento.empreendedorList.push(angular.copy(a));
-                }
-            });
-        }
-    };
-
-    $scope.removeEmpreendedor = function (id) {
-        if (id !== "" && id !== undefined) {
-            $scope.empreendimento.empreendedorList = $scope.empreendimento.empreendedorList.filter(function (a) {
-                if (a.id !== id) {
-                    return a;
-                } else {
-                    $scope.empreendedores.push(angular.copy(a));
-                }
-            });
-        }
-    };
-
-    $scope.associarEmpreendedores = function () {
-        try {
-            EmpreendimentoService.associarEmpreendedores($scope.empreendimento).success(function () {
-                _getEmpreendimentos();
-                _getEmpreendedores();
-                Materialize.toast('Empreendedores associados com sucesso!', 4000, 'green rounded');
-                $("#modal-5").closeModal(configModal);
-            }).error(function () {
-                Materialize.toast('Erro ao tentar associar Empreendedores!', 4000, 'orange rounded');
-            });
-        } catch (e) {
-            console.log(e);
-            Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION);
-        }
-
-    };
-    //(JP)
-
+    };   
 });

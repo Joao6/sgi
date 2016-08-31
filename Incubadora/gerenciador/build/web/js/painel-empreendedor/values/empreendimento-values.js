@@ -9,7 +9,9 @@
       url_remove_empreendimento: '/gerenciador/remover/empreendimento/',
       url_get_empreendimento_by_id: '/gerenciador/empreendimento/',
       url_update_empreendimento:'/gerenciador/empreendimento/update',
-      url_add_ap_negocio:'/gerenciador/empreendimento/add/ap-negocio'
+      url_add_ap_negocio:'/gerenciador/empreendimento/add/ap-negocio',
+      url_obter_empreendedores:'/gerenciador/incubadora/all/empreendedores',
+      url_add_empreen: '/gerenciador/empreendimento/add/empreendedores'
    });
 })();
 

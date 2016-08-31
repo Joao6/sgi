@@ -268,12 +268,12 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
 
         RamoAtividade ramoAtividade;
         Empreendimento empreendimento = null;
-        
+
         String sqlAvaliadores = "select u.id, u.nome, u.sobrenome from avaliador_empreendimento ae "
-                        + " inner join usuario u on u.id=ae.avaliador_fk"
-                        + " inner join avaliador av on av.usuario_fk=u.id"
-                        + " inner join empreendimento emp on emp.id=ae.empreendimento_fk"
-                        + " and ae.empreendimento_fk=?";
+                + " inner join usuario u on u.id=ae.avaliador_fk"
+                + " inner join avaliador av on av.usuario_fk=u.id"
+                + " inner join empreendimento emp on emp.id=ae.empreendimento_fk"
+                + " and ae.empreendimento_fk=?";
         while (rs.next()) {
             Long idEmpreendimento = rs.getLong("id");
             int index = -1;
@@ -341,11 +341,10 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
                 apresentacaoNegocio.setEstruturaOrganizacional(rs.getString("estrutura_organizacional"));
 
                 // Avaliadores
-                
                 PreparedStatement psAvaliadores = conn.prepareStatement(sqlAvaliadores);
                 psAvaliadores.setLong(1, empreendimento.getId());
                 ResultSet rsAvaliadores = psAvaliadores.executeQuery();
-                
+
                 List<Avaliador> avaliadorList = new ArrayList<>();
                 while (rsAvaliadores.next()) {
                     Avaliador avaliador = new Avaliador();
@@ -356,7 +355,7 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
                 }
                 rsAvaliadores.close();
                 psAvaliadores.close();
-                
+
                 empreendimento.setAvaliadorList(avaliadorList);
                 empreendimento.setApresentacaoNegocio(apresentacaoNegocio);
 
@@ -425,19 +424,32 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
         psDeleteEmp.close();
 
         String sqlEmp = "INSERT INTO empreendimento_empreendedor(empreendimento_fk, empreendedor_fk) VALUES (?, ?);";
-        PreparedStatement psEmp = conn.prepareStatement(sqlEmp);
-        for (Empreendedor emp : e.getEmpreendedorList()) {
-            psEmp.setLong(1, e.getId());
-            psEmp.setLong(2, emp.getId());
-            psEmp.execute();
+        if (e.getEmpreendedorList().size() > 0) {
+            PreparedStatement psEmp = conn.prepareStatement(sqlEmp);
+            for (Empreendedor emp : e.getEmpreendedorList()) {
+                psEmp.setLong(1, e.getId());
+                psEmp.setLong(2, emp.getId());
+                psEmp.execute();
+            }
+            psEmp.close();
         }
-        psEmp.close();
 
         String sqlDeleteAvaliador = "DELETE FROM avaliador_empreendimento WHERE empreendimento_fk=?;";
         PreparedStatement psDeleteAvaliador = conn.prepareStatement(sqlDeleteAvaliador);
         psDeleteAvaliador.setLong(1, e.getId());
         psDeleteAvaliador.execute();
         psDeleteAvaliador.close();
+
+        if (e.getAvaliadorList().size() > 0) {
+            String sqlAvaliador = "INSERT INTO avaliador_empreendimento(avaliador_fk, empreendimento_fk) VALUES (?, ?);";
+            PreparedStatement psAvaliador = conn.prepareStatement(sqlAvaliador);
+            for (Avaliador avaliador : e.getAvaliadorList()) {
+                psAvaliador.setLong(1, avaliador.getId());
+                psAvaliador.setLong(2, e.getId());
+                psAvaliador.execute();
+            }
+            psAvaliador.close();
+        }
 
         String sqlDelApNegocio = "DELETE FROM apresentacao_negocio WHERE empreendimento_fk=?";
         PreparedStatement psDelApNegocio = conn.prepareStatement(sqlDelApNegocio);
@@ -467,18 +479,6 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
 
         psApNegocio.execute();
 
-        if (e.getAvaliadorList().size() > 0) {
-            String sqlAvaliador = "INSERT INTO avaliador_empreendimento(avaliador_fk, empreendimento_fk) VALUES (?, ?);";
-            for (Avaliador avaliador : e.getAvaliadorList()) {
-                PreparedStatement psAvaliador = conn.prepareStatement(sqlAvaliador);
-                for (Empreendedor emp : e.getEmpreendedorList()) {
-                    psAvaliador.setLong(1, avaliador.getId());
-                    psAvaliador.setLong(2, e.getId());
-                    psAvaliador.execute();
-                }
-                psAvaliador.close();
-            }
-        }
     }
 
     @Override

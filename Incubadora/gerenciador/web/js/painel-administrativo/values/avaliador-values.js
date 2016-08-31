@@ -2,7 +2,7 @@
 
 (function(){
    angular.module('painelAdmin').value('AvaliadorValues', {
-      url_obter_avaliadores: '/gerenciador/incubadora/all/avaliadores',
+      url_obter_avaliadores: '/gerenciador/incubadora/all/avaliadores',      
       url_remover_avaliadore: '/gerenciador/avaliador/remover/',
       url_add_avaliador: '/gerenciador/add/avaliador',
       url_get_avaliador:'/gerenciador/avaliador/',

@@ -309,11 +309,9 @@ public class EmpreendimentoController {
                 List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(criteria);
                 eixoMap.put(aux, criterioAvaliacaoList);
             }
-            
-            
 
             //estava para empreendimento/avaliador/avaliacao            
-            mv = new ModelAndView("/empreendimento/avaliador/avaliacao");            
+            mv = new ModelAndView("/empreendimento/avaliador/avaliacao");
             Integer eixoListSize = eixoList.size();
             mv.addObject("eixoListSize", eixoListSize);
             mv.addObject("eixoMap", eixoMap);
@@ -324,16 +322,16 @@ public class EmpreendimentoController {
             mv.addObject("empreendimento", empreendimento);
             Usuario avaliador = (Usuario) session.getAttribute("usuarioLogado");
             mv.addObject("avaliador", avaliador);
-            
-            Map<String, Double> avaliacaoEmpreendimento = new HashMap<String, Double>();            
+
+            Map<String, Double> avaliacaoEmpreendimento = new HashMap<String, Double>();
             avaliacaoEmpreendimento = ServiceLocator.getNotaService().getNotaAvaliador(avaliador.getId(), id);;
             mv.addObject("avaliacaoEmpreendimento", avaliacaoEmpreendimento);
-            
+
             criteria = new HashMap<String, Object>();
             criteria.put(NotaDAO.CRITERION_AVALIADOR_ID, ((Usuario) session.getAttribute("usuarioLogado")).getId());
             criteria.put(NotaDAO.CRITERION_EMPREENDIMENTO_ID, id);
             List<Nota> notaListAux = ServiceLocator.getNotaService().readByCriteria(criteria);
-            
+
             boolean avaliacao = false;
             if (notaList.size() > 0) {
                 Map<Long, Double> notaMap = new HashMap<Long, Double>();
@@ -341,7 +339,7 @@ public class EmpreendimentoController {
                     notaMap.put(n.getCriterioAvaliacao().getId(), n.getNota());
                     avaliacao = true;
                 }
-                mv.addObject("notaMap", notaMap);                
+                mv.addObject("notaMap", notaMap);
             }
             mv.addObject("avaliacao", avaliacao);
 
@@ -385,7 +383,7 @@ public class EmpreendimentoController {
                         nota.setEmpreendimento(empreendimento);
                         nota.setDataHora(new java.util.Date());
                         nota.setNota(criterioNota[i]);
-                                                
+
                         ServiceLocator.getNotaService().create(nota);
 //                        String email = usuario.getEmail();
 //                        String assunto = "Avaliação de Empreendimento";
@@ -414,7 +412,7 @@ public class EmpreendimentoController {
                     }
 
                     session.setAttribute("erro", true);
-                    mv = new ModelAndView("redirect:/empreendimento/{id}/avaliar");                     
+                    mv = new ModelAndView("redirect:/empreendimento/{id}/avaliar");
 //                    mv.addObject("eixoMap", eixoMap);
 //                    mv.addObject("eixoMapSize", eixoMap.size());
 //                    mv.addObject("errors", errors);
@@ -434,26 +432,26 @@ public class EmpreendimentoController {
     public ModelAndView goAvaliacao(@PathVariable Long id) {
         ModelAndView mv = null;
 
-        try{
-            Map<String, Double> avaliacaoEmpreendimento = new HashMap<String, Double>();            
+        try {
+            Map<String, Double> avaliacaoEmpreendimento = new HashMap<String, Double>();
             avaliacaoEmpreendimento = ServiceLocator.getNotaService().getAvaliacao(id);
-            
+
             Empreendimento empreendimento = new Empreendimento();
-            empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);            
-            
-            Map<String, List<Avaliacao>> avaliacaoAvaliador = ServiceLocator.getAvaliacaoService().getAvaliacaoEmpreendimento(id);            
-            
+            empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
+
+            Map<String, List<Avaliacao>> avaliacaoAvaliador = ServiceLocator.getAvaliacaoService().getAvaliacaoEmpreendimento(id);
+
             mv = new ModelAndView("empreendimento/gestao/avaliacao");
             mv.addObject("avaliacaoAvaliador", avaliacaoAvaliador);
             mv.addObject("empreendimento", empreendimento);
             mv.addObject("avaliacaoEmpreendimento", avaliacaoEmpreendimento);
-                        
-        }catch(Exception e){
+
+        } catch (Exception e) {
             mv = new ModelAndView("/error");
             mv.addObject("e", e);
-        }        
+        }
 
-        return mv;       
+        return mv;
     }
 
     /**
@@ -607,11 +605,11 @@ public class EmpreendimentoController {
     /* ADICIONA EMPREENDEDORES AO EMPREENDIMENTO */
     @RequestMapping(value = "/empreendimento/add/empreendedores", method = RequestMethod.POST)
     @ResponseBody
-    public void addEmpreendedores(@RequestBody String empreendimento, HttpServletResponse response) {
+    public void addEmpreendedores(@RequestBody String empreendimento, HttpServletResponse response){
         try {
             Type type = new TypeToken<Empreendimento>() {
             }.getType();
-            Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm").create();
+            Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
             Empreendimento e = g.fromJson(empreendimento, type);
             ServiceLocator.getEmpreendimentoService().update(e);
             response.setStatus(200);

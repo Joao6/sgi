@@ -31,6 +31,43 @@
                         </div>
                     </div>
                     <!-- FIM MODAL EXCLUSAO DE EMPREENDIMENTO (JP) -->
+                    
+                    <!-- MODAL + EMPREENDEDOR (JP) -->
+                    <div class="modal" style="background-color: #FFF !important" id="modal-5">
+                        <div class="modal-body card white">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="card s12 m12 l12 center-align" style="padding-top: 1%; padding-bottom: 1%">
+                                        <h6 style="font-size: 15pt">Associar Empreendedores</h6>
+                                    </div>
+                                    <form name="formEmpreendedor">
+                                        <div class="card select-group card-content s12 m12 l12">
+                                            <label for="empreendedor" style="font-size: 13pt">Escolha os Empreendedores</label>
+                                            <div class="input-field responsavel-field">
+                                                <select id="empreendedor" class="browser-default" data-ng-model="empreendedor.id" data-ng-change="addEmpreendedor(empreendedor)">
+                                                    <option value="">Selecione</option>
+                                                    <option data-ng-repeat="empreendedor in empreendedores" value="{{empreendedor.id}}">{{empreendedor.nome}} {{empreendedor.sobrenome}}</option>
+                                                </select>        
+
+                                                <div class="chip pratica-chip" data-ng-repeat="empreendedor in empreendimento.empreendedorList"> 
+                                                    <span>
+                                                        <img data-ng-src="/gerenciador/img/ico-responsavel.png" alt="{{empreendedor.nome}}">
+                                                        <a data-ng-href="/gerenciador/empreendedor/{{empreendedor.id}}/view/notas/by/empreendimento/{{empreendimento.id}}"  class="white-text">{{empreendedor.nome}}</a>
+                                                    </span>
+                                                    <i class="material-icons" data-ng-click="removeEmpreendedor(empreendedor.id)">close</i>
+                                                </div>
+                                            </div>                              
+                                            <button class="btn green lighten-1 large" data-ng-click="associarEmpreendedores()" data-ng-disabled="empreendimento.empreendedorList.length < 1" style="width: 100%">Associar Empreendedores</button>
+                                        </div>   
+                                    </form>
+
+                                </div>                                       
+                                <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                            </div>
+                        </div>       
+
+                    </div>               
+                    <!-- FIM MODAL + EMPREENDEDOR (JP) -->
 
                     <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos cadastrados!</strong></h6>          
 
@@ -58,8 +95,11 @@
                                 </div>
                                 <div class="row center">
                                     <hr class="divider white" style="border: 0px"/>
-                                    <a data-ng-if="empreendimento.status === '-- Sem proposta enviada --'" data-ng-href="/gerenciador/empreendimento/{{empreendimento.id}}/enviar-proposta" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Cadastrar Proposta</a>                                    
-                                    <a href="#!" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a> 
+                                    <a data-ng-href="/gerenciador/empreendimento/{{empreendimento.id}}/enviar-proposta" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Cadastrar Proposta</a>                                    
+                                    <a href="#!" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a>                                     
+                                </div>
+                                <div class="row center">
+                                    <a data-ng-href="#!" id="btn-add-empreendedor" class="btn teal white-text accent-5 col s12 m6 l4 push-l4 push-m4 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>
                                 </div>
                                 <div class="row hide-on-small-only">
                                     <hr class="divider white" style="border: 0px"/>
