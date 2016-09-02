@@ -30,8 +30,8 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
     @Override
     public void create(Empreendimento e, Connection conn) throws Exception {
         String sql = "INSERT INTO empreendimento(nome, razao_social, cnpj, inscricao_estadual, inscricao_municipal, "
-                + " email, fax, missao, visao, valores, data_ingresso, data_abertura, data_prev_graduacao, path_logo, ramo_atividade_fk, status, telefone, edital_fk)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;";
+                + " email, fax, missao, visao, valores, data_ingresso, data_abertura, data_prev_graduacao, path_logo, ramo_atividade_fk, status, telefone, edital_fk, descricao_resultado)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;";
         PreparedStatement ps = conn.prepareStatement(sql);
 
         //Data Default
@@ -68,6 +68,7 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
         ps.setString(++i, e.getStatus());
         ps.setString(++i, e.getTelefone());
         ps.setLong(++i, e.getEdital().getId());
+        ps.setString(++i, e.getDescricaoResultado());
 
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
@@ -129,6 +130,7 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
                 EditalDAO editalDAO = new EditalDAO();
                 Edital edital = editalDAO.readById(rs.getLong("edital_fk"), conn);
                 empreendimento.setEdital(edital);
+                empreendimento.setDescricaoResultado(rs.getString("descricao_resultado"));
 
                 //Ramo Atividade
                 RamoAtividade ramoAtividade = new RamoAtividade();
@@ -306,6 +308,7 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
                 empreendimento.setTelefone(rs.getString("telefone"));
                 empreendimento.setContratacaoAceita(rs.getBoolean("contratacao_aceita"));
                 empreendimento.setLocalApresentacao(rs.getString("local_apresentacao"));
+                empreendimento.setDescricaoResultado(rs.getString("descricao_resultado"));
 
                 java.sql.Timestamp date = rs.getTimestamp("data_hora_apresentacao");
                 if (date != null) {
@@ -376,7 +379,7 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
     @Override
     public void update(Empreendimento e, Connection conn) throws Exception {
         String sql = "UPDATE empreendimento SET nome=?, razao_social=?, cnpj=?, inscricao_estadual=?, inscricao_municipal=?, email=?, fax=?, missao=?, visao=?, valores=?, data_ingresso=?, "
-                + " data_abertura=?, data_prev_graduacao=?, path_logo=?, ramo_atividade_fk=?,  status=?, telefone=?, edital_fk=? WHERE id=?;";
+                + " data_abertura=?, data_prev_graduacao=?, path_logo=?, ramo_atividade_fk=?,  status=?, telefone=?, edital_fk=?, descricao_resultado=? WHERE id=?;";
 
         PreparedStatement ps = conn.prepareStatement(sql);
         //Data Default
@@ -413,6 +416,7 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
         ps.setString(++i, e.getStatus());
         ps.setString(++i, e.getTelefone());
         ps.setLong(++i, e.getEdital().getId());
+        ps.setString(++i, e.getDescricaoResultado());
         ps.setLong(++i, e.getId());
         ps.execute();
         ps.close();

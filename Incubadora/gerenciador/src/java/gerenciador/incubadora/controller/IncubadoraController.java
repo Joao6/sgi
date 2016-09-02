@@ -311,40 +311,63 @@ public class IncubadoraController {
         return mv;
     }
 
-    @RequestMapping(value = "/incubadora/empreendimento/reprovar", method = RequestMethod.POST)
-    public ModelAndView sendEmailReprovado(Long idEmpreendimento, String motivo, HttpServletResponse response) throws Exception {
+    /*
+        * Método seta o status do empreendimento conforme o resultado final dos gestores e envia email
+        * aos empreendedores relacionados notificando-os.
+        *
+     */
+    @RequestMapping(value = "/incubadora/empreendimento/resultado-final", method = RequestMethod.POST)
+    public ModelAndView setResultadoFinal(Long idEmpreendimento, String motivo, String resultado, HttpServletResponse response) throws Exception {
         ModelAndView mv;
         Map<String, Object> criteria = new HashMap<String, Object>();
         criteria.put(EmpreendimentoEmpreendedorDAO.CRITERION_EMPREENDIMENTO_ID, idEmpreendimento);
-        try{
-        List<EmpreendimentoEmpreendedor> eeList = ServiceLocator.getEmpreendimentoEmpreendedorService().readByCriteria(criteria);
-        String assunto = "Empreendimento Reprovado";
-        
-        for(EmpreendimentoEmpreendedor aux : eeList){
-            String destino = aux.getEmpreendedor().getEmail(); 
-            String texto = "Olá, "+aux.getEmpreendedor().getNome()+"."
-                    + "<br/>Viemos por meio deste email, notificar que o empreendimento "+aux.getEmpreendimento().getNome()+""
-                    + " ao qual você faz parte, infelizmente não foi aprovado para se juntar à Incubadora da FAI."
-                    + "                                                                                                                                 "
-                    + "                                                                                                                                  "
-                    + "                                                                                                                                   "
-                    + "<br/>O motivo pelo qual o empreendimento não foi aprovado segue abaixo."
-                    + "<br/><br/><br/>"
-                    + "Motivo: "
-                    + "<br/>" + motivo;
-            ServiceLocator.getEmailService().sendEmail(destino, assunto, texto);
-        }
-        Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(idEmpreendimento);
-        empreendimento.setStatus("Reprovado");
-        ServiceLocator.getEmpreendimentoService().update(empreendimento);
-        response.setStatus(200);
-        mv = new ModelAndView("redirect:/incubadora/empreendimento");
-        }catch(Exception e){
+        String assunto = "";
+        String status = "";
+        try {
+            List<EmpreendimentoEmpreendedor> eeList = ServiceLocator.getEmpreendimentoEmpreendedorService().readByCriteria(criteria);
+            if (resultado.equals("aprovado")) {
+                assunto = "Empreendimento Aprovado";
+                for (EmpreendimentoEmpreendedor aux : eeList) {
+                    String destino = aux.getEmpreendedor().getEmail();
+                    String texto = "Olá, " + aux.getEmpreendedor().getNome() + "."
+                            + "Viemos por meio deste email, notificar que o empreendimento " + aux.getEmpreendimento().getNome() + ""
+                            + " ao qual você faz parte, foi aprovado para se juntar à Incubadora da FAI."
+                            + " "
+                            + "O gestor lhe deixou uma mensagem notificando a seleção do empreendimento: "
+                            + ""
+                            + "Motivo: "
+                            + "" + motivo;
+                    ServiceLocator.getEmailService().sendEmail(destino, assunto, texto);
+                    status = "Aprovado";
+                }
+            } else {
+                assunto = "Empreendimento Reprovado";
+                for (EmpreendimentoEmpreendedor aux : eeList) {
+                    String destino = aux.getEmpreendedor().getEmail();
+                    String texto = "Olá, " + aux.getEmpreendedor().getNome() + "."
+                            + "Viemos por meio deste email, notificar que o empreendimento " + aux.getEmpreendimento().getNome() + ""
+                            + " ao qual você faz parte, infelizmente não foi aprovado para se juntar à Incubadora da FAI."
+                            + " "
+                            + "O motivo pelo qual o empreendimento não foi aprovado segue abaixo."
+                            + ""
+                            + "Motivo: "
+                            + "" + motivo;
+                    ServiceLocator.getEmailService().sendEmail(destino, assunto, texto);
+                    status = "Reprovado";
+                }
+            }
+            Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(idEmpreendimento);
+            empreendimento.setStatus(status);
+            empreendimento.setDescricaoResultado(motivo);
+            ServiceLocator.getEmpreendimentoService().update(empreendimento);
+            response.setStatus(200);
+            mv = new ModelAndView("redirect:/incubadora/empreendimento");
+        } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(500);
             mv = new ModelAndView("error");
             mv.addObject("e", e);
-        }                                
+        }
         return mv;
     }
 

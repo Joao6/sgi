@@ -45,12 +45,21 @@ public class Empreendimento extends BaseEntity {
     private Boolean contratacaoAceita;
     private Date dataHoraApresentacao;
     private String localApresentacao;
+    private String descricaoResultado;
 
     public Empreendimento() {
         this.empreendedorList = new ArrayList<>();
         avaliadorList = new ArrayList<>();
     }
 
+    public String getDescricaoResultado() {
+        return descricaoResultado;
+    }
+
+    public void setDescricaoResultado(String descricaoResultado) {
+        this.descricaoResultado = descricaoResultado;
+    }
+        
     public String getMissao() {
         return missao;
     }

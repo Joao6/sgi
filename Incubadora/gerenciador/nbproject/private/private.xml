@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Documentos/FAI/Fai%202016/www/git/local/Incubadora/gerenciador/web/js/login-app/services/login-service.js</file>
+            <file>file:/D:/Documentos/FAI/Fai%202016/www/git/local/Incubadora/gerenciador/web/WEB-INF/views/home.jsp</file>
+            <file>file:/D:/Documentos/FAI/Fai%202016/www/git/local/Incubadora/gerenciador/web/WEB-INF/views/templates/basic-header-home.jsp</file>
+            <file>file:/D:/Documentos/FAI/Fai%202016/www/git/local/Incubadora/gerenciador/web/WEB-INF/views/templates/home/top-bar.jsp</file>
+            <file>file:/D:/Documentos/FAI/Fai%202016/www/git/local/Incubadora/gerenciador/web/js/login-app/controllers/login-controller.js</file>
+            <file>file:/D:/Documentos/FAI/Fai%202016/www/git/local/Incubadora/gerenciador/web/js/login-app/values/login-value.js</file>
+        </group>
     </open-files>
 </project-private>

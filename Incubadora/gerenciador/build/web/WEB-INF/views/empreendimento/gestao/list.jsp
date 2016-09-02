@@ -30,7 +30,7 @@
                 border-bottom: 1px solid #e0e0e0;
 
             }
-            
+
             #btn-fechar:hover{
                 box-shadow: 50px 50px 55px #888888;
             }
@@ -73,7 +73,7 @@
                 margin-right: 1%;
                 margin-top: 2%;
             }
-            
+
             .chip span a:hover{
                 color:#eeff41 !important;
             }
@@ -103,7 +103,8 @@
 
                 $('.time').mask('00:00');
             });
-                        
+//            $('#textarea1').val('New Text');
+//            $('#textarea1').trigger('autoresize');
         </script>
 
     </head>
