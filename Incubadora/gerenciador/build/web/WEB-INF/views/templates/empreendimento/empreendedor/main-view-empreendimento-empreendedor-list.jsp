@@ -68,6 +68,28 @@
 
                     </div>               
                     <!-- FIM MODAL + EMPREENDEDOR (JP) -->
+                    
+                    <!-- MODAL DESCRIÇÂO RESULTADO -->
+                    <div class="modal" style="background-color: #FFF !important" id="modal-6">
+                        <div class="modal-body card white">
+                            <blockquote class="grey lighten-4"><strong>Avaliador(es):&nbsp;<br/></strong>
+                                <span data-ng-repeat="avaliador in empreendimento.avaliadorList">
+                                    <span>{{avaliador.nome}} {{avaliador.sobrenome}}</span><br/>
+                                </span>
+                            </blockquote>
+                            <blockquote class="grey lighten-4">
+                                <strong>Descrição:&nbsp;<br/></strong>
+                                <p>
+                                    {{empreendimento.descricaoResultado}}
+                                </p>
+                            </blockquote>
+
+                            <div class="row">
+                                <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM MODAL DESCRIÇÂO RESULTADO -->
 
                     <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos cadastrados!</strong></h6>          
 
@@ -95,6 +117,7 @@
                                 </div>
                                 <div class="row center">
                                     <hr class="divider white" style="border: 0px"/>
+                                    <button data-ng-if="validStatusResult(empreendimento)" class="btn center yellow black-text col s12 m12 l12" style="margin-top: 0.6rem;" data-ng-click="openModal(6, empreendimento)">Ver descrição do resultado final</button>
                                     <a data-ng-href="/gerenciador/empreendimento/{{empreendimento.id}}/enviar-proposta" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Cadastrar Proposta</a>                                    
                                     <a href="#!" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a>                                     
                                 </div>
