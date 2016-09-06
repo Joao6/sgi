@@ -226,6 +226,30 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
             avaliadorList.add(avaliador);
         }
         empreendimento.setAvaliadorList(avaliadorList);
+        rsAvaliador.close();
+        psAvaliador.close();
+
+        String sqlEmpreendedor = "select emp.*, u.* from empreendimento_empreendedor ee left join empreendedor emp on ee.empreendedor_fk=emp.usuario_fk left join usuario u on u.id=emp.usuario_fk where ee.empreendimento_fk=?";
+        PreparedStatement psEmpreendedor = conn.prepareStatement(sqlEmpreendedor);
+        psEmpreendedor.setLong(1, id);
+        ResultSet rsEmpreendedor = psEmpreendedor.executeQuery();
+        List<Empreendedor> empreendedorList = new ArrayList<>();
+        while (rsEmpreendedor.next()) {
+            Empreendedor empreendedor = new Empreendedor();
+            empreendedor.setId(rsEmpreendedor.getLong("id"));
+            empreendedor.setNome(rsEmpreendedor.getString("nome"));
+            empreendedor.setEmail(rsEmpreendedor.getString("email"));
+            empreendedor.setCpf(rsEmpreendedor.getString("cpf"));
+            empreendedor.setSenha(rsEmpreendedor.getString("senha"));
+            empreendedor.setSobrenome(rsEmpreendedor.getString("sobrenome"));
+            empreendedor.setTelefone(rsEmpreendedor.getString("telefone"));
+            empreendedor.setTipoUsuario(rsEmpreendedor.getString("tipo_usuario"));
+
+            empreendedorList.add(empreendedor);
+        }
+        empreendimento.setEmpreendedorList(empreendedorList);
+        rsEmpreendedor.close();
+        psEmpreendedor.close();
 
         return empreendimento;
     }
@@ -242,7 +266,8 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
         if (criteria != null) {
             Long criterionEmpreendedorId = (Long) criteria.get(CRITERION_EMPREENDEDOR_ID);
             if (criterionEmpreendedorId != null) {
-                sql += " and em.usuario_fk=" + criterionEmpreendedorId;
+                //sql += " and em.usuario_fk=" + criterionEmpreendedorId;
+                sql += " and e.id in (select ee.empreendimento_fk from empreendimento_empreendedor ee where ee.empreendedor_fk=" + criterionEmpreendedorId + ")";
             }
             Long criterionAvaliadorId = (Long) criteria.get(CRITERION_AVALIADOR_ID);
             if (criterionAvaliadorId != null) {
@@ -325,9 +350,9 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
                 ramoAtividade.setNome(rs.getString("ra_nome"));
                 empreendimento.setRamoAtividade(ramoAtividade);
 
-                EmpreendedorDAO daoEmpreendedor = new EmpreendedorDAO();
-                Empreendedor empreendedor = daoEmpreendedor.readById(rs.getLong("empreendedor_id"), conn);
-                empreendimento.getEmpreendedorList().add(empreendedor);
+//                EmpreendedorDAO daoEmpreendedor = new EmpreendedorDAO();
+//                Empreendedor empreendedor = daoEmpreendedor.readById(rs.getLong("empreendedor_id"), conn);
+//                empreendimento.getEmpreendedorList().add(empreendedor);
 
                 //ApresentacaoNegocio
                 ApresentacaoNegocio apresentacaoNegocio = new ApresentacaoNegocio();
@@ -359,14 +384,36 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
                 rsAvaliadores.close();
                 psAvaliadores.close();
 
+                String sqlEmpreendedor = "select emp.*, u.* from empreendimento_empreendedor ee left join empreendedor emp on ee.empreendedor_fk=emp.usuario_fk left join usuario u on u.id=emp.usuario_fk where ee.empreendimento_fk=?";
+                PreparedStatement psEmpreendedor = conn.prepareStatement(sqlEmpreendedor);
+                psEmpreendedor.setLong(1, empreendimento.getId());
+                ResultSet rsEmpreendedor = psEmpreendedor.executeQuery();
+                List<Empreendedor> empreendedorList = new ArrayList<>();
+                while (rsEmpreendedor.next()) {
+                    Empreendedor empreendedor1 = new Empreendedor();
+                    empreendedor1.setId(rsEmpreendedor.getLong("id"));
+                    empreendedor1.setNome(rsEmpreendedor.getString("nome"));
+                    empreendedor1.setEmail(rsEmpreendedor.getString("email"));
+                    empreendedor1.setCpf(rsEmpreendedor.getString("cpf"));
+                    empreendedor1.setSenha(rsEmpreendedor.getString("senha"));
+                    empreendedor1.setSobrenome(rsEmpreendedor.getString("sobrenome"));
+                    empreendedor1.setTelefone(rsEmpreendedor.getString("telefone"));
+                    empreendedor1.setTipoUsuario(rsEmpreendedor.getString("tipo_usuario"));
+
+                    empreendedorList.add(empreendedor1);
+                }                
+                rsEmpreendedor.close();
+                psEmpreendedor.close();
+
                 empreendimento.setAvaliadorList(avaliadorList);
                 empreendimento.setApresentacaoNegocio(apresentacaoNegocio);
+                empreendimento.setEmpreendedorList(empreendedorList);
 
                 empreendimentoList.add(empreendimento);
             } else {
-                EmpreendedorDAO daoEmpreendedor = new EmpreendedorDAO();
-                Empreendedor empreendedor = daoEmpreendedor.readById(rs.getLong("empreendedor_id"), conn);
-                empreendimentoList.get(index).getEmpreendedorList().add(empreendedor);
+//                EmpreendedorDAO daoEmpreendedor = new EmpreendedorDAO();
+//                Empreendedor empreendedor = daoEmpreendedor.readById(rs.getLong("empreendedor_id"), conn);
+//                empreendimentoList.get(index).getEmpreendedorList().add(empreendedor);
             }
 
         }

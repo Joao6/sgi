@@ -15,6 +15,7 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
     public static final String CRITERION_USUARIO_EQ = "1";
     public static final String CRITERION_SENHA_EQ = "2";
     public static final String CRITERION_EMAIL_EQ = "3";
+    public static final String CRITERION_TIPO_USUARIO_EQ = "4";
 
     @Override
     public void create(Usuario e, Connection conn) throws Exception {
@@ -76,6 +77,11 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
         String criterionEmailEq = (String) criteria.get(CRITERION_EMAIL_EQ);
         if (criterionEmailEq != null && !criterionEmailEq.isEmpty()) {
             sql += " AND email='" + criterionEmailEq + "'";
+        }
+
+        String criterionTipoUsuarioEq = (String) criteria.get(CRITERION_TIPO_USUARIO_EQ);
+        if (criterionTipoUsuarioEq != null && !criterionTipoUsuarioEq.isEmpty()) {
+            sql += " AND tipo_usuario='" + criterionTipoUsuarioEq + "'";
         }
 
         Statement s = conn.createStatement();

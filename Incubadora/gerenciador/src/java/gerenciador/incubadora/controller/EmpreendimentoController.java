@@ -17,6 +17,7 @@ import gerenciador.incubadora.model.entity.Eixo;
 import gerenciador.incubadora.model.entity.Empreendedor;
 import gerenciador.incubadora.model.entity.Empreendimento;
 import gerenciador.incubadora.model.entity.Endereco;
+import gerenciador.incubadora.model.entity.Gestor;
 import gerenciador.incubadora.model.entity.Nota;
 import gerenciador.incubadora.model.entity.RamoAtividade;
 import gerenciador.incubadora.model.entity.Usuario;
@@ -37,7 +38,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class EmpreendimentoController {
@@ -379,22 +379,29 @@ public class EmpreendimentoController {
                         Empreendimento empreendimento = new Empreendimento();
                         empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
 //                        empreendimento.setId(id);
-                        empreendimento.getNome();
+//                        empreendimento.getNome();
                         nota.setEmpreendimento(empreendimento);
                         nota.setDataHora(new java.util.Date());
                         nota.setNota(criterioNota[i]);
 
                         ServiceLocator.getNotaService().create(nota);
-//                        String email = usuario.getEmail();
-//                        String assunto = "Avaliação de Empreendimento";
-//                        String texto = "Olá, Gestor."
-//                                + "O empreendimento "+empreendimento.getId()+" acabou de ser avaliado pelo avaliador "+usuario.getNome()+" "+usuario.getSobrenome()+"!"
-//                                + "Caso queira visualizar as notas referentes à esta avaliação, acesse o sistema.";
-//                        ServiceLocator.getEmailService().sendEmail(email, assunto, texto);
 
 //                        Empreendimento e = ServiceLocator.getEmpreendimentoService().readById(id);
 //                        e.setStatus(Empreendimento.EMPREENDIMENTO_STATUS_AV_REALIZADA);
 //                        ServiceLocator.getEmpreendimentoService().update(e);
+                    }
+                    Map<String, Object> criteria = new HashMap<String, Object>();
+                    criteria.put("4", "1");
+                    List<Usuario> admList = ServiceLocator.getUsuarioService().readByCriteria(criteria);
+                    Empreendimento empreendimento = new Empreendimento();
+                    empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
+                    for (Usuario usuarioAdm : admList) {
+                        String email = usuarioAdm.getEmail();
+                        String assunto = "Avaliação de Empreendimento";
+                        String texto = "Olá, Gestor."
+                                + " O empreendimento '" + empreendimento.getNome() + "' acabou de ser avaliado pelo avaliador " + usuario.getNome() + " " + usuario.getSobrenome() + "!"
+                                + " Caso queira visualizar as notas referentes à esta avaliação, acesse o sistema.";
+                        ServiceLocator.getEmailService().sendEmail(email, assunto, texto);
                     }
 
                     mv = new ModelAndView("/usuario/avaliador/confirmacao-avaliacao");
@@ -605,7 +612,7 @@ public class EmpreendimentoController {
     /* ADICIONA EMPREENDEDORES AO EMPREENDIMENTO */
     @RequestMapping(value = "/empreendimento/add/empreendedores", method = RequestMethod.POST)
     @ResponseBody
-    public void addEmpreendedores(@RequestBody String empreendimento, HttpServletResponse response){
+    public void addEmpreendedores(@RequestBody String empreendimento, HttpServletResponse response) {
         try {
             Type type = new TypeToken<Empreendimento>() {
             }.getType();

@@ -49,7 +49,7 @@
                                                     <option data-ng-repeat="empreendedor in empreendedores" value="{{empreendedor.id}}">{{empreendedor.nome}} {{empreendedor.sobrenome}}</option>
                                                 </select>        
 
-                                                <div class="chip pratica-chip" data-ng-repeat="empreendedor in empreendimento.empreendedorList"> 
+                                                <div class="chip pratica-chip" data-ng-repeat="empreendedor in empreendimento.empreendedorList" style="margin: 0.6rem;"> 
                                                     <span>
                                                         <img data-ng-src="/gerenciador/img/ico-responsavel.png" alt="{{empreendedor.nome}}">
                                                         <a data-ng-href="/gerenciador/empreendedor/{{empreendedor.id}}/view/notas/by/empreendimento/{{empreendimento.id}}"  class="white-text">{{empreendedor.nome}}</a>

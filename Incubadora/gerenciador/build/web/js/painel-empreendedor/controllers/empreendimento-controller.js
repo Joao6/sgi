@@ -147,7 +147,7 @@ angular.module('painelEmpreendedor').controller('EmpreendimentoCtrl', function (
     $scope.removeEmpreendedor = function (id) {
         if (id !== "" && id !== undefined) {
             $scope.empreendimento.empreendedorList = $scope.empreendimento.empreendedorList.filter(function (a) {
-                if (a.id !== id) {
+                if (a.id != id) {
                     return a;
                 } else {
                     $scope.empreendedores.push(angular.copy(a));
