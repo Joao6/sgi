@@ -221,7 +221,7 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
             avaliador.setSenha(rsAvaliador.getString("senha"));
             avaliador.setSobrenome(rsAvaliador.getString("sobrenome"));
             avaliador.setTelefone(rsAvaliador.getString("telefone"));
-            avaliador.setTipoUsuario(rsAvaliador.getString("tipo_usuario"));
+            avaliador.setTipoUsuario(rsAvaliador.getString("tipo_usuario"));            
 
             avaliadorList.add(avaliador);
         }
@@ -296,7 +296,7 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
         RamoAtividade ramoAtividade;
         Empreendimento empreendimento = null;
 
-        String sqlAvaliadores = "select u.id, u.nome, u.sobrenome from avaliador_empreendimento ae "
+        String sqlAvaliadores = "select u.*, av.cpf from avaliador_empreendimento ae "
                 + " inner join usuario u on u.id=ae.avaliador_fk"
                 + " inner join avaliador av on av.usuario_fk=u.id"
                 + " inner join empreendimento emp on emp.id=ae.empreendimento_fk"
@@ -379,6 +379,11 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
                     avaliador.setId(rsAvaliadores.getLong("id"));
                     avaliador.setNome(rsAvaliadores.getString("nome"));
                     avaliador.setSobrenome(rsAvaliadores.getString("sobrenome"));
+                    avaliador.setEmail(rsAvaliadores.getString("email"));
+                    avaliador.setSenha(rsAvaliadores.getString("senha"));
+                    avaliador.setTelefone(rsAvaliadores.getString("telefone"));
+                    avaliador.setTipoUsuario(rsAvaliadores.getString("tipo_usuario"));
+                    avaliador.setCpf(rsAvaliadores.getString("cpf"));
                     avaliadorList.add(avaliador);
                 }
                 rsAvaliadores.close();

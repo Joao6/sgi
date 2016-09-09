@@ -30,7 +30,17 @@
         statusList[3] = 'Avaliação Realizada';
         statusList[4] = 'Aprovado';
 
-
+        var configModal = {
+            dismissible: false, // Modal can be dismissed by clicking outside of the modal
+            opacity: .5, // Opacity of modal background
+            in_duration: 1, // Transition in duration
+            out_duration: 1, // Transition out duration
+            ready: function () {
+                return;
+            }, // Callback for Modal open
+            complete: function () {
+            } // Ca
+        };
 
         var status = $("#status").val();
         var idAvaliador = $("#avaliador-id").val();
@@ -45,7 +55,17 @@
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
             $('.modal-trigger').leanModal();
         });
-        
+
+        //openModal (JP)
+        $scope.openModal = function (id, empreendimentoId) {
+            delete $scope.empreendimento;
+            $scope.empreendimento = _getEmpreendimento(empreendimentoId);
+            $scope.apresentacaoNegocio = $scope.empreendimento.apresentacaoNegocio;
+            var index = 0;
+            $("#modal-" + id).openModal(configModal);
+        };
+        //openModal (JP)
+
         function _getEmpreendimentos() {
             try {
                 EmpreendimentoAPI.getEmpreendimentos(idAvaliador).success(function (data) {

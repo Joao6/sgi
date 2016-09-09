@@ -13,9 +13,39 @@
                         <i class="material-icons small valign">business</i>&nbsp;&nbsp;
                         <span class="card-title"><strong class="hide-on-small-only">Empreendimentos</strong>&nbsp; </span>
                     </div>
-
                 </div>
-
+                
+                <!-- MODAL DETALHES EMPREENDIMENTO -->
+                    <div class="modal" style="background-color: #FFF !important" id="modal-1">
+                        <div class="modal-body card white">
+                            <blockquote class="grey lighten-4"><strong>Nome:&nbsp;</strong>  {{empreendimento.nome}} </blockquote>
+                            <blockquote class="grey lighten-4"><strong>Ramo de Atividade</strong>  {{empreendimento.ramoAtividade.nome}}</blockquote>
+                            <blockquote class="grey lighten-4"><strong>Raz&atilde;o Social:&nbsp;</strong>  {{empreendimento.razaoSocial}}</blockquote>                            
+                            <blockquote class="grey lighten-4"><strong>Empreendedor(es):&nbsp;<br/></strong>
+                                <span data-ng-repeat="empreendedor in empreendimento.empreendedorList">
+                                    <span>{{empreendedor.nome}} {{empreendedor.sobrenome}}</span><br/>
+                                </span>
+                            </blockquote>                            
+                            <h6 class="card card-panel" data-ng-if="!apresentacaoNegocio.miniCurriculo">Ainda não foi enviada a apresenta&ccedil;&atilde;o do neg&oacute;cio.</h6>
+                            <div class="modal-body card white" data-ng-if="apresentacaoNegocio.miniCurriculo">
+                                <blockquote class="card grey lighten-4"><strong>Proposta Cadastrada: </strong></blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Mini Curr&iacute;culo: <br/><br/></strong>  {{apresentacaoNegocio.miniCurriculo}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Disponibilidade e comprometimento para o desenvolvimento do neg&oacute;cio: <br/><br/></strong>  {{apresentacaoNegocio.disponibilidade}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Descrição da inova&ccedil;&atilde;o do produto, servi&ccedil;o ou processo: <br/><br/></strong>  {{apresentacaoNegocio.inovacaoProduto}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Tempo necess&aacute;rio para o desenvolvimento do produto, servi&ccedil;o ou processo: <br/><br/></strong>  {{apresentacaoNegocio.tempoDesenvolvimento}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Investimento inicial a ser realizado: <br/><br/></strong>  {{apresentacaoNegocio.investimento}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Identifica&ccedil;&atilde;o de clientes, concorrentes e fornecedores: <br/><br/></strong>  {{apresentacaoNegocio.identificacao}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Conhecimento de mercado alvo: <br/><br/></strong>  {{apresentacaoNegocio.mercadoAlvo}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Vantagem competitiva comparada &agrave; concorr&ecirc;ncia: <br/><br/></strong>  {{apresentacaoNegocio.vantagemCompetitiva}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Parcerias previstas ou firmadas para o desenvolvimento do neg&oacute;cio: <br/><br/></strong>  {{apresentacaoNegocio.parcerias}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Estrutura organizacional proposta: <br/><br/></strong>  {{apresentacaoNegocio.estruturaOrganizacional}}</blockquote>
+                            </div>
+                            <div class="row">
+                                <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM MODAL DETALHES EMPREENDIMENTO -->
 
 
                 <c:forEach items="${empreendimentoList}" var="empreendimento">                    
@@ -50,7 +80,7 @@
                                     <div class="row center">
                                         <hr class="divider white" style="border: 0px"/>
                                         <a href="/gerenciador/empreendimento/${empreendimento.id}/avaliar" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Avaliar</a>
-                                        <a href="#" id="btn-informacoes" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a> 
+                                        <a href="#" id="btn-informacoes" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" data-ng-click="openModal(1, ${empreendimento.id})" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a> 
                                     </div>
                                     <div class="row hide-on-small-only">
                                         <hr class="divider white" style="border: 0px"/>

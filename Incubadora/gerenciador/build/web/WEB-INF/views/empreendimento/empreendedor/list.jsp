@@ -20,6 +20,25 @@
       <script src="<c:url value="/js/painel-empreendedor/values/empreendimento-values.js"/>"></script>
       <script src="<c:url value="/js/painel-empreendedor/services/empreendimento-services.js"/>"></script>
       <script src="<c:url value="/js/painel-empreendedor/controllers/empreendimento-controller.js"/>"></script>
+      <style>
+          .chip {
+                display: inline-block;
+                height: 32px;
+                font-size: 13px;
+                font-weight: 500;
+                color: rgb(255, 255, 255);
+                line-height: 32px;
+                padding: 0 12px;
+                border-radius: 16px;
+                background-color: rgba(96, 125, 139, 0.52);
+                margin-right: 1%;
+                margin-top: 2%;
+            }
+
+            .chip span a:hover{
+                color:#eeff41 !important;
+            }
+      </style>
    </head>
    <body data-ng-app="painelEmpreendedor">
       <%@include file="../../templates/top-bar-empreendedor.jsp" %>

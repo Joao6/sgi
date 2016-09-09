@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <!-- FIM MODAL EXCLUSAO DE EMPREENDIMENTO (JP) -->
-                    
+
                     <!-- MODAL + EMPREENDEDOR (JP) -->
                     <div class="modal" style="background-color: #FFF !important" id="modal-5">
                         <div class="modal-body card white">
@@ -68,7 +68,7 @@
 
                     </div>               
                     <!-- FIM MODAL + EMPREENDEDOR (JP) -->
-                    
+
                     <!-- MODAL DESCRIÇÂO RESULTADO -->
                     <div class="modal" style="background-color: #FFF !important" id="modal-6">
                         <div class="modal-body card white">
@@ -91,6 +91,38 @@
                     </div>
                     <!-- FIM MODAL DESCRIÇÂO RESULTADO -->
 
+                    <!-- MODAL DETALHES EMPREENDIMENTO -->
+                    <div class="modal" style="background-color: #FFF !important" id="modal-7">
+                        <div class="modal-body card white">
+                            <blockquote class="grey lighten-4"><strong>Nome:&nbsp;</strong>  {{empreendimento.nome}} </blockquote>
+                            <blockquote class="grey lighten-4"><strong>Ramo de Atividade</strong>  {{empreendimento.ramoAtividade.nome}}</blockquote>
+                            <blockquote class="grey lighten-4"><strong>Raz&atilde;o Social:&nbsp;</strong>  {{empreendimento.razaoSocial}}</blockquote>                            
+                            <blockquote class="grey lighten-4"><strong>Empreendedor(es):&nbsp;<br/></strong>
+                                <span data-ng-repeat="empreendedor in empreendimento.empreendedorList">
+                                    <span>{{empreendedor.nome}} {{empreendedor.sobrenome}}</span><br/>
+                                </span>
+                            </blockquote>                            
+                            <h6 class="card card-panel" data-ng-if="!apresentacaoNegocio.miniCurriculo">Ainda não foi enviada a apresenta&ccedil;&atilde;o do neg&oacute;cio.</h6>
+                            <div class="modal-body card white" data-ng-if="apresentacaoNegocio.miniCurriculo">
+                                <blockquote class="card grey lighten-4"><strong>Proposta Cadastrada: </strong></blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Mini Curr&iacute;culo: <br/><br/></strong>  {{apresentacaoNegocio.miniCurriculo}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Disponibilidade e comprometimento para o desenvolvimento do neg&oacute;cio: <br/><br/></strong>  {{apresentacaoNegocio.disponibilidade}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Descrição da inova&ccedil;&atilde;o do produto, servi&ccedil;o ou processo: <br/><br/></strong>  {{apresentacaoNegocio.inovacaoProduto}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Tempo necess&aacute;rio para o desenvolvimento do produto, servi&ccedil;o ou processo: <br/><br/></strong>  {{apresentacaoNegocio.tempoDesenvolvimento}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Investimento inicial a ser realizado: <br/><br/></strong>  {{apresentacaoNegocio.investimento}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Identifica&ccedil;&atilde;o de clientes, concorrentes e fornecedores: <br/><br/></strong>  {{apresentacaoNegocio.identificacao}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Conhecimento de mercado alvo: <br/><br/></strong>  {{apresentacaoNegocio.mercadoAlvo}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Vantagem competitiva comparada &agrave; concorr&ecirc;ncia: <br/><br/></strong>  {{apresentacaoNegocio.vantagemCompetitiva}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Parcerias previstas ou firmadas para o desenvolvimento do neg&oacute;cio: <br/><br/></strong>  {{apresentacaoNegocio.parcerias}}</blockquote>
+                                <blockquote class="card grey lighten-4"><strong>Estrutura organizacional proposta: <br/><br/></strong>  {{apresentacaoNegocio.estruturaOrganizacional}}</blockquote>
+                            </div>
+                            <div class="row">
+                                <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM MODAL DETALHES EMPREENDIMENTO -->
+
                     <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos cadastrados!</strong></h6>          
 
 
@@ -108,7 +140,7 @@
 
                                 <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Apresentação Agendada' && empreendimento.dataHoraApresentacao !== undefined">                                    
                                     <p class="left-align col l2 m6 l5 push-l1">Apresentação marcada para: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>
-                                    <p class="left-align col l2 m6 l5 push-l1">Horário: <strong>{{empreendimento.dataHoraApresentacao| date:'hh:mm'}}</strong></p>
+                                    <p class="left-align col l2 m6 l5 push-l1">Horário: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>
                                     <p class="left-align col l2 m6 l5 push-l1">Local: <strong>{{empreendimento.localApresentacao}}</strong></p>                              
                                 </div>
                                 <div class="row">
@@ -119,7 +151,7 @@
                                     <hr class="divider white" style="border: 0px"/>
                                     <button data-ng-if="validStatusResult(empreendimento)" class="btn center yellow black-text col s12 m12 l12" style="margin-top: 0.6rem;" data-ng-click="openModal(6, empreendimento)">Ver descrição do resultado final</button>
                                     <a data-ng-href="/gerenciador/empreendimento/{{empreendimento.id}}/enviar-proposta" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Cadastrar Proposta</a>                                    
-                                    <a href="#!" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a>                                     
+                                    <a href="#!" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" data-ng-click="openModal(7,empreendimento)" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a>                                                                         
                                 </div>
                                 <div class="row center">
                                     <a data-ng-href="#!" id="btn-add-empreendedor" class="btn teal white-text accent-5 col s12 m6 l4 push-l4 push-m4 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>

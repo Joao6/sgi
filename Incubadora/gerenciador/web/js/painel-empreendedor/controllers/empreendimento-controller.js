@@ -60,6 +60,7 @@ angular.module('painelEmpreendedor').controller('EmpreendimentoCtrl', function (
     //openModal (JP)
     $scope.openModal = function (id, empreendimento) {
         delete $scope.empreendimento;
+        $scope.apresentacaoNegocio = empreendimento.apresentacaoNegocio;
         $scope.empreendimento = empreendimento;
         var index = 0;
         if (id === 2) {

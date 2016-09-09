@@ -339,8 +339,8 @@
                                             <a href="#!" class="btn circle blue white-text center" style="border-radius: 0px !important; height: 22px !important; line-height: inherit !important" data-ng-click="desmarcarApresentacao(empreendimento)">Desmarcar</a>
                                             <br/>
                                         </p>
-                                        <p class="left-align col l2 m6 l5 push-l1">Apresentação marcada para: <strong>{{empreendimento.dataHoraApresentacao| date:'dd/MM/yyyy'}}</strong></p>
-                                        <p class="left-align col l2 m6 l5 push-l1">Horário: <strong>{{empreendimento.dataHoraApresentacao| date:'hh:mm'}}</strong></p>
+                                        <p class="left-align col l2 m6 l5 push-l1">Apresentação marcada para: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>
+                                        <p class="left-align col l2 m6 l5 push-l1">Horário: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>
                                         <p class="left-align col l2 m6 l5 push-l1">Local: <strong>{{empreendimento.localApresentacao}}</strong></p>                              
                                     </div>
                                     <div class="row">
@@ -361,7 +361,7 @@
                                         <!-- BOTAO EDITAR PODE SER REMOVIDO -->
                                         <!-- <a data-ng-href="#!" id="btn-editar" class="btn blue valign white-text accent-5 col s12 m2 l2  push-l1  push-m1 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Editar</a> -->                                                                                
                                         <a data-ng-href="#!" id="btn-add-avaliador" class="btn blue valign white-text accent-5 col s12 m6 l3 push-l2 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(4, empreendimento)" data-ng-disabled="isAvaliadorListEmpty()"><span style="font-size: 16pt">+</span> Avaliador</a> 
-                                        <a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l3 push-12 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>                                                                                                                        
+                                        <a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l3 push-12 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>                                                                                                                                                                
                                     </div>                                    
                                     <!--NESTA DIV CONTEM OS BOTOES ONDE O GESTOR IRÁ APROVAR OU REPROVAR UM EMPREENDIMENTO-->
                                     <div class="row center">                                                                                

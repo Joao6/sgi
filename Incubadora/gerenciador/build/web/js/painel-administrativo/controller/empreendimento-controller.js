@@ -16,6 +16,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     $scope.empreendimentoList = [];
     $scope.avaliadorList = [];
+    $scope.avaliadorList = [];
     $scope.avaliadores = [];
     $scope.empreendimento = {};
     $scope.avaliador = {};
@@ -23,6 +24,8 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.empreendedor = {};
     $scope.empreendedores = [];
     $scope.empreendedorList = [];
+    $scope.avaliador1 = {};
+    $scope.avaliador2 = {};
     //(JP)
     $scope.apresentacaoNegocio = {empreendimento: {'id': 0}};
     $scope.apresentacao = {};
@@ -93,7 +96,6 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
         }
 
     }
-
     _getAvaliadores();
 
     if (status === "create") {
@@ -178,12 +180,12 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     $scope.isAvaliadorListEmpty = function () {
         return $scope.avaliadorList.length < 1;
-    };    
+    };
 
     $scope.addAvaliador = function (avaliador) {
         $scope.empreendimento.avaliadorList.push(avaliador);
         console.log($scope.empreendimento.avaliadorList);
-    };    
+    };
 
     $scope.setActive = function (empreendimento) {
         if (empreendimento.show !== true) {
@@ -290,6 +292,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
         delete $scope.empreendimento;
         $scope.apresentacaoNegocio = empreendimento.apresentacaoNegocio;
         $scope.empreendimento = empreendimento;
+//        _getAvaliadores();
         var index = 0;
         if (id === 2) {
             index = statusList.indexOf(empreendimento.status);
@@ -344,7 +347,6 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
             }
 
         } else {
-
             if ($scope.empreendimento.avaliadorList.length > 0) {
                 _getEmpreendimentos();
                 // Garante que somente os avaliadores que não estão associados ao empreendimento
@@ -354,13 +356,12 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
                     var found = $scope.empreendimento.avaliadorList.some(function (av) {
                         return (av.id === $scope.avaliadores[i].id);
                     });
-
                     if (!found) {
                         aux.push($scope.avaliadores[i]);
                     }
                 }
                 $scope.avaliadores = aux;
-            }            
+            }
             $("#modal-" + id).openModal(configModal);
         }
     };
@@ -477,5 +478,5 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
             Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION);
         }
 
-    };   
+    };
 });
