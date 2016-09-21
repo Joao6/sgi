@@ -64,7 +64,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
          if (uri.contains("/candidato/email")) {
             ok = true;
         }
-         if (uri.contains("/candidato/novo")) {
+         if (uri.contains("/candidato/novo")) { 
             ok = true;
         }
         

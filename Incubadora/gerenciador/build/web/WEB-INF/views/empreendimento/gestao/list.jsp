@@ -78,6 +78,21 @@
                 color:#eeff41 !important;
             }
 
+            .progress {
+                position: relative;
+                height: 5px;
+                display: block;
+                width: 100%;
+                background-color: rgba(236, 229, 172, 0.43);
+                border-radius: 2px;
+                margin: 0.5rem 0 1rem 0;
+                overflow: hidden;
+            }
+
+            .progress .indeterminate {
+                background-color: rgb(234, 202, 24);
+            }
+
         </style>
         <%@include file="../../templates/basic-script.jsp" %>
         <script src="<c:url value="/js/painel-administrativo/values/empreendimento-values.js"/>"></script>

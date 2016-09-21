@@ -59,23 +59,25 @@
             </div>
             <form name="empreendedorForm">
                <div class="row">
-                  <div class="col s12 m6 l2 ">
+                  <div class="col s12 m6 l4">
                      <label for="cpf">CPF</label>
                      <input id="cpf" class="grey lighten-3" type="text"  data-ng-model="empreendedor.cpf"/>
                   </div>
-                  <div class="col s12 m6 l2 ">
+                  <div class="col s12 m6 l4">
                      <label for="rg">RG</label>
                      <input id="rg" class="grey lighten-3" type="text" data-ng-model="empreendedor.rg"/>
                   </div>
-                  <div class="col s12 m6 l2 ">
-                     <label for="data" class="truncate">Data de Nascimento</label>
-                     <input id="data" class="grey lighten-3 datepicker" type="date"  data-ng-model="empreendedor.dataNascimento" />
+                  <div class="col s12 m6 l4">
+                     <label for="data" class="">Data de Nascimento</label>
+                     <input id="data" class="grey lighten-3" type="text"  data-ng-model="empreendedor.dataNascimento" />
                   </div>
-                  <div class="col s12 m6 l3 ">
+               </div>
+                <div class="row">
+                  <div class="col s12 m6 l4 ">
                      <label for="escolaridade">Escolaridade</label>
                      <input id="escolaridade" class="grey lighten-3" type="text" data-ng-model="empreendedor.escolaridade"/>
                   </div>
-                  <div class="col s12 m6 l3 ">
+                  <div class="col s12 m6 l4 ">
                      <label for="formacao">Forma&ccedil;&atilde;o</label>
                      <input id="formacao" class="grey lighten-3" type="text" data-ng-model="empreendedor.formacaoProfissional"/>
                   </div>
@@ -83,15 +85,16 @@
                      <label for="ocupacao">Ocupa&ccedil;&atilde;o</label>
                      <input id="ocupacao" class="grey lighten-3" type="text" data-ng-model="empreendedor.ocupacao"/>
                   </div>
-                  <div class="col s12 m6 l2 ">
+                </div>
+                <div class="row">
+                  <div class="col s12 m6 l6 ">
                      <label for="endereco">Endere&ccedil;o</label>
                      <input id="endereco" class="grey lighten-3" type="text" data-ng-model="empreendedor.endereco.rua"/>
                   </div>
-                  <div class="col s12 m6 l3 ">
+                  <div class="col s12 m6 l6 ">
                      <label for="fax">FAX</label>
                      <input id="fax" class="grey lighten-3" type="text" data-ng-model="empreendedor.fax"/>
                   </div>                                         
-
                </div>
                <div class="row">                  
                   <button class="btn btn-floating circle waves-effect waves-orange orange  darken-2 material-icons">undo</button>&nbsp;&nbsp;

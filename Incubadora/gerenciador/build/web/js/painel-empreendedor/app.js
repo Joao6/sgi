@@ -2,43 +2,54 @@
 
 var app = angular.module('painelEmpreendedor', ['caco.ClientPaginate', 'ngRoute']);
 app.controller('MainCtrl', function ($scope, InfoService) {
-   $scope.empreendedor = {};
+    $scope.empreendedor = {};
 
-   var _getInfo = function () {
-      try {
-         InfoService.getInfo()
-                 .success(function (data) {
-                    var _d = data.dataNascimento.split("-");
-                    //yyyy-MM-dd           
-                    data.dataNascimento = new Date(_d[0], _d[1] - 1, _d[2]);
+    var _getInfo = function () {
+        try {
+            InfoService.getInfo()
+                    .success(function (data) {
+                        if (data.dataNascimento !== null & data.dataNascimento !== undefined) {
+                            var _d = data.dataNascimento.split("-");
+                            //dd/MM/yyyy          
+                            data.dataNascimento = (_d[2] + "/" + _d[1] + "/" + _d[0]);
+                        } else {
+                            data.dataNascimento = null;
+                        }
 
-                    $scope.empreendedor = data;
-                    console.log(data);
-                 }).error(function () {
+                        $scope.empreendedor = data;
+                        console.log(data);
+                    }).error(function () {
 
-         });
-      } catch (e) {
+            });
+        } catch (e) {
 
-         console.log(e);
-      }
-   };
+            console.log(e);
+        }
+    };
 
-   _getInfo();
+    _getInfo();
 
-   //Update todo
-   $scope.updateInfo = function (empreendedor) {
-      try {
-         InfoService.updateInfo(empreendedor).success(function () {
-            _getInfo();
-            Materialize.toast('Dados atualizados com sucesso! =)', 4000, 'rounded green');
-         }).error(function () {
+    //Update todo
+    $scope.updateInfo = function (empreendedor) {
+        try {
+            if (empreendedor.dataNascimento !== "" && empreendedor.dataNascimento !== undefined) {
+                var _d = empreendedor.dataNascimento.split("/");
+                empreendedor.dataNascimento = new Date(_d[1] + "-" + _d[0] + "-" + _d[2]);
+            } else {
+                empreendedor.dataNascimento = "";
+            }
+
+            InfoService.updateInfo(empreendedor).success(function () {
+                _getInfo();
+                Materialize.toast('Dados atualizados com sucesso! =)', 4000, 'rounded green');
+            }).error(function () {
+                Materialize.toast('Erro ao tentar atualizar dados! =(', 4000, 'rounded red');
+            });
+        } catch (e) {
             Materialize.toast('Erro ao tentar atualizar dados! =(', 4000, 'rounded red');
-         });
-      } catch (e) {
-         Materialize.toast('Erro ao tentar atualizar dados! =(', 4000, 'rounded red');
-      }
+        }
 
-   };
+    };
 
 });
 

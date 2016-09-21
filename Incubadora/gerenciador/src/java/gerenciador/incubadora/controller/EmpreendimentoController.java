@@ -7,6 +7,7 @@ import gerenciador.incubadora.model.ServiceLocator;
 import gerenciador.incubadora.model.dao.CriterioAvaliacaoDAO;
 import gerenciador.incubadora.model.dao.EditalDAO;
 import gerenciador.incubadora.model.dao.EmpreendimentoDAO;
+import gerenciador.incubadora.model.dao.EmpreendimentoEmpreendedorDAO;
 import gerenciador.incubadora.model.dao.NotaDAO;
 import gerenciador.incubadora.model.entity.ApresentacaoNegocio;
 import gerenciador.incubadora.model.entity.Avaliacao;
@@ -16,11 +17,13 @@ import gerenciador.incubadora.model.entity.Edital;
 import gerenciador.incubadora.model.entity.Eixo;
 import gerenciador.incubadora.model.entity.Empreendedor;
 import gerenciador.incubadora.model.entity.Empreendimento;
+import gerenciador.incubadora.model.entity.EmpreendimentoEmpreendedor;
 import gerenciador.incubadora.model.entity.Endereco;
 import gerenciador.incubadora.model.entity.Gestor;
 import gerenciador.incubadora.model.entity.Nota;
 import gerenciador.incubadora.model.entity.RamoAtividade;
 import gerenciador.incubadora.model.entity.Usuario;
+import gerenciador.incubadora.model.service.EmpreendimentoService;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -493,46 +496,46 @@ public class EmpreendimentoController {
     }
 
     /*@RequestMapping(value = "/empreendimento/avaliar", method = RequestMethod.POST)
-    @ResponseBody
-    public void avaliar(@RequestBody String notaList, HttpServletResponse response, HttpSession session) {
+     @ResponseBody
+     public void avaliar(@RequestBody String notaList, HttpServletResponse response, HttpSession session) {
 
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-        try {
-            if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_AVALIADOR)) {
+     Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+     try {
+     if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_AVALIADOR)) {
 
-                Gson g = new GsonBuilder().setDateFormat("dd-MM-YYYY").create();
-                Type type = new TypeToken<List<Nota>>() {
-                }.getType();
+     Gson g = new GsonBuilder().setDateFormat("dd-MM-YYYY").create();
+     Type type = new TypeToken<List<Nota>>() {
+     }.getType();
 
-                List<Nota> notas = g.fromJson(notaList, type);
+     List<Nota> notas = g.fromJson(notaList, type);
 
-                Map<Long, Double> fields = new HashMap<Long, Double>();
-                for (Nota nota : notas) {
-                    fields.put(nota.getId(), nota.getNota());
-                }
+     Map<Long, Double> fields = new HashMap<Long, Double>();
+     for (Nota nota : notas) {
+     fields.put(nota.getId(), nota.getNota());
+     }
 
-                Map<Long, String> errors = ServiceLocator.getNotaService().validateForCreateNota(fields);
-                if (errors.size() == 0) {
-                    for (Nota nota : notas) {
-                        ServiceLocator.getNotaService().create(nota);
-                    }
-                    Empreendimento e = ServiceLocator.getEmpreendimentoService().readById(notas.get(0).getEmpreendimento().getId());
-                    e.setStatus(Empreendimento.EMPREENDIMENTO_STATUS_AV_REALIZADA);
-                    ServiceLocator.getEmpreendimentoService().update(e);
-                    response.setStatus(200);
+     Map<Long, String> errors = ServiceLocator.getNotaService().validateForCreateNota(fields);
+     if (errors.size() == 0) {
+     for (Nota nota : notas) {
+     ServiceLocator.getNotaService().create(nota);
+     }
+     Empreendimento e = ServiceLocator.getEmpreendimentoService().readById(notas.get(0).getEmpreendimento().getId());
+     e.setStatus(Empreendimento.EMPREENDIMENTO_STATUS_AV_REALIZADA);
+     ServiceLocator.getEmpreendimentoService().update(e);
+     response.setStatus(200);
 
-                } else {
-                    response.setStatus(500);
-                }
-            }
+     } else {
+     response.setStatus(500);
+     }
+     }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(500);
+     } catch (Exception e) {
+     e.printStackTrace();
+     response.setStatus(500);
 
-        }
+     }
 
-    }*/
+     }*/
     @RequestMapping(value = "/empreendimento/{id}/adicionarAvaliador", method = RequestMethod.GET)
     public ModelAndView addAvaliador(@PathVariable Long id) {
         ModelAndView mv = null;
@@ -690,6 +693,9 @@ public class EmpreendimentoController {
             Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             Empreendimento e = g.fromJson(empreendimento, type);
             ServiceLocator.getEmpreendimentoService().updateStatusEmpreendimento(e.getId(), e.getStatus());
+            
+            EmpreendimentoService es = new EmpreendimentoService();
+            es.sendEmailStatus(e);
             response.setStatus(200);
         } catch (Exception e) {
             response.setStatus(500);
@@ -782,7 +788,7 @@ public class EmpreendimentoController {
                 criteria.put(EmpreendimentoDAO.CRITERION_EMPREENDEDOR_ID, empreendedor.getId());
                 List<Empreendimento> empreendimentoList = ServiceLocator.getEmpreendimentoService().readByCriteria(criteria);
                 if (empreendimentoList != null && !empreendimentoList.isEmpty()) {
-                    Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
+                    Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm").create();
                     empreendimentos = g.toJson(empreendimentoList);
                 }
                 response.setStatus(200);

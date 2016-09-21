@@ -8,6 +8,6 @@
       url_get_gestor_by_id:'/gerenciador/incubadora/edit/gestor/',
       url_edit_gestor:'/gerenciador/incubadora/edit/gestor',
       url_check_email:'/gerenciador/incubadora/gestor/email',
-      url_check_cpf:'/gerenciador/incubadora/gestor/check/cpf'
+      url_check_cpf:'/gerenciador/incubadora/gestor/check/cpf'      
    });
 })();

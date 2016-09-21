@@ -6,20 +6,14 @@
 
 
 
-$(document).ready(function () {
-
-    $('.input-data').mask("00r00r0000", {
-        translation: {
-            'r': {
-                pattern: /[\/]/,
-                fallback: '/'
-            },
-            placeholder: "__/__/____"
-        }
-    });
+jQuery(document).ready(function () {
 
     $(".input-cnpj").mask("99.999.999/9999-99");
     // $(".input-cpf").mask("999.999.999-99", {placeholder:"123.456.789-12"});
 
     $("#cpf").mask("999.999.999-99");    // Máscara para CP
+    
+    $("#dataNascimento").mask("99/99/9999"); // Mascara para data de nascimento
+    
+    $("#telefone").mask("(99) 9 9999-9999"); // Mascara para data de nascimento
 });

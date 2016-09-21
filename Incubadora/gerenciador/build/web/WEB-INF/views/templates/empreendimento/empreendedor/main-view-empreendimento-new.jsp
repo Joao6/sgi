@@ -50,17 +50,20 @@
 
                         </div>
                      </div>
-
+                     <div class="row">
+                         <br/>
+                         <h6 class="center-align" style="text-transform: uppercase;"><strong>Os campos abaixo serão preenchidos pela equipe Gestora</strong></h6>
+                     </div>
                      <div class="row">                        
                         <div class="col s12 m6 l6">                          
                            <div class="input-field">
-                              <input type="text" name="cnpj" id="razaoSocial" placeholder="ex.: 12.345.678/0001" data-ng-model="empreendimento.cnpj"/>
+                               <input type="text" name="cnpj" id="razaoSocial" placeholder="ex.: 12.345.678/0001" data-ng-model="empreendimento.cnpj" data-ng-disabled="true"/>
                               <label for="cnpj">CNPJ</label>
                            </div>                           
                         </div>  
 
                         <div class="input-field col s12 m6 l6">
-                           <textarea class="materialize-textarea" id="missao" style="max-height: 105px; overflow-y: auto;"  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.missao"></textarea>
+                           <textarea class="materialize-textarea" id="missao" style="max-height: 105px; overflow-y: auto;"  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.missao" data-ng-disabled="true"></textarea>
                            <label for="missao">Miss&atilde;o</label>
                         </div>
 
@@ -70,14 +73,14 @@
 
                         <div class="col s12 m6 l6"> 
                            <div class="input-field">
-                              <input type="text" name="inscricaoEstatual" id="inscricaoEstadual" placeholder="ex.: 4125-55" data-ng-model="empreendimento.inscricaoEstadual"/>
+                              <input type="text" name="inscricaoEstatual" id="inscricaoEstadual" placeholder="ex.: 4125-55" data-ng-model="empreendimento.inscricaoEstadual" data-ng-disabled="true"/>
                               <label for="inscricaoEstadual">Inscrição Estadual</label>
                            </div>                            
                         </div>                          
 
                         <div class="col s12 m6 l6">
                            <div class="input-field">
-                              <textarea class="materialize-textarea" id="visao" style="max-height: 105px; overflow-y: auto;"  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.visao"></textarea>
+                              <textarea class="materialize-textarea" id="visao" style="max-height: 105px; overflow-y: auto;"  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.visao" data-ng-disabled="true"></textarea>
                               <label for="visao">Vis&atilde;o</label>
                            </div>
                         </div>
@@ -87,14 +90,14 @@
                      <div class="row">
                         <div class="col s12 m6 l6">
                            <div class="input-field">
-                              <input type="text" name="inscricaoMunicipal" id="inscricaoEstadual" placeholder="ex.: 4125-55" data-ng-model="empreendimento.inscricaoMunicipal" />
+                              <input type="text" name="inscricaoMunicipal" id="inscricaoEstadual" placeholder="ex.: 4125-55" data-ng-model="empreendimento.inscricaoMunicipal" data-ng-disabled="true"/>
                               <label for="inscricaoMunicipal">Inscrição Municipal</label>
                            </div> 
                         </div>
 
                         <div class="col s12 m6 l6">
                            <div class="input-field">
-                              <textarea class="materialize-textarea" id="visao" style="max-height: 105px; overflow-y: auto; "  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.valores"></textarea>
+                              <textarea class="materialize-textarea" id="visao" style="max-height: 105px; overflow-y: auto; "  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.valores" data-ng-disabled="true"></textarea>
                               <label for="valores">Valores</label>
                            </div>
                         </div>
@@ -103,14 +106,14 @@
                      <div class="row">
                         <div class="col s12 m6 l6  grey  lighten-4">
                            <div class="input-field">
-                              <input type="text" class="datepicker" placeholder="ddd/mm/aaaa" id="dataAbertura" disabled="true" data-ng-model="empreendimento.dataAbertura"/>
+                              <input type="text" class="datepicker" placeholder="ddd/mm/aaaa" id="dataAbertura" disabled="true" data-ng-model="empreendimento.dataAbertura" data-ng-disabled="true"/>
                               <label for="dataAbertura">Data de Abertura</label>
                            </div>
                         </div>
                         <div class="row">
                            <div class="col s12 m6 l6  grey  lighten-4">
                               <div class="input-field">
-                                 <input type="text" class="datepicker" placeholder="dd/mm/aaaa" id="dataIngresso" disabled="true"  data-ng-model="empreendimento.dataIngresso"/>
+                                 <input type="text" class="datepicker" placeholder="dd/mm/aaaa" id="dataIngresso" disabled="true"  data-ng-model="empreendimento.dataIngresso" data-ng-disabled="true"/>
                                  <label for="dataIngresso">Data de Ingresso</label>
                               </div>
                            </div>
@@ -120,7 +123,7 @@
                      <div class="row">
                         <div class="col s12 m6 l6 grey  lighten-4">
                            <label for="prevGraduacao">Data de Previsão da Gradua&ccedil;&atilde;o</label>
-                           <input id="prevGraduacao" type="text" class="datepicker" placeholder="dd/mmm/aaaa" disabled="true" data-ng-model="empreendimento.prevGraduacao"/>
+                           <input id="prevGraduacao" type="text" class="datepicker" placeholder="dd/mmm/aaaa" disabled="true" data-ng-model="empreendimento.prevGraduacao" data-ng-disabled="true"/>
                         </div>
 
                         <div class="s12 m6 l6">

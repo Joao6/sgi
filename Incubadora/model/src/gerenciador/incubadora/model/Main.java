@@ -1,8 +1,7 @@
 package gerenciador.incubadora.model;
 
-import gerenciador.incubadora.model.entity.Empreendimento;
-import gerenciador.incubadora.model.service.EmpreendimentoService;
-import java.util.ArrayList;
+import gerenciador.incubadora.model.dao.EmpreendedorDAO;
+import gerenciador.incubadora.model.entity.Empreendedor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +12,16 @@ import java.util.Map;
  */
 public class Main {
 
-    public static void main(String[] args) throws Exception{
-        
-        EmpreendimentoService s = new EmpreendimentoService();
-        List<Empreendimento> empreendimentoList = new ArrayList<>();
-        Map<String, Object> criteria = new HashMap<>();
-        criteria.put("0", 7L);
-        empreendimentoList = s.readByCriteria(criteria);
-        
+    public static void main(String[] args) throws Exception {
+
+//        Map<String, Object> criteria = new HashMap<String, Object>();
+//        criteria.put(EmpreendimentoEmpreendedorDAO.CRITERION_EMPREENDIMENTO_ID, 50L);
+//        List<EmpreendimentoEmpreendedor> eeList = ServiceLocator.getEmpreendimentoEmpreendedorService().readByCriteria(criteria);
+//
+//        for (EmpreendimentoEmpreendedor aux : eeList) {
+//            System.out.println(aux.getEmpreendedor().getNome());            
+//            System.out.println(aux.getEmpreendedor().getEmail());            
+//        }
+
     }
 }

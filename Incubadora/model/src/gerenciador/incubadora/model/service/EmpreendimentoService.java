@@ -5,7 +5,9 @@ import gerenciador.incubadora.model.ErrorMessage;
 import gerenciador.incubadora.model.ServiceLocator;
 import gerenciador.incubadora.model.base.service.BaseEmpreendimentoService;
 import gerenciador.incubadora.model.dao.EmpreendimentoDAO;
+import gerenciador.incubadora.model.dao.EmpreendimentoEmpreendedorDAO;
 import gerenciador.incubadora.model.entity.Empreendimento;
+import gerenciador.incubadora.model.entity.EmpreendimentoEmpreendedor;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -198,6 +200,31 @@ public class EmpreendimentoService implements BaseEmpreendimentoService {
             throw ex;
         }
 
+    }
+    
+    public void sendEmailStatus(Empreendimento e) throws Exception{        
+        try{
+            //envia um email notificando a mudança de status
+            Map<String, Object> criteria = new HashMap<String, Object>();
+            criteria.put(EmpreendimentoEmpreendedorDAO.CRITERION_EMPREENDIMENTO_ID, e.getId());
+            List<EmpreendimentoEmpreendedor> eeList = ServiceLocator.getEmpreendimentoEmpreendedorService().readByCriteria(criteria);
+            String status = e.getStatus();
+            String assunto = "Status do Empreendimento Alterado";
+            for (EmpreendimentoEmpreendedor aux : eeList) {
+                String destino = aux.getEmpreendedor().getEmail();
+                String texto = "Olá, " + aux.getEmpreendedor().getNome() + "."
+                        + "Viemos por meio deste email, notificar que o empreendimento '" + aux.getEmpreendimento().getNome() + "'"
+                        + " ao qual você faz parte, no Sistema Gerenciador da INTEF, teve seu status "
+                        + "alterado durante o processo de seleção."
+                        + " Acompanhe mais de perto o processo de seleção do seu empreendimento"
+                        + " através do nosso sitema."
+                        + " O status atual de seu empreendimento é: '"+ status+"'."
+                        + " Atenciosamente, Gestão da Incubadora.";
+                ServiceLocator.getEmailService().sendEmail(destino, assunto, texto);
+            }
+        }catch(Exception ex){
+            throw ex;
+        }
     }
 
     public void updateContratacao(Long id, Boolean contratacao) throws Exception {

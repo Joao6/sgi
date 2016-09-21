@@ -77,6 +77,12 @@
                                 </div>                                
                                 <button data-ng-click="setStatus(empreendimento.id)" data-ng-disabled="btnStatusOk, validStatus(empreendimento, 'Avaliação Realizada')" class="btn blue col s12 m12 l12 btn-status"></button>                                                                        
                                 <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                                <!--// BARRA DE PROGRESSO PARA A CONCLUSÃO DO MÉTODO -->
+                                <div class="row" data-ng-show="showProgress">
+                                    <div class="progress">
+                                        <div class="indeterminate"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>               
@@ -224,7 +230,7 @@
                         <!--</div>-->
                     </div>               
                     <!-- FIM MODAL REPROVAR EMPREENDIMENTO-->
-                    
+
                     <!-- MODAL APROVAR EMPREENDIMENTO -->
                     <div class="modal" style="background-color: #FFF !important" id="modal-8">
                         <!--<div class="modal-body card-panel white">-->
@@ -261,17 +267,17 @@
                     <!-- FIM MODAL REPROVAR EMPREENDIMENTO-->
 
                     <!-- MODAL APROVAR EMPREENDIMENTO-->
-<!--                    <div class="modal alert-modal-excluir card-panel" id="modal-8">
-                        <div class="modal-content">
-                            <h3 class="valign-wrapper" style="font-size: 25pt"><i class="material-icons valign" style="margin-right:2%; font-size: 25pt !important">warning</i> <span class="valign">Aprovação de Empreendimento</span></h3>
-                            <h5>Você confirma que deseja aprovar o empreendimento e notificar os empreendedores relacionados a este empreendimento?</h5>
-                            <p>Obs.: esta operação não pode ser revertida</p>
-                        </div>
-                        <div class="modal-footer card-action">
-                            <a href="#!" data-ng-click="setStatusAprovado(empreendimento.id, 'Aprovado')" class="waves-effect waves-orange btn-flat modal-close">Aprovar</a>
-                            <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Cancelar</a>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="modal alert-modal-excluir card-panel" id="modal-8">
+                                            <div class="modal-content">
+                                                <h3 class="valign-wrapper" style="font-size: 25pt"><i class="material-icons valign" style="margin-right:2%; font-size: 25pt !important">warning</i> <span class="valign">Aprovação de Empreendimento</span></h3>
+                                                <h5>Você confirma que deseja aprovar o empreendimento e notificar os empreendedores relacionados a este empreendimento?</h5>
+                                                <p>Obs.: esta operação não pode ser revertida</p>
+                                            </div>
+                                            <div class="modal-footer card-action">
+                                                <a href="#!" data-ng-click="setStatusAprovado(empreendimento.id, 'Aprovado')" class="waves-effect waves-orange btn-flat modal-close">Aprovar</a>
+                                                <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Cancelar</a>
+                                            </div>
+                                        </div>-->
                     <!-- FIM MODAL APROVAR EMPREENDIMENTO-->
 
                     <!-- MODAL STATUS FINAL -->

@@ -149,31 +149,31 @@
 
 
               // Exibe mensagem informando que o campo deixado em branco é obrigatório
-              $("#candidatoForm .validate").blur(function () {
-                 var val = $(this).val();
-                 var nome = $(this).parent('.input-field').find('label').text();
-                 if(nome === undefined || nome === ""){
-                    nome = $(this).find('[selected]').text();
-                 }
-                 
-                 if (val === "" || val === undefined) {
-                    var ico = "<a href='#!' class='close-toast white-text'><i class='material-icons right valign' style='font-size:18px'>clear</i></a>";
-                    Materialize.toast("<span class='valign-wrapper'>" + app._MESSAGE_FIELD_REQUIRED + ": <strong class='valign'>&nbsp;&nbsp;" + nome + "</strong>" + ico + "</span>",360000, 'orange rounded');
-                    $(this).css({"background-color": "rgba(255, 192, 206, 0.4)"});
-                 } else {
-                    $(this).css({"background-color": "#FFF"});
-                 }
-                 
-                 var telefonePattern = /^\(?[0-9]{2}\)?\s*9?[0-9]{4}-?[0-9]{4}$/;
-                 var id = $(this).attr("id");
-                 if(id === "telefone" && val !== ""){
-                   var telefone = $(this).val();
-                   if(!telefonePattern.test(telefone)){                     
-                      Materialize.toast('O número do <strong>&nbsp;Telefone&nbsp;</strong> não é inválido!', 4000, 'orange rounded');
-                      $(this).css({"background-color": "rgba(255, 192, 206, 0.4)"});
-                   }
-                 }
-              });                           
+//              $("#candidatoForm .validate").blur(function () {
+//                 var val = $(this).val();
+//                 var nome = $(this).parent('.input-field').find('label').text();
+//                 if(nome === undefined || nome === ""){
+//                    nome = $(this).find('[selected]').text();
+//                 }
+//                 
+//                 if (val === "" || val === undefined) {
+//                    var ico = "<a href='#!' class='close-toast white-text'><i class='material-icons right valign' style='font-size:18px'>clear</i></a>";
+//                    Materialize.toast("<span class='valign-wrapper'>" + app._MESSAGE_FIELD_REQUIRED + ": <strong class='valign'>&nbsp;&nbsp;" + nome + "</strong>" + ico + "</span>",360000, 'orange rounded');
+//                    $(this).css({"background-color": "rgba(255, 192, 206, 0.4)"});
+//                 } else {
+//                    $(this).css({"background-color": "#FFF"});
+//                 }
+//                 
+//                 var telefonePattern = /^\(?[0-9]{2}\)?\s*9?[0-9]{4}-?[0-9]{4}$/;
+//                 var id = $(this).attr("id");
+//                 if(id === "telefone" && val !== ""){
+//                   var telefone = $(this).val();
+//                   if(!telefonePattern.test(telefone)){                     
+//                      Materialize.toast('O número do <strong>&nbsp;Telefone&nbsp;</strong> não é inválido!', 4000, 'orange rounded');
+//                      $(this).css({"background-color": "rgba(255, 192, 206, 0.4)"});
+//                   }
+//                 }
+//              });                           
               
               // Remove toat ao clicar no X
               $(document).on('click', '.close-toast', function(){

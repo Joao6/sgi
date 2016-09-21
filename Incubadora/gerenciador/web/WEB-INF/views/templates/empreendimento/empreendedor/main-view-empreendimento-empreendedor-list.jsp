@@ -153,9 +153,7 @@
                                     <a data-ng-href="/gerenciador/empreendimento/{{empreendimento.id}}/enviar-proposta" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Cadastrar Proposta</a>                                    
                                     <a href="#!" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" data-ng-click="openModal(7,empreendimento)" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a>                                                                         
                                 </div>
-                                <div class="row center">
-                                    <a data-ng-href="#!" id="btn-add-empreendedor" class="btn teal white-text accent-5 col s12 m6 l4 push-l4 push-m4 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>
-                                </div>
+                                
                                 <div class="row hide-on-small-only">
                                     <hr class="divider white" style="border: 0px"/>
                                     <ul clss="col s12 m12 l12">

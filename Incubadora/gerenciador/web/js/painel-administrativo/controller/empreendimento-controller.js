@@ -24,8 +24,6 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.empreendedor = {};
     $scope.empreendedores = [];
     $scope.empreendedorList = [];
-    $scope.avaliador1 = {};
-    $scope.avaliador2 = {};
     //(JP)
     $scope.apresentacaoNegocio = {empreendimento: {'id': 0}};
     $scope.apresentacao = {};
@@ -35,6 +33,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.ramoAtividadeList = [];
     $scope.nextStatus = 'Alterar Status';
     $scope.statusResult = 'Reprovado';
+    $scope.showProgress = false;
     var statusList = [];
     var configModal = {
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -362,6 +361,24 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
                 }
                 $scope.avaliadores = aux;
             }
+//            $("#modal-" + id).openModal(configModal);
+
+            if ($scope.empreendimento.empreendedorList.length > 0) {
+                _getEmpreendimentos();
+                // Garante que somente os empreendedores que não estão associados ao empreendimento
+                // Sejam exibidos no Select.
+                var aux = [];
+                for (var i = 0; i < $scope.empreendedores.length; ++i) {
+                    var found = $scope.empreendimento.empreendedorList.some(function (av) {
+                        return (av.id === $scope.empreendedores[i].id);
+                    });
+
+                    if (!found) {
+                        aux.push($scope.empreendedores[i]);
+                    }
+                }
+                $scope.empreendedores = aux;
+            }
             $("#modal-" + id).openModal(configModal);
         }
     };
@@ -396,11 +413,14 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.setStatus = function (id) {
         var emp = {id: id, status: $scope.nextStatus};
         try {
+            $scope.showProgress = true;
             EmpreendimentoService.alterarStatus(emp)
                     .success(function () {
                         _getEmpreendimentos();
+                        $scope.showProgress = false;
                         $("#modal-2").closeModal(configModal);
                     }).error(function () {
+                $scope.showProgress = false;
                 Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');
             });
         } catch (e) {
@@ -479,4 +499,75 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
         }
 
     };
+
+//    EMPREENDEDORES
+//(JP)
+    function _getEmpreendedores() {
+        try {
+            EmpreendimentoService.getEmpreendedores().success(function (data) {
+                $scope.empreendedorList = data;
+                $scope.empreendedores = angular.copy($scope.empreendedorList);
+            }).error(function () {
+                Materialize.toast(app.MESSAGE_GET_EMPREENDEDORES_ERROR, 4000, 'orange rounded');
+            });
+        } catch (e) {
+            Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'orange rounded');
+            console.log(e);
+        }
+
+    }
+
+    _getEmpreendedores();
+
+    $scope.isEmpreendedorListEmpty = function () {
+        return $scope.empreendedorList.lenght < 1;
+    };
+
+    $scope.addEmpreendedor = function (empreendedor) {
+        $scope.empreendimento.empreendedorList.push(empreendedor);
+        console.log($scope.empreendimento.empreendedorList);
+    };
+
+    $scope.addEmpreendedor = function (empreendedor) {
+        if (empreendedor.id !== "" && empreendedor.id !== undefined) {
+            // Remover do select
+            $scope.empreendedores = $scope.empreendedores.filter(function (a) {
+                if (a.id != empreendedor.id) {
+                    return a;
+                } else {
+                    $scope.empreendimento.empreendedorList.push(angular.copy(a));
+                }
+            });
+        }
+    };
+
+    $scope.removeEmpreendedor = function (id) {
+        if (id !== "" && id !== undefined) {
+            $scope.empreendimento.empreendedorList = $scope.empreendimento.empreendedorList.filter(function (a) {
+                if (a.id != id) {
+                    return a;
+                } else {
+                    $scope.empreendedores.push(angular.copy(a));
+                }
+            });
+        }
+    };
+
+    $scope.associarEmpreendedores = function () {
+        try {
+            EmpreendimentoService.associarEmpreendedores($scope.empreendimento).success(function () {
+                _getEmpreendimentos();
+                _getEmpreendedores();
+                Materialize.toast('Empreendedores associados com sucesso!', 4000, 'green rounded');
+                $("#modal-5").closeModal(configModal);
+            }).error(function () {
+                Materialize.toast('Erro ao tentar associar Empreendedores!', 4000, 'orange rounded');
+            });
+        } catch (e) {
+            console.log(e);
+            Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION);
+        }
+
+    };
+    //(JP)
 });

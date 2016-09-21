@@ -44,10 +44,10 @@ a:hover{
 .container{
   border-left:1px solid #AAA;
   border-right:1px solid #AAA;
-  //border-bottom:1px solid #AAA;
+  /*//border-bottom:1px solid #AAA;*/
   border-top: 0px;
   background-color: transparent;
-  //background: url(../../../img/bgT.png);
+  /*//background: url(../../../img/bgT.png);*/
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -63,7 +63,7 @@ a:hover{
 }
 
 .container{
-  //min-height: 580px;
+  /*//min-height: 580px;*/
 }
 
 /**
@@ -177,11 +177,11 @@ textarea.input-item{
 }
 
 .navar.navbar-default{
-  //background-color: red;
+  /*//background-color: red;*/
 }
 
 .container-fluid{
-  //background-color: blue;
+  /*//background-color: blue;*/
   height: 70px;
 }
 
@@ -318,7 +318,7 @@ textarea.input-item{
 }
 
 .sidebar-nav li{
-  //  border:1px solid #327CCB;
+  /*//  border:1px solid #327CCB;*/
   background-color: #FFCB04;
   color: #000;
   padding-left: 8%;

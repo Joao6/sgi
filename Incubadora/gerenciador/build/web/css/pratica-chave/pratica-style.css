@@ -18,7 +18,7 @@
 form{
   margin-left: 7%;
   margin-bottom: 0px;
-  //border:1px solid #000;
+  /*//border:1px solid #000;*/
   min-height: 320px;
 }
 .area-principal#pratica-list{
@@ -79,7 +79,7 @@ form{
   margin: auto;
   padding: 3px;
   padding-left: 7.5%;
-  //border:1px solid #A0A0A0;
+  /*//border:1px solid #A0A0A0;*/
 }
 
 .row-2{
@@ -87,7 +87,7 @@ form{
 }
 
 .date-group{
-  //border:1px solid #AAA;
+  /*//border:1px solid #AAA;*/
   width: 185px;
   float: right;
   margin-left: 499px;
@@ -106,7 +106,7 @@ form{
 }
 
 .group-input{
-  //border:1px solid red;
+  /*//border:1px solid red;*/
 }
 
 .group-input button.btn.btn-danger{
@@ -134,7 +134,7 @@ form{
   background-color: #FFF;
   padding: 5px;
   margin-left: 0%;
-  //width: 24.45%;
+  /*//width: 24.45%;*/
   font-size: 11pt;
 }
 #text-descricao{  
@@ -144,9 +144,9 @@ form{
 
 #input-estagio-evolucao{
   width: 185px;
-  // float: right;
-  //margin-right: 16.2%; 
-  //border:1px solid #AAA;
+  /*// float: right;*/
+  /*//margin-right: 16.2%;*/ 
+  /*//border:1px solid #AAA;*/
   border-radius: 0px;
 }
 

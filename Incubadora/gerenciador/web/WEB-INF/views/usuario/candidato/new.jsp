@@ -17,43 +17,7 @@
        <!--<script src="<c:url value="/js/usuario/candidato/validacao-form.js"/>"></script>--> 
       <!-- // MÁSCARAS // -->
        <script src="<c:url value="/js/usuario/form-mask.js"/>"></script> 
-
-      <script>
-           $(document).ready(function () {
-              /**
-               * Configuração do Datepicker
-               * */
-              $('.datepicker').pickadate({
-                 selectMonths: true, // Creates a dropdown to control month
-                 selectYears: 15, // Creates a dropdown of 15 years to control year
-                 // The title label to use for the month nav buttons
-                 labelMonthNext: 'Próximo Mês',
-                 labelMonthPrev: 'Mês Anterior',
-                 // The title label to use for the dropdown selectors
-                 labelMonthSelect: 'Selecione o Mês',
-                 labelYearSelect: 'Selecione o ano', // Months and weekdays
-                 monthsFull: [
-                    'Janeiro', 'Fevereiro', 'Março', 'Abril',
-                    'Maio', 'Junho', 'Julho', 'Agosto',
-                    'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                 monthsShort: [
-                    'Jan', 'Fev', 'Mar', 'Abr',
-                    'Mai', 'Jun', 'Jul', 'Ago',
-                    'Set', 'Out', 'Nov', 'Dez'],
-                 weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                 weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-                 // Materialize modified
-                 weekdaysLetter: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-                 // Today and clear
-                 today: 'Hoje',
-                 clear: 'Limpar',
-                 close: 'Fechar',
-                 // The format to show on the `input` element
-                 format: 'dd/mm/yyyy'
-              });
-
-           });
-      </script>
+      
    </head>
    <body data-ng-controller="CandidatoCtrl">
       <!-- // TOPBAR // -->
@@ -93,7 +57,7 @@
 
                   <div class="row">
                      <div class="input-field col s12 m12 l6">
-                        <input type="text" laceholder="ex (35) 9 999-99999" id="telefone" name="telefone" data-ng-model="candidato.telefone" class="validate"  data-ng-required="true" />
+                        <input type="text" placeholder="ex (35) 9 9999-99999" id="telefone" name="telefone" data-ng-model="candidato.telefone" class="validate"  data-ng-required="true" />
                         <label for="telefone">Telefone</label>
                      </div>
                      <div class="input-field col s12 m12 l6">
@@ -175,7 +139,8 @@
 
                   <div class="row">
                      <div class="input-field col s12 m6 l6">
-                        <input type="text" class="datepicker" placeholder="Data de Nascimento:  dd/mm/aaaa"  id="dataNascimento" name="dataNascimento" data-ng-model="candidato.dataNascimento"  data-ng-required="true">                        
+                        <input type="text" class="validate" placeholder="Data de Nascimento:  dd/mm/aaaa"  id="dataNascimento" name="dataNascimento" data-ng-model="candidato.dataNascimento"  data-ng-required="true">                        
+                        <label for="dataNascimento">Data de Nascimento</label>
                      </div>
 
                      <div class="input-field col s12 m6 l6">

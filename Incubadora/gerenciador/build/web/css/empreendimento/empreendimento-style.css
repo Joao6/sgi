@@ -76,7 +76,7 @@ and open the template in the editor.
 .area-principal#empreendimento-new input[id="cnpj"]{
   margin-bottom: 5px;
 }
-//novo
+/*//novo*/
 .area-principal#empreendimento-new .empreendedor-dinamico{
   margin-bottom: 0px;
   width: 100%;
@@ -245,19 +245,19 @@ input[type="file"]{
   font-family: Century;
   color: #000;
 }
-//novo
+/*//novo*/
 .area-principal#empreendimento-new .empreendedor-dinamico{
   margin-bottom: 0px;
   width: 100%;
 }
 
 .form-inline-empreendedor{
-  //border: 1px solid blue;
+  /*//border: 1px solid blue;*/
   margin-top: 0px;
   margin-top: 0px;
 }
 .input-item{
-  //background: red;
+  /*//background: red;*/
   margin-bottom: 5px;
   margin-top: 0px;
 }
@@ -266,7 +266,7 @@ input[type="file"]{
   width: 40%;
   padding-left: 5px;
   font-size: 12pt;
-  //border: 1px solid green;
+  /*//border: 1px solid green;*/
   margin-bottom: 0px;
 }
 #valores{  
@@ -274,11 +274,11 @@ input[type="file"]{
   font-size: 12pt;
   padding-left: 10px;
   margin-top: 0px;
- // border: 1px solid blue;
+ /*// border: 1px solid blue;*/
   margin-bottom: 0px;
 }
 #textarea{
-  //border: 1px solid yellow;
+  /*//border: 1px solid yellow;*/
   width: 40%;
   margin-left: 50.5%;
   margin-top: 0px;
@@ -288,36 +288,36 @@ input[type="file"]{
   margin-left: 5%;
   margin-top: -8%;
   margin-bottom: 0px;
-  //border: 1px solid blue;
+  /*//border: 1px solid blue;*/
 }
 .info-empreendedor{
   font-size: 12pt;
   margin-left: 0px;;
   font-weight: normal;
-  //border: 1px solid blue;
+  /*//border: 1px solid blue;*/
 }
 #label-empreendedor{
   font-size: 12pt;
   margin-left: 0px;
   top: 0px;
-  //border: 1px solid red;
+  /*//border: 1px solid red;*/
  }
 .panel.panel-default{
- // border: 1px solid blue;
+ /*// border: 1px solid blue;*/
   font-size: 11pt;
   width: 100%;
   background-color: #FFF;
   border-radius: 0px;
-  //background-color: red;
+  /*//background-color: red;*/
 }
 a.info{
-  //border: 1px solid red;
+  /*//border: 1px solid red;*/
   padding-left: 0px;
   margin-left: 0px;
   font-size: 12pt;
 }
 .panel-group{
-   //border: 1px solid red;
+   /*//border: 1px solid red;*/
   margin-left: 5%;
   width: 40%;  
 }
@@ -327,7 +327,7 @@ a.info{
   background-color: #FFF;
 }
 .empreendedor-info{
-  //border: 1px solid blue;
+  /*//border: 1px solid blue;*/
   width: 40%;
   float: right;
   margin-right: 6%;
@@ -335,7 +335,7 @@ a.info{
 }
 .emp-info{
   display: inline;
-  //border: 1px solid blue;
+  /*//border: 1px solid blue;*/
 }
 .panel-group{
   float: left;

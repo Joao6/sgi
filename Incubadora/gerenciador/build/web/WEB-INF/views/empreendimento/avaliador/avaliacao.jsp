@@ -184,13 +184,13 @@
                                             </table>
 
                                             <c:if test="${id.index != 0}">
-                                                <button type="button" class="btn btn-default btn-previous col s12 m4 l2" style="margin: 0px 2px 5px 0px;">Anterior</button>
+                                                <button type="button" class="btn btn-default amber darken-1 btn-previous col s12 m4 l2" style="margin: 0px 2px 5px 0px;">Anterior</button>
                                             </c:if>
                                             <c:if test="${id.index != eixoMapSize - 1}">        
-                                                <button type="button" class="btn btn-default btn-next" style="margin-bottom: 5px;">Próximo</button>
+                                                <button type="button" class="btn btn-default blue btn-next" style="margin-bottom: 5px;">Próximo</button>
                                             </c:if>
                                             <c:if test="${id.index == eixoMapSize - 1}">        
-                                                <button type="submit" class="btn btn-default btn-finalize col s12 m7 l4" style="margin-bottom: 5px;">Finalizar Avaliação</button>
+                                                <button type="submit" class="btn btn-default green btn-finalize col s12 m7 l4" style="margin-bottom: 5px;">Finalizar Avaliação</button>
                                             </c:if>
 
                                         </div>

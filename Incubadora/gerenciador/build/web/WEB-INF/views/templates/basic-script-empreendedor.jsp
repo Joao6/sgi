@@ -35,6 +35,7 @@
       $(".button-collapse").sideNav();
       $('.time').mask('00:00');
       $("#cpf").mask('000.000.000-00');
+      $("#data").mask('99/99/9999');
       $("#telefone").mask('(00)0 0000-00000');
       /*
        $(document).on('click', 'a.red', function () {
