@@ -389,14 +389,16 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
             EmpreendimentoService.agendarApresentacao(apresentacao).success(function () {
                 var index = statusList.indexOf($scope.empreendimento.status);
                 if (index < statusList.length) {
-                    $scope.nextStatus = statusList[index + 1];
+                    $scope.nextStatus = statusList[index + 1];                    
                     $scope.setStatus($scope.empreendimento.id);
                 }
+                Materialize.toast('Apresentação Agendada - Aguarde um instante...', 4000, 'green rounded');
                 $("#modal-apresentacao").closeModal(configModal);
             }).error(function () {
                 Materialize.toast('Erro ao tentar agendar Apresentação', 4000, 'orange rounded');
             });
         } catch (e) {
+            $scope.showProgress = false;
             console.log(e);
             Materialize.toast('Erro ao tentar comunicar com o servidor', 4000, 'red rounded');
         }
@@ -406,19 +408,21 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     $scope.desmarcarApresentacao = function (empreendimento) {
         $scope.nextStatus = statusList[0];
+        $scope.openModal(11, empreendimento);
         $scope.setStatus(empreendimento.id);
     };
 
 
     $scope.setStatus = function (id) {
         var emp = {id: id, status: $scope.nextStatus};
-        try {
+        try {            
             $scope.showProgress = true;
             EmpreendimentoService.alterarStatus(emp)
-                    .success(function () {
+                    .success(function () {                        
                         _getEmpreendimentos();
                         $scope.showProgress = false;
                         $("#modal-2").closeModal(configModal);
+                        $("#modal-11").closeModal(configModal);
                     }).error(function () {
                 $scope.showProgress = false;
                 Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');

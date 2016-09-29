@@ -2,6 +2,21 @@
 
 var app = angular.module('painelEmpreendedor', ['caco.ClientPaginate', 'ngRoute']);
 app.controller('MainCtrl', function ($scope, InfoService) {
+
+    // Estados listados no selct UF
+    $scope.estados = [
+        {'id': 01, 'sigla': 'AC'}, {'id': 02, 'sigla': 'AP'}, {'id': 03, 'sigla': 'AL'},
+        {'id': 04, 'sigla': 'AM'}, {'id': 05, 'sigla': 'BA'}, {'id': 06, 'sigla': 'CE'},
+        {'id': 07, 'sigla': 'DF'}, {'id': 08, 'sigla': 'ES'}, {'id': 09, 'sigla': 'GO'},
+        {'id': 10, 'sigla': 'MA'}, {'id': 11, 'sigla': 'MT'}, {'id': 12, 'sigla': 'MS'},
+        {'id': 13, 'sigla': 'MG'}, {'id': 14, 'sigla': 'PA'}, {'id': 15, 'sigla': 'PB'},
+        {'id': 16, 'sigla': 'PR'}, {'id': 17, 'sigla': 'PE'}, {'id': 18, 'sigla': 'PI'},
+        {'id': 19, 'sigla': 'RJ'}, {'id': 20, 'sigla': 'RN'}, {'id': 21, 'sigla': 'RS'},
+        {'id': 22, 'sigla': 'RO'}, {'id': 23, 'sigla': 'RR'}, {'id': 24, 'sigla': 'SC'},
+        {'id': 25, 'sigla': 'SP'}, {'id': 26, 'sigla': 'SE'}, {'id': 27, 'sigla': 'TO'}
+    ];
+
+
     $scope.empreendedor = {};
 
     var _getInfo = function () {

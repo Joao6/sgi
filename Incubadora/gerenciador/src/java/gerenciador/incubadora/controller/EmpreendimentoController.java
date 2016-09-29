@@ -690,7 +690,7 @@ public class EmpreendimentoController {
             Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             Empreendimento e = g.fromJson(empreendimento, type);
             ServiceLocator.getEmpreendimentoService().updateStatusEmpreendimento(e.getId(), e.getStatus());
-            
+
             EmpreendimentoService es = new EmpreendimentoService();
             es.sendEmailStatus(e);
             response.setStatus(200);
@@ -707,7 +707,7 @@ public class EmpreendimentoController {
         try {
             Type type = new TypeToken<Apresentacao>() {
             }.getType();
-            Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
+            Gson g = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
             Apresentacao agenda = g.fromJson(apresentacao, type);
 
             Calendar calendar = Calendar.getInstance();
@@ -751,13 +751,19 @@ public class EmpreendimentoController {
     }
 
     @RequestMapping(value = "/empreendimento/{id}/enviar-proposta", method = RequestMethod.GET)
-    public ModelAndView contrato(@PathVariable Long id) {
-        ModelAndView mv;
+    public ModelAndView contrato(@PathVariable Long id, Long novaProposta) {
+        ModelAndView mv = null;
 
         try {
             Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
-            mv = new ModelAndView("empreendimento/empreendedor/proposta-new");
-            mv.addObject("empreendimento", empreendimento);
+            ApresentacaoNegocio apresentacaoNegocio = ServiceLocator.getApresentacaoNegocioService().readById(id);
+            if (apresentacaoNegocio != null && novaProposta == null) {
+                mv = new ModelAndView("empreendimento/empreendedor/proposta-new-aviso");
+                mv.addObject("empreendimento", empreendimento);
+            } else if(novaProposta == 1){
+                mv = new ModelAndView("empreendimento/empreendedor/proposta-new");
+                mv.addObject("empreendimento", empreendimento);
+            }            
         } catch (Exception ex) {
             mv = new ModelAndView("/error");
             mv.addObject("e", ex);

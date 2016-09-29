@@ -92,7 +92,10 @@
             .progress .indeterminate {
                 background-color: rgb(234, 202, 24);
             }
-
+            
+            .marginTimeLine{
+                margin-right: 1.3rem;
+            }
         </style>
         <%@include file="../../templates/basic-script.jsp" %>
         <script src="<c:url value="/js/painel-administrativo/values/empreendimento-values.js"/>"></script>
@@ -106,15 +109,7 @@
 
                 $("#txt-message").hide();
 
-                $(".date").mask("00r00r0000", {
-                    translation: {
-                        'r': {
-                            pattern: /[\/]/,
-                            fallback: '-'
-                        },
-                        placeholder: "__/__/____"
-                    }
-                });
+                $(".date").mask("99/99/9999");
 
                 $('.time').mask('00:00');
             });

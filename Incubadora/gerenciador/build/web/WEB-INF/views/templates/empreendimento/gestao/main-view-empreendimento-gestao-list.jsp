@@ -47,7 +47,7 @@
                                 <div class="row">
                                     <div class="s12 m6 l6 input-field" style="padding-left: 2%; padding-right: 2%">
                                         <label for="dataApresentacao">Data de Apresenta&ccedil;&atilde;o</label>
-                                        <input id="dataApresentacao" type="text" class="date" data-ng-required="true" data-ng-model="apresentacao.dataApresentacao" placeholder="dd-mm-aaaa" />
+                                        <input id="dataApresentacao" type="text" class="date" data-ng-required="true" data-ng-model="apresentacao.dataApresentacao" placeholder="dd/mm/aaaa" />
                                     </div>
                                     <div class="s12 m6 l6 input-field" style="padding-left: 2%; padding-right: 2%">
                                         <label for="horaApresentacao">Hora da Apresenta&ccedil;&atilde;o</label>
@@ -59,6 +59,12 @@
                                     </div>                           
                                 </div>
                             </form>
+                            <!--// BARRA DE PROGRESSO PARA A CONCLUSÃO DO MÉTODO -->
+                            <div class="row" data-ng-show="showProgress">
+                                <div class="progress">
+                                    <div class="indeterminate"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <button class="btn green col s12 m12 l12" style="border-radius: 0px" data-ng-disabled="!formApresentacao.$valid" data-ng-click="agendarApresentacao(apresentacao)">Agendar Apresenta&ccedil;&atilde;o</button>
@@ -322,6 +328,18 @@
                     </div>
                     <!-- FIM MODAL DESCRIÇÂO RESULTADO -->
 
+                    <div class="modal" style="background-color: #FFF !important" id="modal-11">
+                        <div class="modal-body card white">
+                            <h5>Aguarde um instante...</h5>
+                        </div>
+                        <!--// BARRA DE PROGRESSO PARA A CONCLUSÃO DO MÉTODO -->
+                        <div class="row" data-ng-show="showProgress">
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card-content">
                         <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos cadastrados!</strong></h6>          
 
@@ -345,8 +363,8 @@
                                             <a href="#!" class="btn circle blue white-text center" style="border-radius: 0px !important; height: 22px !important; line-height: inherit !important" data-ng-click="desmarcarApresentacao(empreendimento)">Desmarcar</a>
                                             <br/>
                                         </p>
-                                        <p class="left-align col l2 m6 l5 push-l1">Apresentação marcada para: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>
-                                        <p class="left-align col l2 m6 l5 push-l1">Horário: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>
+                                        <p class="left-align col l2 m6 l7 push-l1">Apresentação marcada para: <strong>{{empreendimento.dataHoraApresentacao}}hrs</strong></p>
+                                        <!--<p class="left-align col l2 m6 l5 push-l1">Horário: <strong>{{empreendimento.dataHoraApresentacao}}</strong></p>-->
                                         <p class="left-align col l2 m6 l5 push-l1">Local: <strong>{{empreendimento.localApresentacao}}</strong></p>                              
                                     </div>
                                     <div class="row">
@@ -377,35 +395,32 @@
                                     </div>
                                     <div class="row hide-on-small-only">                                
                                         <hr class="divider white" style="border: 0px"/>
-                                        <ul clss="col s12 m12 l12">
-                                            <li class="col s2 m2 l1">                                 
-                                                &nbsp;
-                                            </li>
-                                            <li class="col s2 m2 l2">                                 
+                                        <ul clss="col s12 m12 l12">                                            
+                                            <li class="col s2 m2 l2 marginTimeLine">                                 
                                                 <button class="btn-floating circle"  data-ng-class="{'green': empreendimento.apresentacaoNegocio.miniCurriculo !== undefined, 'grey':empreendimento.apresentacaoNegocio.miniCurriculo === undefined}" style="height: 27px; width: 27px; line-height: normal;">
                                                     1
                                                 </button>
                                                 <p class="hide-on-small-only" style="margin-top: 0.3rem">Proposta Enviada</p>
                                             </li>
-                                            <li class="col s2 m2 l2">                                 
+                                            <li class="col s2 m2 l2 marginTimeLine">                                 
                                                 <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Apresentação Agendada'), 'grey':!validStatus(empreendimento, 'Apresentação Agendada')}" style="height: 27px; width: 27px; line-height: normal;">
                                                     2
                                                 </button>
                                                 <p class="hide-on-small-only" style="margin-top: 0.3rem">Apresenta&ccedil;&atilde;o Agendada</p>
                                             </li>
-                                            <li class="col s2 m2 l2">                                 
+                                            <li class="col s2 m2 l2 marginTimeLine">                                 
                                                 <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Apresentação Realizada'), 'grey':!validStatus(empreendimento, 'Apresentação Realizada')}" style="height: 27px; width: 27px; line-height: normal;">
                                                     3
                                                 </button>
                                                 <p class="hide-on-small-only" style="margin-top: 0.3rem">Apresenta&ccedil;&atilde;o Realizada</p>
                                             </li>
-                                            <li class="col s2 m2 l2">                                 
+                                            <li class="col s2 m2 l2 marginTimeLine">                                 
                                                 <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Avaliação Realizada'), 'grey':!validStatus(empreendimento, 'Avaliação Realizada')}" style="height: 27px; width: 27px; line-height: normal;">
                                                     4
                                                 </button>
                                                 <p class="hide-on-small-only" style="margin-top: 0.3rem">Avalia&ccedil;&atilde;o Realizada</p>
                                             </li>
-                                            <li class="col s2 m2 l2">                                 
+                                            <li class="col s2 m2 l2 marginTimeLine">                                 
                                                 <button class="btn-floating circle" data-ng-class="{'red': validStatusReprovado(empreendimento), 'green': validStatusAprovado(empreendimento), 'grey': !validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
                                                     5
                                                 </button>

@@ -116,7 +116,7 @@ public class EmpreendedorDAO implements BaseDAO<Empreendedor> {
 
    @Override
    public List<Empreendedor> readByCriteria(Map<String, Object> criteria, Connection conn) throws Exception {
-      String sql = "SELECT u.*,e.* FROM empreendedor e inner join usuario u on u.id=e.usuario_fk ";
+      String sql = "SELECT u.*,e.*, ee.* FROM empreendedor e inner join usuario u on u.id=e.usuario_fk join endereco_empreendedor ee on ee.empreendedor_fk=e.usuario_fk";
       List<Empreendedor> empreendedorList = new ArrayList<>();
       //TODO criterios
 
@@ -144,6 +144,20 @@ public class EmpreendedorDAO implements BaseDAO<Empreendedor> {
          empreendedor.setTelefone(rs.getString("telefone"));
          empreendedor.setTipoUsuario(rs.getString("tipo_usuario"));
          empreendedor.setCpf(rs.getString("cpf"));
+         empreendedor.setRg(rs.getString("rg"));
+         empreendedor.setFormacaoProfissional(rs.getString("formacao_profissional"));
+         empreendedor.setOcupacao(rs.getString("ocupacao"));
+         empreendedor.setEscolaridade(rs.getString("escolaridade"));
+         empreendedor.setDataNascimento(rs.getDate("data_nascimento"));
+         
+         Endereco endereco = new Endereco();
+         endereco.setRua(rs.getString("rua"));
+         endereco.setBairro(rs.getString("bairro"));
+         endereco.setNumero(rs.getString("numero"));
+         endereco.setCidade(rs.getString("cidade"));
+         endereco.setUf(rs.getString("uf"));
+         empreendedor.setEndereco(endereco);
+         
          empreendedorList.add(empreendedor);
       }
       rs.close();

@@ -28,6 +28,8 @@
 
       $('.parallax').parallax();
    });
+   
+   
 
 </script>
 

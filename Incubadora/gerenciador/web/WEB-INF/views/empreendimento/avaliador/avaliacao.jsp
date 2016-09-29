@@ -157,7 +157,7 @@
                                             <h2 id="nomeEixo">Eixo ${eixo.key.nome}</h2>
                                             <table class="centered table">
                                                 <th>Critério de Avaliação</th>
-                                                <th>Nota</th>
+                                                <th>Nota (0 a 10)</th>
 
 
                                                 <c:forEach items="${eixo.value}" var="criterio">

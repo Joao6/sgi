@@ -1,5 +1,5 @@
    <!-- Modal View detalhes -->
-      <div id="modal-detalhes" class="modal amber hide-on-small-only" style="border-radius: 0px !important; height: auto !important; overflow: hidden">            
+      <div id="modal-detalhes" class="modal amber hide-on-small-only" style="border-radius: 0px !important; height: auto !important;">            
          <div class="modal-content white-text" style="border-radius: 0px !important">
             <div class="row">
                <div class="col s12 m12 l12">
@@ -20,6 +20,38 @@
                               <td data-ng-bind="empreendedor.sobrenome"></td>
                               <td data-ng-bind="empreendedor.cpf"></td>
                            </tr>                          
+                        </tbody>
+                        
+                        <thead class="blue-text">
+                            <tr>
+                                <th>Escolaridade</th>
+                                <th>Formação Profissional</th>
+                                <th>ocupação</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td data-ng-bind="empreendedor.escolaridade"></td>
+                                <td data-ng-bind="empreendedor.formacaoProfissional"></td>
+                                <td data-ng-bind="empreendedor.ocupacao"></td>
+                            </tr>
+                        </tbody>
+                        
+                        <thead class="blue-text">
+                            <tr>
+                                <th>Bairro</th>
+                                <th>Rua</th>
+                                <th>Número</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td data-ng-bind="empreendedor.endereco.bairro"></td>
+                                <td data-ng-bind="empreendedor.endereco.rua"></td>
+                                <td data-ng-bind="empreendedor.endereco.numero"></td>
+                            </tr>
                         </tbody>
 
                         <thead class="blue-text">
