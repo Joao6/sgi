@@ -86,12 +86,9 @@
                                         <hr class="divider white" style="border: 0px"/>
 
 
-                                        <ul class="col s12 m12 l12">
-                                            <li class="col s2 m2 l1">                                 
-                                                &nbsp;
-                                            </li>
+                                        <ul class="col s12 m12 l12">                                            
 
-                                            <li class="col s2 m2 l2">
+                                            <li class="col s2 m2 l2 marginTimeLine">
                                                 <button class="btn-floating circle 
                                                         <c:if test="${empreendimento.status == 'Proposta Enviada' ||
                                                                       empreendimento.status == 'Apresentação Agendada' ||
@@ -106,7 +103,7 @@
                                                         <p class="hide-on-small-only" style="margin-top: 0.3rem">Proposta Enviada</p>
                                                 </li>
 
-                                                <li class="col s2 m2 l2">
+                                                <li class="col s2 m2 l2 marginTimeLine">
                                                     <button class="btn-floating circle 
                                                     <c:if test="${empreendimento.status == 'Apresentação Agendada' ||
                                                                   empreendimento.status == 'Apresentação Realizada' ||
@@ -120,7 +117,7 @@
                                                     <p class="hide-on-small-only" style="margin-top: 0.3rem">Apresentação Agendada</p>
                                                 </li>
 
-                                                <li class="col s2 m2 l2">
+                                                <li class="col s2 m2 l2 marginTimeLine">
                                                     <button class="btn-floating circle 
                                                     <c:if test="${empreendimento.status == 'Apresentação Realizada' ||
                                                                   empreendimento.status == 'Avaliação Realizada' ||
@@ -134,7 +131,7 @@
                                                     <p class="hide-on-small-only" style="margin-top: 0.3rem">Apresentação Realizada</p>
                                                 </li>
 
-                                                <li class="col s2 m2 l2">
+                                                <li class="col s2 m2 l2 marginTimeLine">
                                                     <button class="btn-floating circle 
                                                     <c:if test="${empreendimento.status == 'Avaliação Realizada' ||
                                                                   empreendimento.status == 'Aprovado' ||
@@ -148,7 +145,7 @@
                                                     <p class="hide-on-small-only" style="margin-top: 0.3rem">Avaliação Realizada</p>
                                                 </li> 
 
-                                                <li class="col s2 m2 l2">
+                                                <li class="col s2 m2 l2 marginTimeLine">
                                                     <button class="btn-floating circle 
                                                     <c:if test="${empreendimento.status == 'Aprovado'}">green</c:if>
                                                     <c:if test="${empty empreendimento.status ||

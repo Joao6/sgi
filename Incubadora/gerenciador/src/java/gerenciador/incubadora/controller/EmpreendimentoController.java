@@ -23,6 +23,7 @@ import gerenciador.incubadora.model.entity.Usuario;
 import gerenciador.incubadora.model.service.EmpreendimentoService;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -310,12 +311,13 @@ public class EmpreendimentoController {
                 eixoMap.put(aux, criterioAvaliacaoList);
             }
 
-            //estava para empreendimento/avaliador/avaliacao            
+            Map<Long, String> errors = (Map) session.getAttribute("errors");
             mv = new ModelAndView("/empreendimento/avaliador/avaliacao");
             Integer eixoListSize = eixoList.size();
             mv.addObject("eixoListSize", eixoListSize);
             mv.addObject("eixoMap", eixoMap);
             mv.addObject("eixoMapSize", eixoMap.size());
+            mv.addObject("errors", errors);
 //            mv.addObject("avaliacaoEmpreendimento", avaliacaoEmpreendimento);
 
             Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
@@ -342,10 +344,13 @@ public class EmpreendimentoController {
                 mv.addObject("notaMap", notaMap);
             }
             mv.addObject("avaliacao", avaliacao);
-
+            session.removeAttribute("erro");
+            session.removeAttribute("errors");
         } catch (Exception e) {
             mv = new ModelAndView("/error");
             mv.addObject("e", e);
+            session.removeAttribute("erro");
+            session.removeAttribute("errors");
         }
 
         return mv;
@@ -419,6 +424,7 @@ public class EmpreendimentoController {
                     }
 
                     session.setAttribute("erro", true);
+                    session.setAttribute("errors", errors);
                     mv = new ModelAndView("redirect:/empreendimento/{id}/avaliar");
 //                    mv.addObject("eixoMap", eixoMap);
 //                    mv.addObject("eixoMapSize", eixoMap.size());
@@ -436,22 +442,29 @@ public class EmpreendimentoController {
     }
 
     @RequestMapping(value = "/avaliacao/empreendimento/{id}", method = RequestMethod.GET)
-    public ModelAndView goAvaliacao(@PathVariable Long id) {
+    public ModelAndView goAvaliacao(@PathVariable Long id, HttpSession session) {
         ModelAndView mv = null;
 
-        try {
+        try {            
             Map<String, Double> avaliacaoEmpreendimento = new HashMap<String, Double>();
             avaliacaoEmpreendimento = ServiceLocator.getNotaService().getAvaliacao(id);
 
             Empreendimento empreendimento = new Empreendimento();
             empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
 
-            Map<String, List<Avaliacao>> avaliacaoAvaliador = ServiceLocator.getAvaliacaoService().getAvaliacaoEmpreendimento(id);
-
+            Map<String, List<Avaliacao>> avaliacaoAvaliador = ServiceLocator.getAvaliacaoService().getAvaliacaoEmpreendimento(id);            
+            Map<String, Map<String, Double>> mapNotasAvaliadorEixo = new HashMap<String, Map<String, Double>>();
+            for (Avaliador aux : empreendimento.getAvaliadorList()) {
+                Map<String, Double> notaAvaliadorPorEixo = ServiceLocator.getAvaliacaoService().getNotaEixoAvaliador(id, aux.getId());
+                mapNotasAvaliadorEixo.put(aux.getNome()+" "+aux.getSobrenome(), notaAvaliadorPorEixo);
+//                listNotaAvaliadorPorEixo.add(notaAvaliadorPorEixo);
+            }
+            
             mv = new ModelAndView("empreendimento/gestao/avaliacao");
             mv.addObject("avaliacaoAvaliador", avaliacaoAvaliador);
             mv.addObject("empreendimento", empreendimento);
             mv.addObject("avaliacaoEmpreendimento", avaliacaoEmpreendimento);
+            mv.addObject("notaPorEixoAvalidor", mapNotasAvaliadorEixo);
 
         } catch (Exception e) {
             mv = new ModelAndView("/error");
@@ -760,10 +773,10 @@ public class EmpreendimentoController {
             if (apresentacaoNegocio != null && novaProposta == null) {
                 mv = new ModelAndView("empreendimento/empreendedor/proposta-new-aviso");
                 mv.addObject("empreendimento", empreendimento);
-            } else if(novaProposta == 1){
+            } else if (novaProposta == 1) {
                 mv = new ModelAndView("empreendimento/empreendedor/proposta-new");
                 mv.addObject("empreendimento", empreendimento);
-            }            
+            }
         } catch (Exception ex) {
             mv = new ModelAndView("/error");
             mv.addObject("e", ex);

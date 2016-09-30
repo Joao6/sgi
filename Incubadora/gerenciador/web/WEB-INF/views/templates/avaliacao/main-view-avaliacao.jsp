@@ -51,6 +51,40 @@
                                 </c:forEach>
                             </div>
                         </div>
+                        <div class="card-panel grey lighten-3">
+                            <div class="card-content">
+                                <div class="card-panel">
+                                    <div class="card-content  black-text valign-wrapper">
+                                        <i class="material-icons small valign">description</i>&nbsp;&nbsp;
+                                        <span class="card-title" style="font-size: 19pt;"><strong>Nota final por avaliador por eixo</strong></span>
+                                    </div>
+                                </div>
+                                <c:forEach items="${notaPorEixoAvalidor}" var="mapNotas">                                    
+                                    <div class="card-panel">
+                                        <div class="card-content">
+                                            <table class="table bordered">
+                                                <spam><strong>Avaliador ${mapNotas.key}</strong></spam>
+                                                <hr>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Eixo</th>
+                                                        <th>Nota</th>
+                                                    </tr>
+                                                </thead>
+                                                <c:forEach items="${mapNotas.value}" var="eixo">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>${eixo.key}</td>
+                                                            <td>${eixo.value}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </c:forEach>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
                         <div class="card-content">
                             <div class="card-panel grey lighten-3">
                                 <div class="card center white">

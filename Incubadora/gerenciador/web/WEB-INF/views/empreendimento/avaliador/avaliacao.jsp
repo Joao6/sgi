@@ -90,7 +90,7 @@
                     width: 100%;
                     float: left;
                 }
-                
+
                 .descricao{
                     margin: 0px;
                     width: 77%;
@@ -107,6 +107,18 @@
                 $('ul.tabs').tabs('select_tab', 'tab_id');
 
             });
+
+            function validNota(id) {
+                nota = document.getElementById(id).value;
+                if (nota < 0 || nota > 10) {
+                    Materialize.toast('Insira notas entre 0 e 10 apenas!', 4000, 'rounded orange');
+                    $("form #" + id).css({"background-color": "rgba(255, 0, 39, 0.2)"});
+                    return false;
+                } else {
+                    $("form #" + id).css({"background-color": "rgba(0, 255, 28, 0.2)"});
+                }
+                return true;
+            }
         </script>
         <%@include file="../../templates/top-bar.jsp" %>
 
@@ -145,7 +157,11 @@
                 <c:if test="${erro == true}">
                     <!--<h1>Campos Obrigatórios!</h1>-->
                     <script> Materialize.toast('Todos os campos são obrigatórios!', 3000, 'rounded red');</script>
-                </c:if>                         
+                </c:if>     
+
+                <c:if test="${not empty errors}">
+                    <script> Materialize.toast('Só é possível inserir notas de 0 a 10!', 3000, 'rounded orange');</script>
+                </c:if>
 
                 <c:if test="${eixoListSize > 0}">
                     <c:if test="${avaliacao == false}">
@@ -154,6 +170,9 @@
                                 <form method="post" class="col s12 m12 l12">
                                     <c:forEach items="${eixoMap}" var="eixo" varStatus="id">
                                         <div class="eixo eixo${id.index} col s12 m12 l12">
+                                            <c:if test="${not empty errors}">
+                                                <span class="red-text"><strong>*Preencha todos os campos e insira notas entre 0 a 10 apenas!</strong></span>
+                                            </c:if>
                                             <h2 id="nomeEixo">Eixo ${eixo.key.nome}</h2>
                                             <table class="centered table">
                                                 <th>Critério de Avaliação</th>
@@ -170,7 +189,7 @@
                                                             <div class="input-criterio">                                                                
                                                                 <div class="col s12 m12 l12">
                                                                     <input type="hidden" name="criterioID" value="${criterio.id}">                                                                    
-                                                                    <td class="input-nota"><input type="text" name="criterioNota" id="${criterio.id}" placeholder="Insira a nota"></td>
+                                                                    <td class="input-nota"><input type="text" name="criterioNota" id="${criterio.id}" placeholder="Insira a nota" min="0" max="10" onblur="validNota(${criterio.id})"></td>
                                                                     <!--value="<c:if test="${not empty notaMap}">${notaMap[criterio.id]}</c:if><c:if test="${empty notaMap}">${fields[criterio.id]}</c:if>"-->
                                                                     <%--<c:if test="${errors[criterio.id] != null}"><p class="text-danger">${errors[criterio.id]}</p></c:if>--%>
                                                                 </div>

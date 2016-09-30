@@ -8,6 +8,7 @@ import gerenciador.incubadora.model.entity.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,32 +18,7 @@ import java.util.Map;
  *
  * @author Joao
  */
-public class AvaliacaoDAO implements BaseDAO<Avaliacao> {
-
-    @Override
-    public void create(Avaliacao e, Connection conn) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Avaliacao readById(Long id, Connection conn) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Avaliacao> readByCriteria(Map<String, Object> criteria, Connection conn) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void update(Avaliacao e, Connection conn) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Long id, Connection conn) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class AvaliacaoDAO {
 
     public Map<String, List<Avaliacao>> getAvaliacaoEmpreendimento(Connection conn, Long idEmpreendimento) throws Exception {
 
@@ -128,8 +104,31 @@ public class AvaliacaoDAO implements BaseDAO<Avaliacao> {
                 notaAvaliado.put(rs.getString("nome"), avaliacao);
             }
         }
+        rs.close();
+        ps.close();
 
         return notaAvaliado;
+    }
+    
+    public Map<String, Double> getNotaEixoAvaliador(Connection conn, Long idEmpreendimento, Long idAvaliador) throws SQLException{
+        Map<String, Double> notaPorEixo = new HashMap<>();
+        String sql = "select e.nome,(sum(n.nota)*100)/(count(e.id)*10) as nota from nota n left join criterio_avaliacao ca ON ca.id = n.criterio_avaliacao_fk left join eixo e ON e.id = ca.eixo_fk left join avaliador a on n.avaliador_fk=a.usuario_fk where n.empreendimento_fk=? and a.usuario_fk=? group by e.id order by e.id";
+        
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        int i = 0;
+        ps.setLong(++i, idEmpreendimento);
+        ps.setLong(++i, idAvaliador);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next()){
+            notaPorEixo.put(rs.getString("nome"), rs.getDouble("nota"));
+        }
+        rs.close();
+        ps.close();
+        
+        return notaPorEixo;
     }
 
 }

@@ -88,6 +88,10 @@ public class NotaService implements BaseNotaService {
             if (nota == null) {
                 errors.put(key, "Campo obrigatorio!");
             }
+            
+            if(nota < 0 || nota > 10){
+                errors.put(key, "Só é possível pontuar o empreendimento com notas entre 0 e 10!");
+            }
         }
 
         return errors;

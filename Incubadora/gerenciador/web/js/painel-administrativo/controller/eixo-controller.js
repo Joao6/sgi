@@ -91,6 +91,7 @@
                   // Create Eixo
                   _MODE_CREATE = true;
                   $("#modal-2 h6").text('Novo Eixo');
+//                  delete $scope.eixo;
                   $("#modal-" + id).openModal(configModal);
                   break;
                case 3:
@@ -101,6 +102,7 @@
                   break;
                case 4:
                   // Add ceritério
+                  
                   $("#modal-" + id).openModal(configModal);
                   break;
                case 5:
@@ -139,9 +141,11 @@
             try {
                EixoService.addCriterio(criterioAvaliacao).success(function () {
                   Materialize.toast(app.MESSAGE_CRITERIO_ADD_SUCCESS, 4000, 'green rounded');
+                  
                   _getCriterioList();
                   $("#modal-4").closeModal();
                   //delete $scope.criterioAvaliacao;
+                  $scope.criterioAvaliacao.nome = "";
                }).error(function () {
                   Materialize.toast(app.MESSAGE_ERROR_ADD_CRITERIO_AVALIACAO, 4000, 'orange rounded');
                });
@@ -162,7 +166,8 @@
                EixoService.addEixo(eixo).success(function () {
                   _getEixoList();
                   $("#modal-2").closeModal();
-                  delete $scope.eixo;
+                  $scope.eixo.nome = "";
+                  $scope.eixo.peso = null;
                }).error(function () {
                   Materialize.toast(app.MESSAGE_ERROR_ADD_EIXO, 4000, 'orange rounded');
                });
@@ -207,7 +212,7 @@
          });
 
          $(document).on('click', '.btn-criterio', function (e) {
-            var id = $(this).attr('id').substring(13);
+            var id = $(this).attr('id').substring(13);            
             for (var i = 0; i < $scope.eixoList.length; ++i) {
                if ($scope.eixoList[i].id == id) {
                   $scope.criterioAvaliacao.eixo = $scope.eixoList[i];

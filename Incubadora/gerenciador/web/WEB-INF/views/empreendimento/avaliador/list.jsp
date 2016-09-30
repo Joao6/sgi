@@ -27,7 +27,11 @@
             $('.modal-trigger').leanModal();
         });
       </script>
-
+      <style>
+          .marginTimeLine{
+                margin-right: 1.3rem;
+            }
+      </style>
    </head>
    <body data-ng-app="painelAvaliador">
       <%@include file="../../templates/top-bar-empreendedor.jsp" %>
