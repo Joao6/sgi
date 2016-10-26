@@ -145,7 +145,7 @@
                                                     <p class="hide-on-small-only" style="margin-top: 0.3rem">Avaliação Realizada</p>
                                                 </li> 
 
-                                                <li class="col s2 m2 l2 marginTimeLine">
+                                                <li class="col s2 m2 l2">
                                                     <button class="btn-floating circle 
                                                     <c:if test="${empreendimento.status == 'Aprovado'}">green</c:if>
                                                     <c:if test="${empty empreendimento.status ||

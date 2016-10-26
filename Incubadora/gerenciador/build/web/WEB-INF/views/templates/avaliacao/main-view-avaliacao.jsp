@@ -33,13 +33,15 @@
                                             <table class="table bordered">
                                                 <thead>                                                    
                                                     <tr>
+                                                        <th>Eixo</th>
                                                         <th>Critério</th>
                                                         <th>Nota</th>                                                        
                                                     </tr>
                                                 </thead>
                                                 <c:forEach items="${notaEmpre.value}" var="mapNota">
                                                     <tbody>                                                        
-                                                        <tr>
+                                                        <tr>                                                            
+                                                            <td>${mapNota.criterioAvaliacao.eixo.nome}</td>
                                                             <td>${mapNota.criterioAvaliacao.nome}</td>
                                                             <td>${mapNota.nota}</td>                                                            
                                                         </tr>  

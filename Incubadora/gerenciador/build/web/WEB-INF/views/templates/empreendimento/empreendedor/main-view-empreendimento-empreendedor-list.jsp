@@ -185,7 +185,7 @@
                                             </button>
                                             <p class="hide-on-small-only" style="margin-top: 0.3rem">Avalia&ccedil;&atilde;o Realizada</p>
                                         </li>
-                                        <li class="col s2 m2 l2 marginTimeLine">                                 
+                                        <li class="col s2 m2 l2">                                 
                                             <button class="btn-floating circle" data-ng-class="{'red':validStatusReprovado(empreendimento),'green': validStatusAprovado(empreendimento), 'grey':!validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
                                                 5
                                             </button>

@@ -1,6 +1,5 @@
 package gerenciador.incubadora.model.dao;
 
-import gerenciador.incubadora.model.base.BaseDAO;
 import gerenciador.incubadora.model.entity.Avaliacao;
 import gerenciador.incubadora.model.entity.CriterioAvaliacao;
 import gerenciador.incubadora.model.entity.Eixo;
@@ -25,10 +24,10 @@ public class AvaliacaoDAO {
         Map<String, List<Avaliacao>> avaliacaoAvaliador = new HashMap<>();
 
 //        String sql = "select eixo.nome eixo, u.id, u.nome avaliador, ca.id as criterio_fk, ca.nome criterio, nota.nota from nota join usuario u on nota.avaliador_fk=u.id join criterio_avaliacao ca on nota.criterio_avaliacao_fk=ca.id join eixo on eixo.id=ca.eixo_fk where empreendimento_fk=?";
-        String sql = "select u.*, ca.id criterio_fk, ca.nome criterio_nome, ca.ativo criterio_ativo, ca.eixo_fk criterio_eixo_fk, nota.nota, e.id eixo_id, e.nome eixo_nome, e.peso eixo_peso from nota join usuario u on nota.avaliador_fk=u.id join criterio_avaliacao ca on nota.criterio_avaliacao_fk=ca.id join eixo e on e.id=ca.eixo_fk  where empreendimento_fk=? order by u.nome, criterio_nome";
+        String sql = "select u.*, ca.id criterio_fk, ca.nome criterio_nome, ca.ativo criterio_ativo, ca.eixo_fk criterio_eixo_fk, nota.nota, e.id eixo_id, e.nome eixo_nome, e.peso eixo_peso from nota join usuario u on nota.avaliador_fk=u.id join criterio_avaliacao ca on nota.criterio_avaliacao_fk=ca.id join eixo e on e.id=ca.eixo_fk  where empreendimento_fk=? order by e.nome, u.nome, criterio_nome";
 
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setDouble(1, idEmpreendimento);
+        ps.setLong(1, idEmpreendimento);
 
         ResultSet rs = ps.executeQuery();
 

@@ -14,4 +14,5 @@ $(document).ready(function () {
   
   $(".input-cpf").mask("999.999.999-99");
   $(".input-cnpj").mask("99.999.999/9999-99");
+  $(".data").mask("99/99/9999");
 });

@@ -23,7 +23,6 @@ import gerenciador.incubadora.model.entity.Usuario;
 import gerenciador.incubadora.model.service.EmpreendimentoService;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;

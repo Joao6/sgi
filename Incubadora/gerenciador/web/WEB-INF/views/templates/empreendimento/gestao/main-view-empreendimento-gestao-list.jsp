@@ -371,6 +371,9 @@
                                         <span class="col s12 m6 l6">Status:&nbsp; <strong>{{empreendimento.status}}</strong></span>
                                         <span class="col s12 m6 l6">Ramo de Atividade:&nbsp; <strong>{{empreendimento.ramoAtividade.nome}}</strong></span>                                               
                                     </div>
+                                    <div class="row">
+                                        <span class="col s12 m6 l6"><a href="/gerenciador/incubadora/empreendimento/{{empreendimento.id}}/atualizar">Atualizar dados do empreendimento</a></span>
+                                    </div>
 
                                     <div class="row center">   
                                         <a data-ng-href="/gerenciador/avaliacao/empreendimento/{{empreendimento.id}}" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" class="btn center yellow black-text col s12 m12 l12">Ver avalia&ccedil;&atilde;o</a>
@@ -420,7 +423,7 @@
                                                 </button>
                                                 <p class="hide-on-small-only" style="margin-top: 0.3rem">Avalia&ccedil;&atilde;o Realizada</p>
                                             </li>
-                                            <li class="col s2 m2 l2 marginTimeLine">                                 
+                                            <li class="col s2 m2 l2">                                 
                                                 <button class="btn-floating circle" data-ng-class="{'red': validStatusReprovado(empreendimento), 'green': validStatusAprovado(empreendimento), 'grey': !validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
                                                     5
                                                 </button>
