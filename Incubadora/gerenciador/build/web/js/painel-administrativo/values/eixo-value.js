@@ -8,7 +8,8 @@
       url_add_criterio: window.location.protocol + "//" + window.location.host + "/gerenciador/eixo/add/criterio/api",
       url_update_eixo: window.location.protocol + "//" + window.location.host + "/gerenciador/eixo/update/api",
       url_delete_eixo: window.location.protocol + "//" + window.location.host + "/gerenciador/excluir/eixo/",
-      url_delete_criterio: window.location.protocol + "//" + window.location.host + "/gerenciador/excluir/criterio/"
+      url_delete_criterio: window.location.protocol + "//" + window.location.host + "/gerenciador/excluir/criterio/",
+      url_get_criterio_by_id: window.location.protocol + "//" + window.location.host + "/gerenciador/api/criterio/"
    });
 })();
 

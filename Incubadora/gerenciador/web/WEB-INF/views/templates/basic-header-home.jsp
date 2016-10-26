@@ -29,7 +29,6 @@
       $('.parallax').parallax();
    });
    
-   
 
 </script>
 

@@ -11,8 +11,8 @@
 
       <!-- Dropdown Structure -->
       <ul id='dropdown1' class='dropdown-content'>
-         <li><a href="#!">Perfil</a></li>
-         <li><a href="#!">Conta</a></li>
+         <!--<li><a href="#!">Perfil</a></li>-->
+         <!--<li><a href="#!">Conta</a></li>-->
          <li class="divider"></li>
          <li><a href="<c:url value="/logout"/>">Sair</a></li>
       </ul>

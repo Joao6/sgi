@@ -31,6 +31,10 @@
       var _deleteCriterio = function (id) {
          return $http.get(EixoValues.url_delete_criterio + id + '/api');
       };
+      
+      var _getCriterioById = function(id){
+          return $http.get(EixoValues.url_get_criterio_by_id + id);
+      };
 
       var _update = function (eixo) {
          return $http.post(EixoValues.url_update_eixo, eixo, HEADERS);
@@ -43,7 +47,8 @@
          addCriterio: _addCriterio,
          update: _update,
          delete: _delete,
-         deleteCriterio: _deleteCriterio
+         deleteCriterio: _deleteCriterio,
+         getCriterioById: _getCriterioById
       };
 
    });

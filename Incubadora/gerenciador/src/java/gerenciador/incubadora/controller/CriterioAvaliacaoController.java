@@ -92,6 +92,10 @@ public class CriterioAvaliacaoController {
          response.setStatus(500);
       }
    }
+   
+   //////getCriterioById aqui
+   
+   
 
    @RequestMapping(value = "/criterioAvaliacao/{id}/editar", method = RequestMethod.GET)
    public ModelAndView update(@PathVariable Long id) {
