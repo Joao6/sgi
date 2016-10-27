@@ -9,7 +9,9 @@
       url_update_eixo: window.location.protocol + "//" + window.location.host + "/gerenciador/eixo/update/api",
       url_delete_eixo: window.location.protocol + "//" + window.location.host + "/gerenciador/excluir/eixo/",
       url_delete_criterio: window.location.protocol + "//" + window.location.host + "/gerenciador/excluir/criterio/",
-      url_get_criterio_by_id: window.location.protocol + "//" + window.location.host + "/gerenciador/api/criterio/"
+      url_get_criterio_by_id: window.location.protocol + "//" + window.location.host + "/gerenciador/criterio/",
+      url_save_alteracoes_criterio: window.location.protocol + "//" + window.location.host + "/gerenciador/criterio/save/alteracoes",
+      url_save_criterio: window.location.protocol + "//" + window.location.host + "/gerenciador/criterio/save"
    });
 })();
 

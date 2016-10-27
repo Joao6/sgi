@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <!-- MODAL EXCLUIR -->
+        <!-- MODAL EXCLUIR EIXO -->
         <div class="modal card-panel" id="modal-1">
             <div class="modal-content">
                 <h3 class="valign-wrapper" style="font-size: 25pt"><i class="material-icons valign" style="margin-right:2%; font-size: 25pt !important">warning</i> 
@@ -27,7 +27,21 @@
                 <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Cancelar</a>
             </div>
         </div>
-
+        <!--// FIM MODAL //-->
+        
+        <!-- MODAL EXCLUIR CRITERIO -->
+        <div class="modal card-panel" id="modal-7">
+            <div class="modal-content">
+                <h3 class="valign-wrapper" style="font-size: 25pt"><i class="material-icons valign" style="margin-right:2%; font-size: 25pt !important">warning</i> 
+                    <span class="valign">Alerta de Exclus&atilde;o</span>
+                </h3>
+                <h5>Esta opera&ccedil;&atilde;o n&atilde;o poder&aacute; ser desfeita posteriormente.</h5>
+            </div>
+            <div class="modal-footer card-action">
+                <a href="#!" data-ng-click="deleteCriterio(criterioIdToDelete)" class="waves-effect waves-orange btn-flat">Excluir</a>
+                <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Cancelar</a>
+            </div>
+        </div>
         <!--// FIM MODAL //-->
 
         <!-- MODAL NOVO EIXO -->
@@ -92,11 +106,11 @@
                 </form>
             </div>
             <div class="row">
-                <button class="btn green col s12 m12 l12" style="border-radius: 0px" data-ng-disabled="!formCriterio.$valid" data-ng-click="editCriteiro(criterio)">Salvar</button>
+                <button class="btn green col s12 m12 l12" style="border-radius: 0px" data-ng-click="saveCriterio(criterio)">Salvar</button>
                 <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
             </div>                         
         </div>
-        <!-- FIM MODAL EDITAR EIXO -->  
+        <!-- FIM MODAL EDITAR CRITERIO -->  
 
         <!-- MODAL ADD CRITÉRIO -->
         <div class="modal" style="background-color: #FFF !important" id="modal-4">
@@ -143,22 +157,22 @@
                             <td data-ng-bind="criterio.nome"></td>
                             <td class="center-align">
                                 <form name="formCbx">
-                                    <input type="checkbox" id="cbx-{{criterio.id}}" class="checkbox" data-ng-model="criterio.ativo"/>
+                                    <input type="checkbox" id="cbx-{{criterio.id}}" data-ng-change="addCriterioListUpdate(criterio)" class="checkbox" data-ng-model="criterio.ativo"/>
                                     <label for="cbx-{{criterio.id}}"></label>
                                 </form>
                             </td>
                             <td class="center-align">
-                                <a href="#!" data-ng-click="editCriterio(criterio.id)" class="btn-floating btn-editar  blue btn tooltipped" id="btn-editar-{{criterio.id}}" data-position="top" data-delay="50" data-tooltip="Alterar">
+                                <a href="#!" data-ng-click="getCriterio(criterio.id)" class="btn-floating btn-editar  blue btn tooltipped" id="btn-editar-{{criterio.id}}" data-position="top" data-delay="50" data-tooltip="Alterar">
                                     <i class="material-icons">mode_edit</i>
                                 </a>
                             </td>
                             <td class="center-align">
-                                <a href="#!" class="btn-floating red" id="btn-editar-{{criterio.id}}" data-ng-click="deleteCriterio(criterio.id)"><i class="material-icons">clear</i></a>
+                                <a href="#!" class="btn-floating red btn-criterio-excluir" id="btn-criterio-excluir-{{criterio.id}}" data-ng-click="openModal(7)"><i class="material-icons">clear</i></a>
                             </td>
                         </tr>
 
                     </table>
-                    <button type="button" style="margin-bottom: 2%" class="btn block blue col s12 m12 l12">Salvar Alterações</button>
+                    <button type="button" style="margin-bottom: 2%" class="btn block blue col s12 m12 l12" data-ng-click="saveAlteracoes()">Salvar Alterações</button>
                 </article>  
 
             </div>

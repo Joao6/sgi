@@ -31,115 +31,165 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CriterioAvaliacaoController {
 
-   @RequestMapping(value = "/criterio/eixo/{id}/api", method = RequestMethod.GET)
-   public ModelAndView list(@PathVariable Long eixoID) {
-      ModelAndView mv = null;
+    @RequestMapping(value = "/criterio/eixo/{id}/api", method = RequestMethod.GET)
+    public ModelAndView list(@PathVariable Long eixoID) {
+        ModelAndView mv = null;
 
-      try {
-         Map<String, Object> criteria = new HashMap<String, Object>();
-         criteria.put(CriterioAvaliacaoDAO.CRITERION_EIXO_ID, eixoID);
-         List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(criteria);
-         mv = new ModelAndView("criterio-avaliacao/list");
-         mv.addObject("criterioAvaliacaoList", criterioAvaliacaoList);
+        try {
+            Map<String, Object> criteria = new HashMap<String, Object>();
+            criteria.put(CriterioAvaliacaoDAO.CRITERION_EIXO_ID, eixoID);
+            List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(criteria);
+            mv = new ModelAndView("criterio-avaliacao/list");
+            mv.addObject("criterioAvaliacaoList", criterioAvaliacaoList);
 
-         Eixo eixo = ServiceLocator.getEixoService().readById(eixoID);
-         mv.addObject("eixo", eixo);
-      } catch (Exception e) {
-         mv = new ModelAndView("/error");
-         mv.addObject("e", e);
-      }
+            Eixo eixo = ServiceLocator.getEixoService().readById(eixoID);
+            mv.addObject("eixo", eixo);
+        } catch (Exception e) {
+            mv = new ModelAndView("/error");
+            mv.addObject("e", e);
+        }
 
-      return mv;
-   }
+        return mv;
+    }
 
-   @RequestMapping(value = "/criterio/api", method = RequestMethod.GET)
-   @ResponseBody
-   public String getCriterios(HttpServletResponse response) {
-      String criterios = null;
-      try {
-         List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(null);
-         Gson g = new Gson();
-         criterios = g.toJson(criterioAvaliacaoList);
-         response.setStatus(200);
-      } catch (Exception e) {
-         response.setStatus(500);
-      }
-
-      return criterios;
-   }
-
-   @RequestMapping(value = "/eixo/add/criterio/api", method = RequestMethod.POST)
-   @ResponseBody
-   public void create(@RequestBody String criterio, HttpServletResponse response) {
-      try {
-         Type type = new TypeToken<CriterioAvaliacao>() {
-         }.getType();
-         Gson g = new Gson();
-
-         CriterioAvaliacao ca = g.fromJson(criterio, type);
-
-         Map<String, Object> fields = new HashMap<String, Object>();
-         fields.put("nome", ca.getNome());
-         Map<String, String> errors = ServiceLocator.getCriterioAvaliacaoService().validateForCreate(fields);
-         if (errors.isEmpty()) {
-            ca.setAtivo(true);
-            ServiceLocator.getCriterioAvaliacaoService().create(ca);
+    @RequestMapping(value = "/criterio/api", method = RequestMethod.GET)
+    @ResponseBody
+    public String getCriterios(HttpServletResponse response) {
+        String criterios = null;
+        try {
+            List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(null);
+            Gson g = new Gson();
+            criterios = g.toJson(criterioAvaliacaoList);
             response.setStatus(200);
-         } else {
+        } catch (Exception e) {
             response.setStatus(500);
-         }
-      } catch (Exception e) {
-         response.setStatus(500);
-      }
-   }
-   
-   //////getCriterioById aqui
-   
-   
+        }
 
-   @RequestMapping(value = "/criterioAvaliacao/{id}/editar", method = RequestMethod.GET)
-   public ModelAndView update(@PathVariable Long id) {
-      ModelAndView mv = null;
+        return criterios;
+    }
 
-      try {
-         CriterioAvaliacao criterioAvaliacao = ServiceLocator.getCriterioAvaliacaoService().readById(id);
-         mv = new ModelAndView("/criterio-avaliacao/new");
-         mv.addObject("criterioAvaliacao", criterioAvaliacao);
-         mv.addObject("editarCriterio", true);
-      } catch (Exception e) {
-         mv = new ModelAndView("/error");
-         mv.addObject("e", e);
-      }
+    @RequestMapping(value = "/eixo/add/criterio/api", method = RequestMethod.POST)
+    @ResponseBody
+    public void create(@RequestBody String criterio, HttpServletResponse response) {
+        try {
+            Type type = new TypeToken<CriterioAvaliacao>() {
+            }.getType();
+            Gson g = new Gson();
 
-      return mv;
-   }
+            CriterioAvaliacao ca = g.fromJson(criterio, type);
 
-   @RequestMapping(value = "/criterioAvaliacao/{id}/editar", method = RequestMethod.POST)
-   public ModelAndView update(@PathVariable Long id, CriterioAvaliacao criterioAvaliacao) {
-      ModelAndView mv = null;
+            Map<String, Object> fields = new HashMap<String, Object>();
+            fields.put("nome", ca.getNome());
+            Map<String, String> errors = ServiceLocator.getCriterioAvaliacaoService().validateForCreate(fields);
+            if (errors.isEmpty()) {
+                ca.setAtivo(true);
+                ServiceLocator.getCriterioAvaliacaoService().create(ca);
+                response.setStatus(200);
+            } else {
+                response.setStatus(500);
+            }
+        } catch (Exception e) {
+            response.setStatus(500);
+        }
+    }
 
-      try {
-         ServiceLocator.getCriterioAvaliacaoService().update(criterioAvaliacao);
-         mv = new ModelAndView("redirect:/eixo/" + criterioAvaliacao.getEixo().getId() + "/criterioAvaliacao/list");
-         mv.addObject("criterioAvaliacao", criterioAvaliacao);
-      } catch (Exception e) {
-         mv = new ModelAndView("/error");
-         mv.addObject("e", e);
-      }
+    //////getCriterioById aqui
+    @RequestMapping(value = "/criterio/{idCriterio}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getCriterioById(@PathVariable Long idCriterio, HttpServletResponse response) {
+        String criterio = null;
+        try {
+            CriterioAvaliacao getCriterio = ServiceLocator.getCriterioAvaliacaoService().readById(idCriterio);
+            Gson g = new Gson();
+            criterio = g.toJson(getCriterio);
+            response.setStatus(200);
+        } catch (Exception e) {
+            response.setStatus(500);
+        }
 
-      return mv;
-   }
+        return criterio;
+    }
 
-   @RequestMapping(value = "/excluir/criterio/{id}/api", method = RequestMethod.GET)
-   @ResponseBody
-   public void delete(@PathVariable Long id, HttpServletResponse response) {
-      try {
-         ServiceLocator.getCriterioAvaliacaoService().delete(id);
-         response.setStatus(200);
-      } catch (Exception e) {
-         response.setStatus(500);
+    @RequestMapping(value = "/criterio/save/alteracoes", method = RequestMethod.POST)
+    @ResponseBody
+    public void saveAlteracoes(@RequestBody String criterioList, HttpServletResponse response) {
+        try {
+            Type type = new TypeToken<List<CriterioAvaliacao>>() {
+            }.getType();
+            Gson g = new Gson();
 
-      }
-   }
+            List<CriterioAvaliacao> caList = g.fromJson(criterioList, type);
+
+            for (CriterioAvaliacao aux : caList) {
+                ServiceLocator.getCriterioAvaliacaoService().update(aux);
+            }
+            
+        } catch (Exception e) {
+            response.setStatus(500);
+        }
+    }
+    
+    @RequestMapping(value = "/criterio/save", method = RequestMethod.POST)
+    @ResponseBody
+    public void saveCriterio(@RequestBody String criterio, HttpServletResponse response) {
+        try {
+            Type type = new TypeToken<CriterioAvaliacao>() {
+            }.getType();
+            Gson g = new Gson();
+
+            CriterioAvaliacao ca = g.fromJson(criterio, type);
+
+            ServiceLocator.getCriterioAvaliacaoService().update(ca);
+            response.setStatus(200);
+            
+        } catch (Exception e) {
+            response.setStatus(500);
+        }
+    }
+
+    @RequestMapping(value = "/criterioAvaliacao/{id}/editar", method = RequestMethod.GET)
+    public ModelAndView update(@PathVariable Long id) {
+        ModelAndView mv = null;
+
+        try {
+            CriterioAvaliacao criterioAvaliacao = ServiceLocator.getCriterioAvaliacaoService().readById(id);
+            mv = new ModelAndView("/criterio-avaliacao/new");
+            mv.addObject("criterioAvaliacao", criterioAvaliacao);
+            mv.addObject("editarCriterio", true);
+        } catch (Exception e) {
+            mv = new ModelAndView("/error");
+            mv.addObject("e", e);
+        }
+
+        return mv;
+    }
+
+    @RequestMapping(value = "/criterioAvaliacao/{id}/editar", method = RequestMethod.POST)
+    public ModelAndView update(@PathVariable Long id, CriterioAvaliacao criterioAvaliacao) {
+        ModelAndView mv = null;
+
+        try {
+            ServiceLocator.getCriterioAvaliacaoService().update(criterioAvaliacao);
+            mv = new ModelAndView("redirect:/eixo/" + criterioAvaliacao.getEixo().getId() + "/criterioAvaliacao/list");
+            mv.addObject("criterioAvaliacao", criterioAvaliacao);
+        } catch (Exception e) {
+            mv = new ModelAndView("/error");
+            mv.addObject("e", e);
+        }
+
+        return mv;
+    }
+
+    @RequestMapping(value = "/excluir/criterio/{id}/api", method = RequestMethod.GET)
+    @ResponseBody
+    public void delete(@PathVariable Long id, HttpServletResponse response) {
+        try {
+            ServiceLocator.getCriterioAvaliacaoService().delete(id);
+            response.setStatus(200);
+        } catch (Exception e) {
+            response.setStatus(500);
+
+        }
+    }
 
 }

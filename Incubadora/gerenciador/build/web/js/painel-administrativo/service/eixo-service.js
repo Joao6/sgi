@@ -35,6 +35,14 @@
       var _getCriterioById = function(id){
           return $http.get(EixoValues.url_get_criterio_by_id + id);
       };
+      
+      var _saveAlteracoes = function(criterioList){
+        return $http.post(EixoValues.url_save_alteracoes_criterio, criterioList, HEADERS);  
+      };
+      
+      var _saveCriterio = function(criterio){
+        return $http.post(EixoValues.url_save_criterio, criterio, HEADERS)  ;
+      };
 
       var _update = function (eixo) {
          return $http.post(EixoValues.url_update_eixo, eixo, HEADERS);
@@ -48,7 +56,9 @@
          update: _update,
          delete: _delete,
          deleteCriterio: _deleteCriterio,
-         getCriterioById: _getCriterioById
+         getCriterioById: _getCriterioById,
+         saveAlteracoes: _saveAlteracoes,
+         saveCriterio: _saveCriterio
       };
 
    });

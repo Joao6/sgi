@@ -223,10 +223,11 @@
                 <c:if test="${avaliacao == true}">
                     <div class="card-panel grey lighten-3">
                         <div class="card-content">                                                         
-                            <div class="card center white">
+                            <div class="card white">
                                 <div class="card-content black-text valign-wrapper">
                                     <i class="material-icons small valign">done</i>&nbsp;&nbsp;
                                     <span class="card-title" style="font-size: 13pt">Você já avaliou este empreendimento</span>
+                                    <a class="btn amber col s12 l2 m3 push-l4 push-m1" href="<c:url value="/empreendimento/${empreendimento.id}/editar-nota"/>">Editar</a>
                                 </div>
                             </div>
                             <div class="card-panel">

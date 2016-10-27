@@ -5,6 +5,7 @@
     angular.module('painelAdmin').controller('EixoCtrl', ['$scope', 'EixoService', function ($scope, EixoService) {
 
             this.MESSAGE_DELETE_EIXO_SUCCESS = "Eixo excluído com sucesso!";
+            this.MESSAGE_CREATE_EIXO_SUCCESS = "Eixo adicionado com sucesso!";
             this.MESSAGE_UPDATE_EIXO_SUCCESS = "Eixo atualizado com sucesso!";
             this.MESSAGE_CRITERIO_ADD_SUCCESS = "Critério adicionado com sucesso!";
             this.MESSAGE_SERVER_ERROR_CONNECTION = "Erro ao tentar comunicar com o servidor.";
@@ -14,6 +15,10 @@
             this.MESSAGE_ERROR_ADD_CRITERIO_AVALIACAO = "Erro ao tentar salvar critério de avaliação.";
             this.MESSAGE_ERROR_UPDATE_EIXO = "Erro ao tentar atualizar dados.";
             this.MESSAGE_ERROR_DELETE_EIXO = "Erro ao tentar excluir eixo.";
+            this.MESSAGE_ERROR_UPDATE_CRITERIO = "Erro ao tentar editar critério.";
+            this.MESSAGE_CRITERIO_UPDATE_SUCCESS = "Critério alterado com sucesso!";
+            this.MESSAGE_SAVE_ALTERACOES_SUCCESS = "Alterações salvas com sucesso!";
+            this.MESSAGE_ERROR_SAVE_ALTERACOES = "Erro ao tentar salvar alterações!";
             // config modal
             var configModal = {
                 dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -34,6 +39,7 @@
             $scope.eixo = {};
             $scope.criterio = {};
             $scope.criterioAvaliacao = {};
+            $scope.criterioUpdateList = [];
 
 
             var app = this;
@@ -89,6 +95,7 @@
                         break;
                     case 2:
                         // Create Eixo
+                        delete $scope.eixo;
                         _MODE_CREATE = true;
                         $("#modal-2 h6").text('Novo Eixo');
 //                  delete $scope.eixo;
@@ -113,6 +120,10 @@
                         // Edit criterio
                         _MODE_UPDATE = true;
                         $("#modal-criterio-edit").openModal(configModal);
+                        break;
+                    case 7: 
+                        //delete criterio
+                        $("#modal-" + id).openModal(configModal);
                         break;
 
                     default:
@@ -173,6 +184,7 @@
                         $("#modal-2").closeModal();
                         $scope.eixo.nome = "";
                         $scope.eixo.peso = null;
+                        Materialize.toast(app.MESSAGE_CREATE_EIXO_SUCCESS, 4000, 'green rounded');
                     }).error(function () {
                         Materialize.toast(app.MESSAGE_ERROR_ADD_EIXO, 4000, 'orange rounded');
                     });
@@ -233,6 +245,12 @@
                 $scope.eixoIdToDelete = id;
                 $scope.$digest();
             });
+            
+            $(document).on('click', '.btn-criterio-excluir', function (e) {
+                var id = $(this).attr('id').substring(21);
+                $scope.criterioIdToDelete = id;
+                $scope.$digest();
+            });
 
             /**
              * 
@@ -260,7 +278,7 @@
                 try {
                     EixoService.deleteCriterio(id).success(function () {
                         _getCriterioList();
-                        $("#modal-criterio-detalhes").closeModal();
+                        $("#modal-7").closeModal();
                         Materialize.toast('Critério excluído com sucesso!', 4000, 'green rounded');
                     }).error(function () {
                         Materialize.toast('Erro ao tentar excluir critério', 4000, 'orange rounded');
@@ -271,15 +289,67 @@
                 }
             };
 
-            $scope.editCriterio = function (id) {
+            $scope.getCriterio = function (id) {
                 try {
                     EixoService.getCriterioById(id).success(function (data) {
                         $scope.criterio = data;
-                        openModal(6);
-//                        $("#modal-criterio-detalhes").closeModal();
-//                        Materialize.toast('Critério excluído com sucesso!', 4000, 'green rounded');
+                        $("#modal-criterio-edit").openModal(configModal);
                     }).error(function () {
-                        Materialize.toast('Erro ao tentar excluir critério', 4000, 'orange rounded');
+                        Materialize.toast('Erro ao tentar buscar critério', 4000, 'orange rounded');
+                    });
+                } catch (e) {
+                    console.log(e);
+                    Materialize.toast(app.MESSAGE_SERVER_ERROR_CONNECTION, 4000, 'red rounded');
+                }
+            };
+
+            $scope.saveCriterio = function (criterio) {
+                try {
+                    if (criterio !== "" && criterio !== undefined) {
+                        EixoService.saveCriterio(criterio).success(function () {
+                            Materialize.toast(app.MESSAGE_CRITERIO_UPDATE_SUCCESS, 4000, 'green rounded');
+                            _getCriterioList();
+                            $("#modal-criterio-edit").closeModal();                            
+                        }).error(function () {
+                            Materialize.toast(app.MESSAGE_ERROR_UPDATE_CRITERIO, 4000, 'red rounded');
+                        });
+                    }
+                } catch (e) {
+                    console.log(e);
+                    Materialize.toast(app.MESSAGE_SERVER_ERROR_CONNECTION, 4000, 'red rounded');
+                }
+            };
+
+            $scope.addCriterioListUpdate = function (criterio) {
+                try {
+                    if (criterio !== "" && criterio !== undefined) {
+//                        if($scope.criterioUpdateList.length === 0){
+//                            $scope.criterioUpdateList.push(criterio);
+//                        }else{                            
+//                            for (var i = 0; i < $scope.criterioUpdateList.length; ++i) {
+//                                if ($scope.criterioUpdateList[i].id !== criterio.id) {
+//                                    $scope.criterioUpdateList.push(criterio);
+//                                }
+//                            }
+//                        }
+                        $scope.criterioUpdateList.push(criterio);
+                    }
+//                    $("#modal-criterio-edit").closeModal();
+                } catch (e) {
+                    console.log(e);
+                    Materialize.toast(app.MESSAGE_SERVER_ERROR_CONNECTION, 4000, 'red rounded');
+                }
+            };
+
+
+            $scope.saveAlteracoes = function () {
+                try {
+                    EixoService.saveAlteracoes($scope.criterioUpdateList).success(function () {
+                        Materialize.toast(app.MESSAGE_SAVE_ALTERACOES_SUCCESS, 4000, 'green rounded');
+                        _getCriterioList();
+                        $("#modal-criterio-detalhes").closeModal();
+                    }).error(function () {
+                        Materialize.toast(app.MESSAGE_ERROR_SAVE_ALTERACOES, 4000, 'red rounded');
                     });
                 } catch (e) {
                     console.log(e);

@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
@@ -440,25 +441,63 @@ public class EmpreendimentoController {
         return mv;
     }
 
+    //permite que o avaliador edite as notas dadas ao empreendimento
+    @RequestMapping(value = "/empreendimento/{idEmpreendimento}/editar-nota", method = RequestMethod.GET)
+    public ModelAndView editNotaAvaliadorEmpreendimento(@PathVariable Long idEmpreendimento, HttpSession session) {
+        ModelAndView mv = null;
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        try {
+            if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_AVALIADOR)) {
+                Map<String, Double> avaliacaoEmpreendimento = new HashMap<String, Double>();
+                avaliacaoEmpreendimento = ServiceLocator.getNotaService().getNotaAvaliador(usuario.getId(), idEmpreendimento);
+
+                
+                
+                List<Eixo> eixoList = ServiceLocator.getEixoService().readByCriteria(null);
+
+                Map<Eixo, List<CriterioAvaliacao>> eixoMap = new HashMap<Eixo, List<CriterioAvaliacao>>();
+
+                Map<String, Object> criteria = new HashMap<String, Object>();
+                criteria.put(NotaDAO.CRITERION_EMPREENDIMENTO_ID, idEmpreendimento);
+
+                for (Eixo aux : eixoList) {
+                    criteria = new HashMap<String, Object>();
+                    criteria.put(CriterioAvaliacaoDAO.CRITERION_EIXO_ID, aux.getId());
+
+                    List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(criteria);
+                    eixoMap.put(aux, criterioAvaliacaoList);
+                }
+                
+                Iterator entries = eixoMap.entrySet().iterator();
+                while(entries.hasNext()){
+                    
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        return mv;
+    }
+
     @RequestMapping(value = "/avaliacao/empreendimento/{id}", method = RequestMethod.GET)
     public ModelAndView goAvaliacao(@PathVariable Long id, HttpSession session) {
         ModelAndView mv = null;
 
-        try {            
+        try {
             Map<String, Double> avaliacaoEmpreendimento = new HashMap<String, Double>();
             avaliacaoEmpreendimento = ServiceLocator.getNotaService().getAvaliacao(id);
 
             Empreendimento empreendimento = new Empreendimento();
             empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
 
-            Map<String, List<Avaliacao>> avaliacaoAvaliador = ServiceLocator.getAvaliacaoService().getAvaliacaoEmpreendimento(id);            
+            Map<String, List<Avaliacao>> avaliacaoAvaliador = ServiceLocator.getAvaliacaoService().getAvaliacaoEmpreendimento(id);
             Map<String, Map<String, Double>> mapNotasAvaliadorEixo = new HashMap<String, Map<String, Double>>();
             for (Avaliador aux : empreendimento.getAvaliadorList()) {
                 Map<String, Double> notaAvaliadorPorEixo = ServiceLocator.getAvaliacaoService().getNotaEixoAvaliador(id, aux.getId());
-                mapNotasAvaliadorEixo.put(aux.getNome()+" "+aux.getSobrenome(), notaAvaliadorPorEixo);
+                mapNotasAvaliadorEixo.put(aux.getNome() + " " + aux.getSobrenome(), notaAvaliadorPorEixo);
 //                listNotaAvaliadorPorEixo.add(notaAvaliadorPorEixo);
             }
-            
+
             mv = new ModelAndView("empreendimento/gestao/avaliacao");
             mv.addObject("avaliacaoAvaliador", avaliacaoAvaliador);
             mv.addObject("empreendimento", empreendimento);
