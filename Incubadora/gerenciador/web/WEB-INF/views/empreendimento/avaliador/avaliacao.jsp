@@ -114,6 +114,8 @@
                     Materialize.toast('Insira notas entre 0 e 10 apenas!', 4000, 'rounded orange');
                     $("form #" + id).css({"background-color": "rgba(255, 0, 39, 0.2)"});
                     return false;
+                } else if (nota === "" || nota === undefined) {
+                    $("form #" + id).css({"background-color": "rgba(255, 0, 39, 0.2)"});
                 } else {
                     $("form #" + id).css({"background-color": "rgba(0, 255, 28, 0.2)"});
                 }
@@ -174,7 +176,7 @@
                                                 <span class="red-text"><strong>*Preencha todos os campos e insira notas entre 0 a 10 apenas!</strong></span>
                                             </c:if>
                                             <h2 id="nomeEixo">Eixo ${eixo.key.nome}</h2>
-                                            <table class="centered table">
+                                            <table class="centered table bordered striped">
                                                 <th>Critério de Avaliação</th>
                                                 <th>Nota (0 a 10)</th>
 
@@ -227,7 +229,7 @@
                                 <div class="card-content black-text valign-wrapper">
                                     <i class="material-icons small valign">done</i>&nbsp;&nbsp;
                                     <span class="card-title" style="font-size: 13pt">Você já avaliou este empreendimento</span>
-                                    <a class="btn amber col s12 l2 m3 push-l4 push-m1" href="<c:url value="/empreendimento/${empreendimento.id}/editar-nota"/>">Editar</a>
+                                    <a class="btn amber col s12 l2 m3 push-l4 push-m1" href="<c:url value="/avaliador/empreendimento/${empreendimento.id}/editar-nota"/>">Editar</a>
                                 </div>
                             </div>
                             <div class="card-panel">

@@ -14,6 +14,8 @@ public interface BaseNotaService extends BaseService<Nota> {
         public Map<String, Double> getAvaliacao(Long idEmpreendimento) throws Exception;               
         
         public Map<String, Double> getNotaAvaliador(Long idAvaliador, Long idEmpreendimento) throws Exception;
+        
+        public void updateNotaEmpreendimento(Nota e) throws Exception;
 
 
 }

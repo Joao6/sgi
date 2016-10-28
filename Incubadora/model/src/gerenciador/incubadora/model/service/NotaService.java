@@ -3,7 +3,6 @@ package gerenciador.incubadora.model.service;
 import gerenciador.incubadora.model.ConnectionManager;
 import gerenciador.incubadora.model.base.service.BaseNotaService;
 import gerenciador.incubadora.model.dao.NotaDAO;
-import gerenciador.incubadora.model.entity.Avaliador;
 import gerenciador.incubadora.model.entity.Nota;
 import java.sql.Connection;
 import java.util.HashMap;
@@ -79,6 +78,22 @@ public class NotaService implements BaseNotaService {
         }
     }
     
+    @Override
+    public void updateNotaEmpreendimento(Nota e) throws Exception {
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        try {
+            NotaDAO dao = new NotaDAO();
+            dao.updateNotaEmpreendimento(e, conn);
+            conn.commit();
+            conn.close();
+        } catch (Exception ex) {
+            conn.rollback();
+            conn.close();
+            throw ex;
+        }
+    }
+     
+    
     //ultimo mapa, original de long, double
     public Map<Long, String> validateForCreateNota(Map<Long, Double> fields) {
         Map<Long, String> errors = new HashMap<>();
@@ -124,5 +139,6 @@ public class NotaService implements BaseNotaService {
         conn.close();
         return notaAvaliador;
     }
+    
    
 }

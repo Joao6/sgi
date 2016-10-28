@@ -146,6 +146,20 @@ public class NotaDAO implements BaseDAO<Nota> {
         ps.execute();
         ps.close();
     }
+    
+    public void updateNotaEmpreendimento(Nota e, Connection conn) throws Exception{
+        
+        String sql = "DELETE FROM nota WHERE nota.empreendimento_fk=? AND nota.avaliador_fk=?;";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        int i = 0;
+        ps.setLong(++i, e.getEmpreendimento().getId());
+        ps.setLong(++i, e.getAvaliador().getId());
+        ps.execute();
+        ps.close();
+        
+        this.create(e, conn);
+        
+    }
 
     public Map<String, Double> getAvaliacao(Long idEmpreendimento, Connection conn) throws Exception {
         

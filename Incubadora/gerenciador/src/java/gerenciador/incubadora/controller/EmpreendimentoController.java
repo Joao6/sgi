@@ -286,7 +286,7 @@ public class EmpreendimentoController {
         return empreendimentoJSON;
     }
 
-    @RequestMapping(value = "/empreendimento/{id}/avaliar", method = RequestMethod.GET)
+    @RequestMapping(value = "/avaliador/empreendimento/{id}/avaliar", method = RequestMethod.GET)
     public ModelAndView getAvaliar(@PathVariable Long id, HttpSession session) {
         ModelAndView mv = null;
 
@@ -356,7 +356,7 @@ public class EmpreendimentoController {
         return mv;
     }
 
-    @RequestMapping(value = "/empreendimento/{id}/avaliar", method = RequestMethod.POST)
+    @RequestMapping(value = "/avaliador/empreendimento/{id}/avaliar", method = RequestMethod.POST)
     public ModelAndView postAvaliar(Long[] criterioID, Double[] criterioNota, @PathVariable Long id, HttpSession session) {
         ModelAndView mv = null;
 
@@ -442,38 +442,122 @@ public class EmpreendimentoController {
     }
 
     //permite que o avaliador edite as notas dadas ao empreendimento
-    @RequestMapping(value = "/empreendimento/{idEmpreendimento}/editar-nota", method = RequestMethod.GET)
-    public ModelAndView editNotaAvaliadorEmpreendimento(@PathVariable Long idEmpreendimento, HttpSession session) {
+    @RequestMapping(value = "/avaliador/empreendimento/{id}/editar-nota", method = RequestMethod.GET)
+    public ModelAndView getEditNotaAvaliadorEmpreendimento(@PathVariable Long id, HttpSession session) {
+       ModelAndView mv = null;
+
+        try {
+            List<Eixo> eixoList = ServiceLocator.getEixoService().readByCriteria(null);
+            
+            Map<Eixo, List<CriterioAvaliacao>> eixoMap = new HashMap<Eixo, List<CriterioAvaliacao>>();
+
+            Map<String, Object> criteria = new HashMap<String, Object>();
+            criteria.put(NotaDAO.CRITERION_EMPREENDIMENTO_ID, id);
+            List<Nota> notaList = ServiceLocator.getNotaService().readByCriteria(criteria);
+
+            Map<Long, String> fields = new HashMap<Long, String>();
+            for (Nota aux : notaList) {
+                fields.put(aux.getCriterioAvaliacao().getId(), aux.getNota().toString());
+            }
+            for (Eixo aux : eixoList) {
+                criteria = new HashMap<String, Object>();
+                criteria.put(CriterioAvaliacaoDAO.CRITERION_EIXO_ID, aux.getId());
+
+                List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(criteria);
+                eixoMap.put(aux, criterioAvaliacaoList);
+            }
+
+            mv = new ModelAndView("/empreendimento/avaliador/edit-nota");
+            mv.addObject("eixoMap", eixoMap);
+            mv.addObject("eixoMapSize", eixoMap.size());
+
+            Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
+            mv.addObject("empreendimento", empreendimento);
+            
+            criteria = new HashMap<String, Object>();
+            criteria.put(NotaDAO.CRITERION_AVALIADOR_ID, ((Usuario)session.getAttribute("usuarioLogado")).getId());
+            criteria.put(NotaDAO.CRITERION_EMPREENDIMENTO_ID, id);
+            List<Nota> notaListAux = ServiceLocator.getNotaService().readByCriteria(criteria);
+            
+            if (notaList.size() > 0) {
+                Map<Long, Double> notaMap = new HashMap<Long, Double>();
+                for (Nota n : notaListAux) {
+                    notaMap.put(n.getCriterioAvaliacao().getId(), n.getNota());
+                }
+                mv.addObject("notaMap", notaMap);
+            }
+            
+        } catch (Exception e) {
+            mv = new ModelAndView("/error");
+            mv.addObject("e", e);
+        }
+
+        return mv;
+    }
+    
+    @RequestMapping(value = "/avaliador/empreendimento/{id}/editar-nota", method = RequestMethod.POST)
+    public ModelAndView postEditNotaAvaliadorEmpreendimento(Long[] criterioID, String[] criterioNota, @PathVariable Long id, HttpSession session) {
         ModelAndView mv = null;
+
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
         try {
-            if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_AVALIADOR)) {
-                Map<String, Double> avaliacaoEmpreendimento = new HashMap<String, Double>();
-                avaliacaoEmpreendimento = ServiceLocator.getNotaService().getNotaAvaliador(usuario.getId(), idEmpreendimento);
-
-                
-                
-                List<Eixo> eixoList = ServiceLocator.getEixoService().readByCriteria(null);
-
-                Map<Eixo, List<CriterioAvaliacao>> eixoMap = new HashMap<Eixo, List<CriterioAvaliacao>>();
-
-                Map<String, Object> criteria = new HashMap<String, Object>();
-                criteria.put(NotaDAO.CRITERION_EMPREENDIMENTO_ID, idEmpreendimento);
-
-                for (Eixo aux : eixoList) {
-                    criteria = new HashMap<String, Object>();
-                    criteria.put(CriterioAvaliacaoDAO.CRITERION_EIXO_ID, aux.getId());
-
-                    List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(criteria);
-                    eixoMap.put(aux, criterioAvaliacaoList);
+            if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_AVALIADOR) && criterioID.length == criterioNota.length) {
+                                
+                Map<Long, Double> fields = new HashMap<Long, Double>();
+                for (int i = 0; i < criterioID.length; i++) {
+                    fields.put(criterioID[i], Double.parseDouble(criterioNota[i]));
                 }
-                
-                Iterator entries = eixoMap.entrySet().iterator();
-                while(entries.hasNext()){
-                    
+
+                Map<Long, String> errors = ServiceLocator.getNotaService().validateForCreateNota(fields);
+                if (errors.size() == 0) {
+                    for (int i = 0; i < criterioID.length; i++) {
+
+                        Nota nota = new Nota();
+                        Avaliador avaliador = new Avaliador();
+                        avaliador.setId(usuario.getId());
+                        nota.setAvaliador(avaliador);
+
+                        CriterioAvaliacao criterioAvaliacao = new CriterioAvaliacao();
+                        criterioAvaliacao.setId(criterioID[i]);
+                        nota.setCriterioAvaliacao(criterioAvaliacao);
+
+                        Empreendimento empreendimento = new Empreendimento();
+                        empreendimento.setId(id);
+                        nota.setEmpreendimento(empreendimento);
+                        nota.setDataHora(new java.util.Date());
+                        nota.setNota(Double.parseDouble(criterioNota[i]));
+
+                        ServiceLocator.getNotaService().updateNotaEmpreendimento(nota);
+
+                        Empreendimento e = ServiceLocator.getEmpreendimentoService().readById(id);
+                        e.setStatus(Empreendimento.EMPREENDIMENTO_STATUS_AV_REALIZADA);
+                        ServiceLocator.getEmpreendimentoService().update(e);
+                    }
+
+                    mv = new ModelAndView("/usuario/avaliador/confirmacao-avaliacao");
+                } else {
+                    List<Eixo> eixoList = ServiceLocator.getEixoService().readByCriteria(null);
+
+                    Map<Eixo, List<CriterioAvaliacao>> eixoMap = new HashMap<Eixo, List<CriterioAvaliacao>>();
+                    for (Eixo aux : eixoList) {
+                        Map<String, Object> criteria = new HashMap<String, Object>();
+                        criteria.put(CriterioAvaliacaoDAO.CRITERION_EIXO_ID, aux.getId());
+
+                        List<CriterioAvaliacao> criterioAvaliacaoList = ServiceLocator.getCriterioAvaliacaoService().readByCriteria(criteria);
+                        eixoMap.put(aux, criterioAvaliacaoList);
+                    }
+
+                    mv = new ModelAndView("/empreendimento/avaliador/edit-nota");
+                    mv.addObject("eixoMap", eixoMap);
+                    mv.addObject("eixoMapSize", eixoMap.size());
+                    mv.addObject("errors", errors);
+                    mv.addObject("fields", fields);
                 }
             }
+
         } catch (Exception e) {
+            mv = new ModelAndView("/error");
+            mv.addObject("e", e);
         }
 
         return mv;
