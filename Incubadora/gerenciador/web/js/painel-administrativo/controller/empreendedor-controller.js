@@ -46,8 +46,17 @@ angular.module('painelAdmin')
             // Excluir empreendedor
             $(document).on('click', '.btn-excluir', function (e) {
                 var id = $(this).attr('id').toString().substring(12);
-                $scope.empreendedorIdToDelete = id;
-                $(".alert-modal-excluir").openModal(configModal);
+                EmpreendedorService.getEmpreendimentoByEmpreendedorId(id).success(function (data) {
+                    if (data.length > 0) {
+                        $(".alert-modal-not-excluir").openModal(configModal);
+                    } else if (data.length === 0) {
+                        $scope.empreendedorIdToDelete = id;
+                        $(".alert-modal-excluir").openModal(configModal);
+                    }
+                }).error(function () {
+                    console.log(e);
+                    Materialize.toast(app._MESSAGE_BAD_CONNECTION, 4000, 'red rounded');
+                });
             });
 
 

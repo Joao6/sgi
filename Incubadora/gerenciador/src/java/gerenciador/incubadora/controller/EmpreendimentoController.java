@@ -410,6 +410,7 @@ public class EmpreendimentoController {
                     }
 
                     mv = new ModelAndView("/usuario/avaliador/confirmacao-avaliacao");
+                    mv.addObject("empreendimento", empreendimento);
                     session.setAttribute("erro", false);
                 } else {
                     List<Eixo> eixoList = ServiceLocator.getEixoService().readByCriteria(null);
@@ -444,11 +445,11 @@ public class EmpreendimentoController {
     //permite que o avaliador edite as notas dadas ao empreendimento
     @RequestMapping(value = "/avaliador/empreendimento/{id}/editar-nota", method = RequestMethod.GET)
     public ModelAndView getEditNotaAvaliadorEmpreendimento(@PathVariable Long id, HttpSession session) {
-       ModelAndView mv = null;
+        ModelAndView mv = null;
 
         try {
             List<Eixo> eixoList = ServiceLocator.getEixoService().readByCriteria(null);
-            
+
             Map<Eixo, List<CriterioAvaliacao>> eixoMap = new HashMap<Eixo, List<CriterioAvaliacao>>();
 
             Map<String, Object> criteria = new HashMap<String, Object>();
@@ -473,12 +474,12 @@ public class EmpreendimentoController {
 
             Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
             mv.addObject("empreendimento", empreendimento);
-            
+
             criteria = new HashMap<String, Object>();
-            criteria.put(NotaDAO.CRITERION_AVALIADOR_ID, ((Usuario)session.getAttribute("usuarioLogado")).getId());
+            criteria.put(NotaDAO.CRITERION_AVALIADOR_ID, ((Usuario) session.getAttribute("usuarioLogado")).getId());
             criteria.put(NotaDAO.CRITERION_EMPREENDIMENTO_ID, id);
             List<Nota> notaListAux = ServiceLocator.getNotaService().readByCriteria(criteria);
-            
+
             if (notaList.size() > 0) {
                 Map<Long, Double> notaMap = new HashMap<Long, Double>();
                 for (Nota n : notaListAux) {
@@ -486,7 +487,7 @@ public class EmpreendimentoController {
                 }
                 mv.addObject("notaMap", notaMap);
             }
-            
+
         } catch (Exception e) {
             mv = new ModelAndView("/error");
             mv.addObject("e", e);
@@ -494,7 +495,7 @@ public class EmpreendimentoController {
 
         return mv;
     }
-    
+
     @RequestMapping(value = "/avaliador/empreendimento/{id}/editar-nota", method = RequestMethod.POST)
     public ModelAndView postEditNotaAvaliadorEmpreendimento(Long[] criterioID, String[] criterioNota, @PathVariable Long id, HttpSession session) {
         ModelAndView mv = null;
@@ -502,7 +503,7 @@ public class EmpreendimentoController {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
         try {
             if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_AVALIADOR) && criterioID.length == criterioNota.length) {
-                                
+
                 Map<Long, Double> fields = new HashMap<Long, Double>();
                 for (int i = 0; i < criterioID.length; i++) {
                     fields.put(criterioID[i], Double.parseDouble(criterioNota[i]));
@@ -510,6 +511,17 @@ public class EmpreendimentoController {
 
                 Map<Long, String> errors = ServiceLocator.getNotaService().validateForCreateNota(fields);
                 if (errors.size() == 0) {
+                    Nota notaDelete = new Nota();
+                    Avaliador avaliadorAux = new Avaliador();
+                    avaliadorAux.setId(usuario.getId());
+                    notaDelete.setAvaliador(avaliadorAux);
+
+                    Empreendimento empreendimentoAux = new Empreendimento();
+                    empreendimentoAux.setId(id);
+                    notaDelete.setEmpreendimento(empreendimentoAux);
+                    
+                    ServiceLocator.getNotaService().updateNotaEmpreendimento(notaDelete);
+
                     for (int i = 0; i < criterioID.length; i++) {
 
                         Nota nota = new Nota();
@@ -527,14 +539,11 @@ public class EmpreendimentoController {
                         nota.setDataHora(new java.util.Date());
                         nota.setNota(Double.parseDouble(criterioNota[i]));
 
-                        ServiceLocator.getNotaService().updateNotaEmpreendimento(nota);
-
-                        Empreendimento e = ServiceLocator.getEmpreendimentoService().readById(id);
-                        e.setStatus(Empreendimento.EMPREENDIMENTO_STATUS_AV_REALIZADA);
-                        ServiceLocator.getEmpreendimentoService().update(e);
+                        ServiceLocator.getNotaService().create(nota);
                     }
 
                     mv = new ModelAndView("/usuario/avaliador/confirmacao-avaliacao");
+                    mv.addObject("empreendimento", empreendimentoAux);
                 } else {
                     List<Eixo> eixoList = ServiceLocator.getEixoService().readByCriteria(null);
 

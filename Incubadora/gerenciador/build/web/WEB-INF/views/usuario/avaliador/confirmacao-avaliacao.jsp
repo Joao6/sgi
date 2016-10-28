@@ -116,7 +116,7 @@
         <div class="col s12 m12 l8">
             <div class="card-panel ember">
                 <div class="card center valign-wrapper">                    
-                    <h4><span class="card-title">Empreendimento avaliado com sucesso, clique <a href="<c:url value="/avaliador/empreendimentos"/>">aqui</a> para avaliar outros empreendimentos.</span></h4>
+                    <h4><span class="card-title">Empreendimento avaliado com sucesso, clique <a href="<c:url value="/avaliador/empreendimento/${empreendimento.id}/avaliar"/>">aqui</a> para ver as notas atribuídas à este empreendimento.</span></h4>
                 </div>
             </div>
         </div>

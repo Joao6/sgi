@@ -271,6 +271,27 @@ public class IncubadoraController {
         return mv;
     }
 
+    @RequestMapping(value = "/incubadora/empreendedor/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getEmpreendedorByIdAPI(@PathVariable Long id, HttpServletResponse response) {
+        String empreendedor = null;
+        try {
+            Empreendedor empreendedorEntity = ServiceLocator.getEmpreendedorService().readById(id);
+            if(empreendedorEntity != null){
+                Gson g = new Gson();
+                empreendedor = g.toJson(empreendedorEntity);
+                response.setStatus(200);
+            }else{
+                response.setStatus(500);                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(500);
+        }
+        return empreendedor;
+    }
+    
+    
     @RequestMapping(value = "/incubadora/all/empreendedores", method = RequestMethod.GET)
     @ResponseBody
     public String getAllEmpreendedores(HttpServletResponse response) {
@@ -321,8 +342,7 @@ public class IncubadoraController {
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
             if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_INCUBADORA)) {
                 Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
-                
-                
+
                 mv = new ModelAndView("empreendimento/gestao/atualizar-dados");
                 mv.addObject("empreendimento", empreendimento);
             } else {
@@ -336,7 +356,7 @@ public class IncubadoraController {
         }
         return mv;
     }
-    
+
     @RequestMapping(value = "/incubadora/empreendimento/{id}/atualizar", method = RequestMethod.POST)
     public ModelAndView postAtualizarDadosEmpreendimento(HttpSession session, @PathVariable Long id, String nome, String cnpj, String missao, String visao, String valores, String razaoSocial, String inscricaoEstadual, String inscricaoMunicipal, Date dataIngresso, Date dataAbertura, Date dataPrevisaoGraduacao, Long edital, Long ramoAtividade) {
         ModelAndView mv;
@@ -344,7 +364,7 @@ public class IncubadoraController {
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
             if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_INCUBADORA)) {
                 Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
-                
+
                 empreendimento.setCnpj(cnpj);
                 empreendimento.setDataAbertura(dataAbertura);
                 empreendimento.setDataIngresso(dataIngresso);
@@ -356,16 +376,16 @@ public class IncubadoraController {
                 empreendimento.setValores(valores);
                 empreendimento.setRazaoSocial(razaoSocial);
                 empreendimento.setNome(nome);
-                
+
                 RamoAtividade ramo = ServiceLocator.getRamoAtividade().readById(ramoAtividade);
                 Edital editalAux = ServiceLocator.getEditalService().readById(edital);
-                
+
                 empreendimento.setRamoAtividade(ramo);
                 empreendimento.setEdital(editalAux);
-                
+
                 ServiceLocator.getEmpreendimentoService().update(empreendimento);
-                                
-                mv = new ModelAndView("redirect:/incubadora/empreendimento");                
+
+                mv = new ModelAndView("redirect:/incubadora/empreendimento");
             } else {
                 mv = new ModelAndView("error");
                 mv.addObject("e", "Você não tem permissão para acessar esta área.");

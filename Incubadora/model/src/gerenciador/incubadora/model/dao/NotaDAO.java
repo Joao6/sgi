@@ -155,10 +155,7 @@ public class NotaDAO implements BaseDAO<Nota> {
         ps.setLong(++i, e.getEmpreendimento().getId());
         ps.setLong(++i, e.getAvaliador().getId());
         ps.execute();
-        ps.close();
-        
-        this.create(e, conn);
-        
+        ps.close();                        
     }
 
     public Map<String, Double> getAvaliacao(Long idEmpreendimento, Connection conn) throws Exception {

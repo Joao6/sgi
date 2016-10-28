@@ -67,6 +67,23 @@
       </div>
 
       <!--// fim modal //-->
+      
+      
+      <!-- Modal Structure -->
+      <!--este modal nao permite a exclusao de um empreendedor pois o mesmo possui empreendimentos cadastrados no sistema-->
+      <div class="modal alert-modal-not-excluir card-panel">
+         <div class="modal-content">
+            <h3 class="valign-wrapper" style="font-size: 25pt"><i class="material-icons valign" style="margin-right:2%; font-size: 25pt !important">warning</i> <span class="valign">Alerta de Exclus&atilde;o</span></h3>
+            <h5>Esta opera&ccedil;&atilde;o n&atilde;o poder&aacute; ser concluída.</h5>
+            <p>Obs.: verificamos em nosso sistema que este empreendedor possui empreendimentos cadastrados, portanto não é possível a exclusão
+             do mesmo, pois esta ação apagaria todos os dados relacionados a ele.</p>
+         </div>
+         <div class="modal-footer card-action">            
+            <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Voltar</a>
+         </div>
+      </div>
+
+      <!--// fim modal //-->
 
       <!-- // Detalhes // -->
       <ui-info></ui-info>
