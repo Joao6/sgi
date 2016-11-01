@@ -270,27 +270,6 @@ public class IncubadoraController {
         }
         return mv;
     }
-
-    @RequestMapping(value = "/incubadora/empreendedor/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public String getEmpreendedorByIdAPI(@PathVariable Long id, HttpServletResponse response) {
-        String empreendedor = null;
-        try {
-            Empreendedor empreendedorEntity = ServiceLocator.getEmpreendedorService().readById(id);
-            if(empreendedorEntity != null){
-                Gson g = new Gson();
-                empreendedor = g.toJson(empreendedorEntity);
-                response.setStatus(200);
-            }else{
-                response.setStatus(500);                
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(500);
-        }
-        return empreendedor;
-    }
-    
     
     @RequestMapping(value = "/incubadora/all/empreendedores", method = RequestMethod.GET)
     @ResponseBody

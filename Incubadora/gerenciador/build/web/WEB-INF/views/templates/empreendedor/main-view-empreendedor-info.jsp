@@ -56,7 +56,7 @@
             <div class="card-content">
                 <div class="row">
                     <h5 class="s12 m12 l12 grey lighten-4 black-text z-depth-1 center">{{empreendedor.nome}} {{empreendedor.sobrenome}}</h5>            
-                </div>
+                </div>                
                 <form name="empreendedorForm">
                     <div class="row">
                         <div class="col s12 m6 l4">
@@ -119,7 +119,8 @@
                         </div>
                     </div>
                     <div class="row">                  
-                        <button class="btn btn-floating circle waves-effect waves-orange orange  darken-2 material-icons">undo</button>&nbsp;&nbsp;
+                        <!--<button class="btn btn-floating circle waves-effect waves-orange orange  darken-2 material-icons">undo</button>&nbsp;&nbsp;-->
+                        <a class="btn btn-floating circle waves-effect waves-orange orange darken-2 material-icons" href="<c:url value="/empreendedor/home"/>" style="margin-top: 3%;">undo</a>&nbsp;&nbsp;
                         <button class="btn btn-floating circle waves-effect waves-green green material-icons" data-ng-click="updateInfo(empreendedor)">done</button>
                     </div>
                 </form>

@@ -253,11 +253,10 @@ public class AvaliadorController {
             Map<String, Object> criteria = new LinkedHashMap<String, Object>();
             criteria.put(EmpreendimentoDAO.CRITERION_AVALIADOR_ID, avaliador.getId());
             List<Empreendimento> empreendimentoList = ServiceLocator.getEmpreendimentoService().readByCriteria(criteria);
-                        
-            
+
             mv.addObject("avaliador", avaliador);
             mv.addObject("empreendimentoList", empreendimentoList);
-            
+
         } catch (Exception e) {
             mv = new ModelAndView("error");
         }
@@ -304,17 +303,50 @@ public class AvaliadorController {
 
         try {
             mv = new ModelAndView("usuario/avaliador/info");
-            Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-            Long id = usuario.getId();
-            mv.addObject("usuarioLogado", usuario);
-            mv.addObject("candidatoActive", "active");
-            Avaliador avaliador = ServiceLocator.getAvaliadorService().readById(id);
-            mv.addObject("avaliador", avaliador);
+//            Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+//            Long id = usuario.getId();
+//            mv.addObject("usuarioLogado", usuario);
+//            mv.addObject("candidatoActive", "active");
+//            Avaliador avaliador = ServiceLocator.getAvaliadorService().readById(id);
+//            mv.addObject("avaliador", avaliador);
         } catch (Exception e) {
             mv = new ModelAndView("/error");
             mv.addObject("e", e);
         }
         return mv;
+    }
+
+    @RequestMapping(value = "/avaliador/info/api", method = RequestMethod.GET)
+    @ResponseBody
+    public String getInfoAvaliadorApi(HttpSession session, HttpServletResponse response) {
+        String avaliador = null;
+        try {
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+            Avaliador avaliadorSessao = ServiceLocator.getAvaliadorService().readById(usuario.getId());
+            Gson g = new Gson();
+            avaliador = g.toJson(avaliadorSessao);
+            response.setStatus(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(500);
+        }
+        return avaliador;
+    }
+
+    @RequestMapping(value = "/avaliador/update/info/api", method = RequestMethod.POST)
+    @ResponseBody
+    public void updateInfoAvaliador(@RequestBody String avaliador, HttpServletResponse response) {
+        try {
+            Type type = new TypeToken<Avaliador>() {
+            }.getType();
+            Gson g = new Gson();
+            Avaliador avaliadorUpdate = g.fromJson(avaliador, type);
+            ServiceLocator.getAvaliadorService().update(avaliadorUpdate);            
+            response.setStatus(200);
+        } catch (Exception e) {
+            response.setStatus(500);
+        }
+
     }
 
 }

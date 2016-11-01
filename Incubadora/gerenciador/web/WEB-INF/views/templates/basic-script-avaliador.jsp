@@ -31,7 +31,7 @@
       $(".button-collapse").sideNav();
       $('.time').mask('00:00');
       $("#cpf").mask('000.000.000-00');
-      $("#telefone").mask('(00)0 0000-00000');
+      $("#telefone").mask('(00)0 0000-0000');
       /*
        $(document).on('click', 'a.red', function () {
        $('#alert').openModal();

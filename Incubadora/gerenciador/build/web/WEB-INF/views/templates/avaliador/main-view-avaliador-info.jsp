@@ -62,21 +62,22 @@
         <div class="card-panel ember">         
             <div class="card-content">
                 <div class="row">
-                    <h5 class="s12 m12 l12 grey lighten-4 black-text z-depth-1 center">${avaliador.nome} ${avaliador.sobrenome}</h5>            
+                    <h5 class="s12 m12 l12 grey lighten-4 black-text z-depth-1 center">{{avaliador.nome}} {{avaliador.sobrenome}}</h5>            
                 </div>
                 <form name="avaliadorForm">
                     <div class="row">
                         <div class="col s12 m6 l6">
                             <label for="cpf">CPF</label>
-                            <input id="cpf" class="grey lighten-3" type="text" value="${avaliador.cpf}"/>
+                            <input id="cpf" class="grey lighten-3" type="text" data-ng-model="avaliador.cpf"/>
                         </div>                                                                                                                                                
                         <div class="col s12 m6 l6">
                             <label for="telefone">Telefone</label>
-                            <input id="telefone" class="grey lighten-3" type="text" value="${avaliador.telefone}"/>
+                            <input id="telefone" class="grey lighten-3" type="text" data-ng-model="avaliador.telefone"/>
                         </div>                           
                     </div>
                     <div class="row">                  
-                        <button class="btn btn-floating circle waves-effect waves-orange orange  darken-2 material-icons">undo</button>&nbsp;&nbsp;
+                        <!--<button class="btn btn-floating circle waves-effect waves-orange orange  darken-2 material-icons">undo</button>&nbsp;&nbsp;-->
+                        <a class="btn btn-floating circle waves-effect waves-orange orange darken-2 material-icons" href="<c:url value="/avaliador/home"/>" style="margin-top: 3%;">undo</a>&nbsp;&nbsp;
                         <button class="btn btn-floating circle waves-effect waves-green green material-icons" data-ng-click="updateInfo(avaliador)">done</button>
                     </div>
                 </form>

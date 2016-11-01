@@ -97,9 +97,22 @@
                     float: left;                                      
                 }
             }
-
-
         </style>
+        <script>
+            function validNota(id) {
+                nota = document.getElementById(id).value;
+                if (nota < 0 || nota > 10) {
+                    Materialize.toast('Insira notas entre 0 e 10 apenas!', 4000, 'rounded orange');
+                    $("form #" + id).css({"background-color": "rgba(255, 0, 39, 0.2)"});
+                    return false;
+                } else if (nota === "" || nota === undefined) {
+                    $("form #" + id).css({"background-color": "rgba(255, 0, 39, 0.2)"});
+                } else {
+                    $("form #" + id).css({"background-color": "rgba(0, 255, 28, 0.2)"});
+                }
+                return true;
+            }
+        </script>
 
         <%@include file="../../templates/basic-script-empreendedor.jsp" %> 
         <script>
@@ -165,12 +178,12 @@
                                                     <div class="input-criterio">                                                                
                                                         <div class="col s12 m12 l12">
                                                             <input type="hidden" name="criterioID" value="${criterio.id}">    
-                                                            <td class="input-nota"><input type="text" name="criterioNota" class="form-control form-criterio" id="${criterio.id}" value="<c:if test="${not empty notaMap}">${notaMap[criterio.id]}</c:if><c:if test="${empty notaMap}">${fields[criterio.id]}</c:if>" placeholder="Nota"></td>                                                                                                                        
+                                                            <td class="input-nota"><input type="text" name="criterioNota" class="form-control form-criterio" id="${criterio.id}" value="<c:if test="${not empty notaMap}">${notaMap[criterio.id]}</c:if><c:if test="${empty notaMap}">${fields[criterio.id]}</c:if>" placeholder="Nota" onblur="validNota(${criterio.id})"></td>                                                                                                                        
                                                             <c:if test="${errors[criterio.id] != null}"><p class="text-danger red-text">${errors[criterio.id]}</p></c:if>
+                                                            </div>
                                                         </div>
+                                                        <div class="clear"></div>
                                                     </div>
-                                                    <div class="clear"></div>
-                                                </div>
                                             </c:if>
                                             </tr>
                                         </c:forEach>
