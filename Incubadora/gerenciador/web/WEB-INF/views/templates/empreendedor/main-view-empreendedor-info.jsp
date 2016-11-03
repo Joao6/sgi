@@ -52,6 +52,25 @@
             </div>
         </div>
 
+        <!-- Modal Success update  -->
+        <div id="modal-success-update" class="modal amber modal-trigger">            
+            <div class="modal-content white-text">
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel white">
+                            <img src="<c:url value="/img/logo.png"/>" class="responsive-img"/>
+                            <h5 class="black-text">
+                                Dados atualizados com sucesso!
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat btn-voltar">Fechar</a>
+            </div>
+        </div>
+
         <div class="card-panel ember">         
             <div class="card-content">
                 <div class="row">
@@ -59,17 +78,23 @@
                 </div>                
                 <form name="empreendedorForm">
                     <div class="row">
-                        <div class="col s12 m6 l4">
+                        <div class="col s12 m6 l6">
                             <label for="cpf">CPF</label>
                             <input id="cpf" class="grey lighten-3" type="text"  data-ng-model="empreendedor.cpf"/>
                         </div>
-                        <div class="col s12 m6 l4">
-                            <label for="rg">RG</label>
-                            <input id="rg" class="grey lighten-3" type="text" data-ng-model="empreendedor.rg"/>
-                        </div>
-                        <div class="col s12 m6 l4">
+                        <div class="col s12 m6 l6">
                             <label for="data" class="">Data de Nascimento</label>
                             <input id="data" class="grey lighten-3" type="text"  data-ng-model="empreendedor.dataNascimento" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <label for="senha">Senha</label>
+                            <input type="password" id="senha" class="grey lighten-3" data-ng-model="empreendedor.senha"/>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <label for="rg">RG</label>
+                            <input id="rg" class="grey lighten-3" type="text" data-ng-model="empreendedor.rg"/>
                         </div>
                     </div>
                     <div class="row">

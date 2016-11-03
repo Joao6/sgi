@@ -3,6 +3,18 @@
 angular.module('painelAvaliador')
         .controller('MainCtrlAvaliador', function ($scope, AvaliadorService) {
 
+            var configModal = {
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 1, // Transition in duration
+                out_duration: 1, // Transition out duration
+                ready: function () {
+                    return;
+                }, // Callback for Modal open
+                complete: function () {
+                } // Ca
+            };
+
             $scope.avaliador = {};
 
             var _getInfo = function () {
@@ -29,7 +41,8 @@ angular.module('painelAvaliador')
                 try {
                     AvaliadorService.updateInfo(avaliador).success(function () {
                         _getInfo();
-                        Materialize.toast('Dados atualizados com sucesso! =)', 4000, 'rounded green');
+                        $("#modal-success-update").openModal(configModal);
+//                        Materialize.toast('Dados atualizados com sucesso! =)', 4000, 'rounded green');
                     }).error(function () {
                         Materialize.toast('Erro ao tentar atualizar dados! =(', 4000, 'rounded orange');
                     });

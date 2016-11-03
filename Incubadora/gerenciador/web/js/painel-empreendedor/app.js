@@ -3,6 +3,18 @@
 var app = angular.module('painelEmpreendedor', ['caco.ClientPaginate', 'ngRoute']);
 app.controller('MainCtrl', function ($scope, InfoService) {
 
+    var configModal = {
+        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        in_duration: 1, // Transition in duration
+        out_duration: 1, // Transition out duration
+        ready: function () {
+            return;
+        }, // Callback for Modal open
+        complete: function () {
+        } // Ca
+    };
+
     // Estados listados no selct UF
     $scope.estados = [
         {'id': 01, 'sigla': 'AC'}, {'id': 02, 'sigla': 'AP'}, {'id': 03, 'sigla': 'AL'},
@@ -56,7 +68,8 @@ app.controller('MainCtrl', function ($scope, InfoService) {
 
             InfoService.updateInfo(empreendedor).success(function () {
                 _getInfo();
-                Materialize.toast('Dados atualizados com sucesso! =)', 4000, 'rounded green');
+//                Materialize.toast('Dados atualizados com sucesso! =)', 4000, 'rounded green');
+                $("#modal-success-update").openModal(configModal);
             }).error(function () {
                 Materialize.toast('Erro ao tentar atualizar dados! =(', 4000, 'rounded red');
             });

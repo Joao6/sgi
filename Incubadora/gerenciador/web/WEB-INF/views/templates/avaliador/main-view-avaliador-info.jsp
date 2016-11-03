@@ -39,6 +39,25 @@
             </div>
         </div>
 
+        <!-- Modal Success update  -->
+        <div id="modal-success-update" class="modal amber modal-trigger">            
+            <div class="modal-content white-text">
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel white">
+                            <img src="<c:url value="/img/logo.png"/>" class="responsive-img"/>
+                            <h5 class="black-text">
+                                Dados atualizados com sucesso!
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat btn-voltar">Fechar</a>
+            </div>
+        </div>
+
         <!-- Modal Error -->
         <div id="modal-error" class="modal amber">            
             <div class="modal-content white-text">
@@ -74,6 +93,12 @@
                             <label for="telefone">Telefone</label>
                             <input id="telefone" class="grey lighten-3" type="text" data-ng-model="avaliador.telefone"/>
                         </div>                           
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <label for="senha">Senha</label>
+                            <input id="senha" class="grey lighten-3" type="password" data-ng-model="avaliador.senha"/>
+                        </div>
                     </div>
                     <div class="row">                  
                         <!--<button class="btn btn-floating circle waves-effect waves-orange orange  darken-2 material-icons">undo</button>&nbsp;&nbsp;-->
