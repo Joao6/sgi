@@ -353,7 +353,9 @@
                                         <a href="#!" id="emp-{{empreendimento.id}}" class="emp-accordion-link"><span data-ng-bind="empreendimento.nome" class="valign" style="font-size: 14pt;"></span></a>
                                     </span>
                                     <!-- #################################################################################-->
-                                    <a data-ng-href="#!" id="btn-excluir-empreendimento" data-ng-click="openModal(6, empreendimento)" class="waves-effect waves-light white grey-text"  style="right: 3rem; position: absolute"><i class="material-icons">clear</i></a>
+                                    
+                                    <a href="<c:url value="/incubadora/empreendimento/{{empreendimento.id}}/atualizar"/>" data-ng-click="empreendimento(empreendimento.id)" id="btn-excluir-empreendimento"  class="btn-floating circle blue waves-effect waves-light grey-text"  style="right: 7rem; position: absolute"><i class="material-icons">mode_edit</i></a>
+                                    <a data-ng-href="#!" id="btn-excluir-empreendimento" data-ng-click="openModal(6, empreendimento)" class="btn-floating circle red waves-effect waves-light grey-text"  style="right: 4rem; position: absolute"><i class="material-icons">clear</i></a>
                                 </div>
 
                                 <div class="empreendimento card-content">
@@ -370,10 +372,7 @@
                                     <div class="row">
                                         <span class="col s12 m6 l6">Status:&nbsp; <strong>{{empreendimento.status}}</strong></span>
                                         <span class="col s12 m6 l6">Ramo de Atividade:&nbsp; <strong>{{empreendimento.ramoAtividade.nome}}</strong></span>                                               
-                                    </div>
-                                    <div class="row">
-                                        <span class="col s12 m6 l6"><a href="/gerenciador/incubadora/empreendimento/{{empreendimento.id}}/atualizar">Atualizar dados do empreendimento</a></span>
-                                    </div>
+                                    </div>                                    
 
                                     <div class="row center">   
                                         <a data-ng-href="/gerenciador/avaliacao/empreendimento/{{empreendimento.id}}" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" class="btn center yellow black-text col s12 m12 l12">Ver avalia&ccedil;&atilde;o</a>

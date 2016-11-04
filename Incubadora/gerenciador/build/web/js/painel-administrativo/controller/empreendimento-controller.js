@@ -79,6 +79,19 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     }
 
     _getEmpreendimentos();
+    
+    $scope.empreendimento = function (id){
+        try {
+            EmpreendimentoService.getEmpreendimento(id).success(function (data){
+                $scope.empreendimento = data;
+            }).error(function(){
+                Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
+            });
+        }catch (e){
+            Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
+            console.log(e);
+        }
+    };
 
 
     function _getAvaliadores() {

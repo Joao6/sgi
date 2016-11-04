@@ -321,9 +321,15 @@ public class IncubadoraController {
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
             if (usuario.getTipoUsuario().equals(Usuario.TIPO_USUARIO_INCUBADORA)) {
                 Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
-
+                
+                List<RamoAtividade> ramoList = ServiceLocator.getRamoAtividade().readByCriteria(null);
+                List<Edital> editalList = ServiceLocator.getEditalService().readByCriteria(null);
+                
+                
                 mv = new ModelAndView("empreendimento/gestao/atualizar-dados");
                 mv.addObject("empreendimento", empreendimento);
+                mv.addObject("ramoList", ramoList);
+                mv.addObject("editalList", editalList);                
             } else {
                 mv = new ModelAndView("error");
                 mv.addObject("e", "Você não tem permissão para acessar esta área.");

@@ -3,7 +3,7 @@
     Created on : 04/10/2016, 09:06:16
     Author     : Rafael-pc
 --%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,10 +16,14 @@
 
         <%@include  file="../../templates/basic-style.jsp"%>
         <%@include file="../../templates/basic-script.jsp" %>
-                
+
+        <script src="<c:url value="/js/painel-administrativo/values/update-empreendimento-value.js"/>"></script>
+        <script src="<c:url value="/js/painel-administrativo/service/update-empreendimento-service.js"/>"></script>
+        <script src="<c:url value="/js/painel-administrativo/controller/update-empreendimento-controller.js"/>"></script>
+
         <script src="<c:url value="/js/mask.js"/>"></script>
     </head>
-    <body>
+    <body data-ng-app="painelAdmin">
         <%@include file="../../templates/top-bar.jsp" %>
         <nav class="navbar-top amber">
             <div class="nav-wrapper amber">
@@ -35,7 +39,7 @@
 
         <div class="area-principal">
 
-            <div class="col s12 l8" >
+            <div class="col s12 l8" data-ng-controller="UpdateCtrl">
 
                 <div class="col s12 m12 l12">
                     <div class="card-panel ember" style="padding-top: 0px !important">   
@@ -43,24 +47,35 @@
                             <div class="card-content black-text valign-wrapper">
                                 <i class="material-icons small valign">business</i>&nbsp;&nbsp;
                                 <span class="card-title"><strong class="hide-on-small-only">Atualizar dados do empreendimento</strong>&nbsp; </span>
+                                <input type="hidden" id="idEmpree" value="${empreendimento.id}"/>
                             </div>
 
                         </div>
 
-                        <div class="card-content">                            
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="card-panel">
+                                    
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="card-content">                            
                             <div class="row">
                                 <form name="formEmpreendimento" method="post" class="card card-panel col s12 m12 l12">
+                                    <div class="card-title" style="font-weight: 400;">Informações Gerais</div>
+                                    <div class="divider"></div>
+                                    <br/>
                                     <input hidden="true" id="status" value="${status}"/>
                                     <div class="row">
                                         <div class="col s12 m6 l6">
                                             <div class="input-field">
-                                                <input type="text" name="nome" id="nome" placeholder="ex.: BuskImóveis" value="${empreendimento.nome}"/>
+                                                <input type="text" name="nome" id="nome" placeholder="ex.: BuskImóveis" data-ng-model="empreendimento.nome"/>
                                                 <label for="nome" class="grey-text">Nome&nbsp;<span class="orange-text">(Obrigat&oacute;rio)</span></label>
                                             </div>
 
                                             <div class="input-field">
-                                                <input type="text" name="razaoSocial" id="razaoSocial" placeholder="ex.: Buscador de Imóveis Ltda" value="${empreendimento.razaoSocial}"/>
+                                                <input type="text" name="razaoSocial" id="razaoSocial" placeholder="ex.: Buscador de Imóveis Ltda" data-ng-model="empreendimento.razaoSocial"/>
                                                 <label for="razaoSocial">Raz&atilde;o Social</label>
                                             </div> 
 
@@ -68,19 +83,33 @@
                                         <div class="col s12 m6 l6">
                                             <label for="edital">Edital&nbsp;<span class="orange-text">(Obrigat&oacute;rio)</span></label>
                                             <select id="edital" class="browser-default" name="edital">
-                                                <option value="">Selecione...</option>
-                                                <option selected="" value="${empreendimento.edital.id}">${empreendimento.edital.nome}</option>
+                                                <option value="" disabled="">Selecione...</option>                                                
+                                                <c:forEach items="${editalList}" var="edital">
+                                                    <c:if test="${empreendimento.edital.id eq edital.id}">
+                                                        <option selected="" value="${edital.id}">${edital.nome}</option>
+                                                    </c:if>
+                                                    <c:if test="${empreendimento.edital.id != edital.id}">
+                                                        <option value="${edital.id}">${edital.nome}</option>
+                                                    </c:if>
+                                                </c:forEach>
                                             </select>
 
                                             <label for="ramo">Ramo de Atividade&nbsp;<span class="orange-text">(Obrigat&oacute;rio)</span></label>
                                             <select id="ramo" class="browser-default" name="ramoAtividade">
-                                                <option value="">Selecione...</option>
-                                                <option selected="" value="${empreendimento.ramoAtividade.id}">${empreendimento.ramoAtividade.nome}</option>
+                                                <option value="" disabled="">Selecione...</option>                                                
+                                                <c:forEach items="${ramoList}" var="ramo">
+                                                    <c:if test="${empreendimento.ramoAtividade.id eq ramo.id}">
+                                                        <option selected="" value="${ramo.id}">${ramo.nome}</option>
+                                                    </c:if>
+                                                    <c:if test="${empreendimento.ramoAtividade.id != ramo.id}">
+                                                        <option value="${ramo.id}">${ramo.nome}</option>
+                                                    </c:if>
+                                                </c:forEach>
                                             </select>                                                      
                                         </div>
                                     </div>
-                                            
-                                    
+
+
                                     <div class="row">                        
                                         <div class="col s12 m6 l6">                          
                                             <div class="input-field">
@@ -133,15 +162,17 @@
                                     <div class="row">
                                         <div class="col s12 m6 l6  grey  lighten-4">
                                             <div class="input-field">
-                                                <input value="${empreendimento.dataAbertura}" name="dataAbertura" type="text" class="data" placeholder="dd/mm/aaaa" id="dataAbertura"/>
+                                                <input value="<fmt:formatDate pattern="dd/MM/yyyy" value="${empreendimento.dataAbertura}"/>" name="dataAbertura" type="text" class="data" placeholder="dd/mm/aaaa" id="dataAbertura"/>
                                                 <label for="dataAbertura">Data de Abertura</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col s12 m6 l6  grey  lighten-4">
                                                 <div class="input-field">
-                                                    <input value="${empreendimento.dataIngresso}" name="dataIngresso" type="text" class="data" placeholder="dd/mm/aaaa" id="dataIngresso"/>
+                                                    <input value="<fmt:formatDate pattern="dd/MM/yyyy" value="${empreendimento.dataIngresso}"/>" name="dataIngresso" type="text" class="data" placeholder="dd/mm/aaaa" id="dataIngresso"/>
                                                     <label for="dataIngresso">Data de Ingresso</label>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -150,7 +181,7 @@
                                     <div class="row">
                                         <div class="col s12 m6 l6 grey  lighten-4">
                                             <label for="prevGraduacao">Data de Previsão da Gradua&ccedil;&atilde;o</label>
-                                            <input value="${empreendimento.dataPrevisaoGraduacao}" name="dataPrevisaoGraduacao" id="prevGraduacao" type="text" class="data" placeholder="dd/mmm/aaaa"/>
+                                            <input value="<fmt:formatDate pattern="dd/MM/yyyy" value="${empreendimento.dataPrevisaoGraduacao}"/>" name="dataPrevisaoGraduacao" id="prevGraduacao" type="text" class="data" placeholder="dd/mmm/aaaa"/>
                                         </div>
 
                                         <div class="s12 m6 l6">

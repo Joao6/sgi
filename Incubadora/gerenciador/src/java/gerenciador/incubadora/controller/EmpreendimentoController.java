@@ -22,6 +22,7 @@ import gerenciador.incubadora.model.entity.RamoAtividade;
 import gerenciador.incubadora.model.entity.Usuario;
 import gerenciador.incubadora.model.service.EmpreendimentoService;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -219,7 +220,8 @@ public class EmpreendimentoController {
     public ModelAndView updateEmpreendimento(@PathVariable Long id) {
         ModelAndView mv;
         try {
-            Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
+            Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);            
+            
             List<RamoAtividade> ramoAtividadeList = ServiceLocator.getRamoAtividade().readByCriteria(new HashMap<String, Object>());
             mv = new ModelAndView("/empreendimento/gestao/new");
 
@@ -959,7 +961,7 @@ public class EmpreendimentoController {
             emp.setId(e.getId());
 
             Gson g = new Gson();
-            empreendimento = g.toJson(emp);
+            empreendimento = g.toJson(e);
             response.setStatus(200);
         } catch (Exception e) {
             response.setStatus(500);

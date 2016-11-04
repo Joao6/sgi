@@ -10,9 +10,7 @@
 
       var _getEmpreendedores = function () {
          return $http.get(EmpreendedorValues.url_obter_empreendedores, HEADERS);
-      };
-      
-   
+      };                   
       
       var _getEmpreendedorById = function (id) {
          return $http.get(EmpreendedorValues.url_get_empreendedor + id, HEADERS);
@@ -35,7 +33,7 @@
          removerEmpreendedor: _removerEmpreendedor,
          addEmpreendedor: _addEmpreendedor,
          getEmpreendimentoByEmpreendedorId: _getEmpreendimentoByEmpreendedorId,
-         getEmpreendedorById: _getEmpreendedorById,
+         getEmpreendedorById: _getEmpreendedorById,         
       };
    });
 })();
