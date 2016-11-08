@@ -133,7 +133,7 @@
                                     <i class="material-icons valign">business</i>&nbsp;&nbsp;&nbsp;
                                     <span data-ng-bind="empreendimento.nome" class="valign" style="font-size: 14pt;"></span>
                                 </span>                        
-                                <a data-ng-href="#!" id="btn-exclui-empreendimento" data-ng-click="openModal(1, empreendimento)" class="waves-effect waves-light white grey-text"  style="right: 3rem; position: absolute"><i class="material-icons">clear</i></a>
+                                <a data-ng-href="#!" id="btn-excluir-empreendimento" data-ng-click="openModal(1, empreendimento)" class="btn-floating circle red waves-effect waves-light grey-text"  style="right: 4rem; position: absolute"><i class="material-icons">clear</i></a>
 
                             </div>
                             <div class="card-content">

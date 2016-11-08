@@ -1,6 +1,7 @@
 package gerenciador.incubadora.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import gerenciador.incubadora.model.ServiceLocator;
 import gerenciador.incubadora.model.dao.CronogramaAnualDAO;
@@ -279,7 +280,7 @@ public class IncubadoraController {
         try {
 
             List<Empreendedor> empreendedorList = ServiceLocator.getEmpreendedorService().readByCriteria(criteria);
-            Gson g = new Gson();
+            Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm").create();
             empreendedores = g.toJson(empreendedorList);
 
             response.setStatus(200);

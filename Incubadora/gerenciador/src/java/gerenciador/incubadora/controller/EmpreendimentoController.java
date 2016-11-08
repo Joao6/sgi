@@ -762,7 +762,7 @@ public class EmpreendimentoController {
         try {
             Type type = new TypeToken<Empreendimento>() {
             }.getType();
-            Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
+            Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm").create();
             Empreendimento e = g.fromJson(empreendimento, type);
             ServiceLocator.getEmpreendimentoService().update(e);
             response.setStatus(200);
@@ -906,7 +906,10 @@ public class EmpreendimentoController {
             if (apresentacaoNegocio != null && novaProposta == null) {
                 mv = new ModelAndView("empreendimento/empreendedor/proposta-new-aviso");
                 mv.addObject("empreendimento", empreendimento);
-            } else if (novaProposta == 1) {
+            } else if (apresentacaoNegocio == null) {
+                mv = new ModelAndView("empreendimento/empreendedor/proposta-new");
+                mv.addObject("empreendimento", empreendimento);
+            }else if (apresentacaoNegocio != null && novaProposta == 1){
                 mv = new ModelAndView("empreendimento/empreendedor/proposta-new");
                 mv.addObject("empreendimento", empreendimento);
             }
@@ -960,7 +963,7 @@ public class EmpreendimentoController {
             Empreendimento emp = new Empreendimento();
             emp.setId(e.getId());
 
-            Gson g = new Gson();
+            Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm").create();
             empreendimento = g.toJson(e);
             response.setStatus(200);
         } catch (Exception e) {

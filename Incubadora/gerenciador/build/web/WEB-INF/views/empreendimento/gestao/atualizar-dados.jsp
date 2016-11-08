@@ -16,12 +16,15 @@
 
         <%@include  file="../../templates/basic-style.jsp"%>
         <%@include file="../../templates/basic-script.jsp" %>
+        
+        <link rel="stylesheet" href="<c:url value="/css/painel-administrativo/update-empreendimento.css"/>" />
 
         <script src="<c:url value="/js/painel-administrativo/values/update-empreendimento-value.js"/>"></script>
         <script src="<c:url value="/js/painel-administrativo/service/update-empreendimento-service.js"/>"></script>
         <script src="<c:url value="/js/painel-administrativo/controller/update-empreendimento-controller.js"/>"></script>
 
         <script src="<c:url value="/js/mask.js"/>"></script>
+        
     </head>
     <body data-ng-app="painelAdmin">
         <%@include file="../../templates/top-bar.jsp" %>
@@ -41,6 +44,120 @@
 
             <div class="col s12 l8" data-ng-controller="UpdateCtrl">
 
+                <!-- MODAL PROPOSTA -->
+                <div class="modal" style="background-color: #FFF !important" id="modal-1">
+                    <h6 class="card card-panel" data-ng-if="!apresentacaoNegocio.miniCurriculo">Ainda não foi enviada a apresenta&ccedil;&atilde;o do neg&oacute;cio.</h6>
+                    <div class="modal-body card white" data-ng-if="apresentacaoNegocio.miniCurriculo">
+                        <blockquote class="card grey lighten-4"><strong>Mini Curr&iacute;culo: <br/><br/></strong>  {{apresentacaoNegocio.miniCurriculo}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Disponibilidade e comprometimento para o desenvolvimento do neg&oacute;cio: <br/><br/></strong>  {{apresentacaoNegocio.disponibilidade}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Descrição da inova&ccedil;&atilde;o do produto, servi&ccedil;o ou processo: <br/><br/></strong>  {{apresentacaoNegocio.inovacaoProduto}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Tempo necess&aacute;rio para o desenvolvimento do produto, servi&ccedil;o ou processo: <br/><br/></strong>  {{apresentacaoNegocio.tempoDesenvolvimento}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Investimento inicial a ser realizado: <br/><br/></strong>  {{apresentacaoNegocio.investimento}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Identifica&ccedil;&atilde;o de clientes, concorrentes e fornecedores: <br/><br/></strong>  {{apresentacaoNegocio.identificacao}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Conhecimento de mercado alvo: <br/><br/></strong>  {{apresentacaoNegocio.mercadoAlvo}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Vantagem competitiva comparada &agrave; concorr&ecirc;ncia: <br/><br/></strong>  {{apresentacaoNegocio.vantagemCompetitiva}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Parcerias previstas ou firmadas para o desenvolvimento do neg&oacute;cio: <br/><br/></strong>  {{apresentacaoNegocio.parcerias}}</blockquote>
+                        <blockquote class="card grey lighten-4"><strong>Estrutura organizacional proposta: <br/><br/></strong>  {{apresentacaoNegocio.estruturaOrganizacional}}</blockquote>
+                    </div>
+                    <div class="row">
+                        <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                    </div>                  
+                </div>
+                <!-- FIM MODAL PROPOSTA -->  
+
+                <!-- MODAL DETALHES EMPREENDIMENTO -->
+                <div class="modal" style="background-color: #FFF !important" id="modal-3">
+                    <div class="modal-body card white">
+                        <blockquote class="grey lighten-4"><strong>Nome:&nbsp;</strong>  {{empreendimento.nome}} </blockquote>
+                        <blockquote class="grey lighten-4"><strong>Ramo de Atividade</strong>  {{empreendimento.ramoAtividade.nome}}</blockquote>
+                        <blockquote class="grey lighten-4"><strong>Raz&atilde;o Social:&nbsp;</strong>  {{empreendimento.razaoSocial}}</blockquote>                            
+                        <blockquote class="grey lighten-4"><strong>Empreendedor(es):&nbsp;<br/></strong>
+                            <span data-ng-repeat="empreendedor in empreendimento.empreendedorList">
+                                <span>{{empreendedor.nome}} {{empreendedor.sobrenome}}</span><br/>
+                            </span>
+                        </blockquote>
+
+                        <div class="row">
+                            <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM MODAL DETALHES EMPREENDIMENTO -->
+
+                <!-- MODAL AVALIADORES -->
+                <div class="modal" style="background-color: #FFF !important" id="modal-4">
+                    <div class="modal-body card white">
+                        <div class="row">
+                            <div class="card">
+                                <div class="card s12 m12 l12 center-align" style="padding-top: 1%; padding-bottom: 1%">
+                                    <h6 style="font-size: 15pt">Associar Avaliadores</h6>
+                                </div>
+                                <form name="formAvalidor">
+                                    <div class="card select-group card-content s12 m12 l12">
+                                        <label for="avalidor" style="font-size: 13pt">Escolha os Avaliadores</label>
+                                        <div class="input-field responsavel-field">
+                                            <select id="avaliador" class="browser-default" data-ng-model="avaliador.id" data-ng-change="addAvaliador(avaliador)">
+                                                <option value="">Selecione</option>
+                                                <option data-ng-repeat="avaliador in avaliadores" value="{{avaliador.id}}">{{avaliador.nome}} {{avaliador.sobrenome}}</option>
+                                            </select>        
+
+                                            <div class="chip pratica-chip" data-ng-repeat="avaliador in empreendimento.avaliadorList"> 
+                                                <span>
+                                                    <img data-ng-src="/gerenciador/img/ico-responsavel.png" alt="{{avaliador.nome}}">
+                                                    <a data-ng-href="/gerenciador/avaliador/{{avaliador.id}}/view/notas/by/empreendimento/{{empreendimento.id}}"  class="white-text">{{avaliador.nome}}</a>
+                                                </span>
+                                                <i class="material-icons" data-ng-click="removeAvaliador(avaliador.id)">close</i>
+                                            </div>
+                                        </div>                              
+                                        <button class="btn green lighten-1 large" data-ng-click="associarAvaliadores()" data-ng-disabled="empreendimento.avaliadorList.length < 1" style="width: 100%">Associar Avaliadores</button>
+                                    </div>   
+                                </form>
+
+                            </div>                                       
+                            <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                        </div>
+                    </div>       
+
+                </div>               
+                <!-- FIM MODAL AVALIADORES -->
+
+                <!-- MODAL EMPREENDEDORES (JP) -->
+                <div class="modal" style="background-color: #FFF !important" id="modal-5">
+                    <div class="modal-body card white">
+                        <div class="row">
+                            <div class="card">
+                                <div class="card s12 m12 l12 center-align" style="padding-top: 1%; padding-bottom: 1%">
+                                    <h6 style="font-size: 15pt">Associar Empreendedores</h6>
+                                </div>
+                                <form name="formEmpreendedor">
+                                    <div class="card select-group card-content s12 m12 l12">
+                                        <label for="empreendedor" style="font-size: 13pt">Escolha os Empreendedores</label>
+                                        <div class="input-field responsavel-field">
+                                            <select id="empreendedor" class="browser-default" data-ng-model="empreendedor.id" data-ng-change="addEmpreendedor(empreendedor)">
+                                                <option value="">Selecione</option>
+                                                <option data-ng-repeat="empreendedor in empreendedores" value="{{empreendedor.id}}">{{empreendedor.nome}} {{empreendedor.sobrenome}}</option>
+                                            </select>        
+
+                                            <div class="chip pratica-chip" data-ng-repeat="empreendedor in empreendimento.empreendedorList"> 
+                                                <span>
+                                                    <img data-ng-src="/gerenciador/img/ico-responsavel.png" alt="{{empreendedor.nome}}">
+                                                    <a data-ng-href="/gerenciador/empreendedor/{{empreendedor.id}}/view/notas/by/empreendimento/{{empreendimento.id}}"  class="white-text">{{empreendedor.nome}}</a>
+                                                </span>
+                                                <i class="material-icons" data-ng-click="removeEmpreendedor(empreendedor.id)">close</i>
+                                            </div>
+                                        </div>                              
+                                        <button class="btn green lighten-1 large" data-ng-click="associarEmpreendedores()" data-ng-disabled="empreendimento.empreendedorList.length < 1" style="width: 100%">Associar Empreendedores</button>
+                                    </div>   
+                                </form>
+
+                            </div>                                       
+                            <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                        </div>
+                    </div>       
+
+                </div>               
+                <!-- FIM MODAL EMPREENDEDORES (JP) -->
+
                 <div class="col s12 m12 l12">
                     <div class="card-panel ember" style="padding-top: 0px !important">   
                         <div class="card center white">
@@ -55,7 +172,12 @@
                         <div class="card-content">
                             <div class="row">
                                 <div class="card-panel">
-                                    
+                                    <div class="row center">                                        
+                                        <a data-ng-href="#!" id="btn-ver-proposta" data-ng-click="openModal(1, empreendimento)" class="btn modal-trigger blue white-text valign col s12 m6 l5 push-l1 push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Proposta</a>
+                                        <a data-ng-href="#!" id="btn-detalhes" data-ng-click="openModal(3, empreendimento)" class="btn blue valign white-text accent-5 col s12 m6 l5  push-l1  push-m1   truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Detalhes</a> 
+                                        <a data-ng-href="#!" id="btn-add-avaliador" class="btn blue valign white-text accent-5 col s12 m6 l5 push-l1 push-m1  truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(4, empreendimento)" data-ng-disabled="isAvaliadorListEmpty()"><span style="font-size: 16pt">+</span> Avaliador</a> 
+                                        <a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l5 push-l1 push-m1  truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>                                                                                                                                                                
+                                    </div>
                                 </div>
                             </div>
                         </div>
