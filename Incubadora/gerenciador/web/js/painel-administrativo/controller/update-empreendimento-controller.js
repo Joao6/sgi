@@ -6,6 +6,8 @@ angular.module('painelAdmin').controller('UpdateCtrl', function ($scope, UpdateS
     this.MESSAGE_GET_SERVER_BAD_CONNECTION = "Erro ao tentar comunicar com o servidor.";
     this.MESSAGE_EDITAL_GET_ERROR = "Erro ao tentar obter lista de Editais em abterto.";
     this.MESSAGE_RAMOS_GET_ERROR = "Erro ao tentar obter lista de Ramos de Atividade.";
+    this.MESSAGE_UPDATE_SUCCESS = "Empreendimento atualizado com sucesso.";
+    this.MESSAGE_UPDATE_ERROr = "Erro ao tentar atualizar empreendimento.";
 
 
     $scope.empreendimentoList = [];
@@ -66,6 +68,32 @@ angular.module('painelAdmin').controller('UpdateCtrl', function ($scope, UpdateS
         try {
             var id = angular.element('#idEmpree').val();
             UpdateService.getEmpreendimento(id).success(function (data) {
+                if (data.dataAbertura !== null & data.dataAbertura !== undefined) {
+                    var _d = data.dataAbertura.split("-");
+                    //dd/MM/yyyy          
+                    var _dd = _d[2].split(" ");
+                    data.dataAbertura = (_d[0] + "/" + _d[1] + "/" + _dd[0]);
+                } else {
+                    data.dataAbertura = null;
+                }
+
+                if (data.dataIngresso !== null & data.dataIngresso !== undefined) {
+                    var _d = data.dataIngresso.split("-");
+                    //dd/MM/yyyy          
+                    var _dd = _d[2].split(" ");
+                    data.dataIngresso = (_d[0] + "/" + _d[1] + "/" + _dd[0]);
+                } else {
+                    data.dataIngresso = null;
+                }
+
+                if (data.dataPrevisaoGraduacao !== null & data.dataPrevisaoGraduacao !== undefined) {
+                    var _d = data.dataPrevisaoGraduacao.split("-");
+                    //dd/MM/yyyy          
+                    var _dd = _d[2].split(" ");
+                    data.dataPrevisaoGraduacao = (_d[0] + "/" + _d[1] + "/" + _dd[0]);
+                } else {
+                    data.dataPrevisaoGraduacao = null;
+                }
                 $scope.empreendimento = data;
             }).error(function () {
                 Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
@@ -95,38 +123,36 @@ angular.module('painelAdmin').controller('UpdateCtrl', function ($scope, UpdateS
     }
     _getAvaliadores();
 
-    if (status === "create") {
-        function getEditais() {
-            try {
-                UpdateService.getEditais().success(function (data) {
-                    $scope.editalList = data;
-                }).error(function () {
-                    Materialize.toast(app.MESSAGE_EDITAL_GET_ERROR, 4000, 'rounded orange');
-                });
-            } catch (e) {
-                console.log(e);
-                Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'rounded red');
-            }
+    function getEditais() {
+        try {
+            UpdateService.getEditais().success(function (data) {
+                $scope.editalList = data;
+            }).error(function () {
+                Materialize.toast(app.MESSAGE_EDITAL_GET_ERROR, 4000, 'rounded orange');
+            });
+        } catch (e) {
+            console.log(e);
+            Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'rounded red');
         }
-
-        getEditais();
-
-        function getRamos() {
-            try {
-                UpdateService.getRamos().success(function (data) {
-                    $scope.ramoAtividadeList = data;
-                }).error(function () {
-                    Materialize.toast(app.MESSAGE_RAMOS_GET_ERROR, 4000, 'rounded orange');
-                });
-            } catch (e) {
-                console.log(e);
-                Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'rounded red');
-            }
-
-        }
-
-        getRamos();
     }
+
+    getEditais();
+
+    function getRamos() {
+        try {
+            UpdateService.getRamos().success(function (data) {
+                $scope.ramoAtividadeList = data;
+            }).error(function () {
+                Materialize.toast(app.MESSAGE_RAMOS_GET_ERROR, 4000, 'rounded orange');
+            });
+        } catch (e) {
+            console.log(e);
+            Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'rounded red');
+        }
+
+    }
+
+    getRamos();
 
     $scope.save = function (empreendimento) {
         try {
@@ -140,6 +166,41 @@ angular.module('painelAdmin').controller('UpdateCtrl', function ($scope, UpdateS
             console.log(e);
         }
 
+    };
+
+    $scope.updateEmpreendimento = function (empreendimento) {
+        try {
+            if (empreendimento.dataIngresso !== null && empreendimento.dataIngresso !== undefined) {
+                var _di = empreendimento.dataIngresso.split("/");
+                empreendimento.dataIngresso = (_di[0] + "-" + _di[1] + "-" + _di[2]);
+            } else {
+                empreendimento.dataIngresso = "";
+            }
+
+            if (empreendimento.dataAbertura !== null && empreendimento.dataAbertura !== undefined) {
+                var _da = empreendimento.dataAbertura.split("/");
+                empreendimento.dataAbertura = (_da[0] + "-" + _da[1] + "-" + _da[2]);
+            } else {
+                empreendimento.dataAbertura = "";
+            }
+
+            if (empreendimento.dataPrevisaoGraduacao !== null && empreendimento.dataPrevisaoGraduacao !== undefined) {
+                var _dp = empreendimento.dataPrevisaoGraduacao.split("/");
+                empreendimento.dataPrevisaoGraduacao = (_dp[0] + "-" + _dp[1] + "-" + _dp[2]);
+            } else {
+                empreendimento.dataPrevisaoGraduacao = "";
+            }
+
+            UpdateService.updateEmpreendimento(empreendimento).success(function () {
+                _getEmpreendimentoById();
+                Materialize.toast(app.MESSAGE_UPDATE_SUCCESS, 4000, 'rounded green');
+            }).error(function () {
+                Materialize.toast(app.MESSAGE_UPDATE_ERROR, 4000, 'rounded orange');
+            });
+        } catch (e) {
+            Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'red rounded');
+            console.log(e);
+        }
     };
 
     $scope.addApNegocio = function (apresentacaoNegocio) {

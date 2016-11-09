@@ -14,10 +14,10 @@
         <group>
             <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/empreendimento/gestao/atualizar-dados.jsp</file>
             <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/templates/empreendimento/gestao/main-view-empreendimento-gestao-list.jsp</file>
-            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/empreendimento/gestao/list.jsp</file>
             <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/templates/empreendimento/empreendedor/main-view-empreendimento-empreendedor-list.jsp</file>
             <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/js/painel-administrativo/controller/update-empreendimento-controller.js</file>
             <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/empreendimento/empreendedor/list.jsp</file>
+            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/src/java/gerenciador/incubadora/controller/EmpreendimentoController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1060,6 +1060,24 @@ public class EmpreendimentoController {
         }
         return empreendimentos;
     }
+    
+    @RequestMapping(value = "/empreendimento/update/api", method = RequestMethod.POST)
+    @ResponseBody
+    public void updateEmpreendimentoByGestor(@RequestBody String empreendimento, HttpServletResponse response){
+        try {
+            Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
+            Empreendimento empUpdate = g.fromJson(empreendimento, Empreendimento.class);
+//            Edital edital = ServiceLocator.getEditalService().readById(empUpdate.getEdital().getId());
+//            empUpdate.setEdital(edital);
+            RamoAtividade ramo = ServiceLocator.getRamoAtividade().readById(empUpdate.getRamoAtividade().getId());
+            empUpdate.setRamoAtividade(ramo);
+            ServiceLocator.getEmpreendimentoService().update(empUpdate);
+            response.setStatus(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(500);
+        }
+    }
 
     private class Apresentacao {
 

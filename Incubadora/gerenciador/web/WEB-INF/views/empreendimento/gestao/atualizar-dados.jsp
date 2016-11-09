@@ -16,7 +16,7 @@
 
         <%@include  file="../../templates/basic-style.jsp"%>
         <%@include file="../../templates/basic-script.jsp" %>
-        
+
         <link rel="stylesheet" href="<c:url value="/css/painel-administrativo/update-empreendimento.css"/>" />
 
         <script src="<c:url value="/js/painel-administrativo/values/update-empreendimento-value.js"/>"></script>
@@ -24,7 +24,7 @@
         <script src="<c:url value="/js/painel-administrativo/controller/update-empreendimento-controller.js"/>"></script>
 
         <script src="<c:url value="/js/mask.js"/>"></script>
-        
+
     </head>
     <body data-ng-app="painelAdmin">
         <%@include file="../../templates/top-bar.jsp" %>
@@ -172,11 +172,14 @@
                         <div class="card-content">
                             <div class="row">
                                 <div class="card-panel">
+                                    <div class="row">                                        
+                                        <span class="col s12 m6 l6">Status atual:&nbsp; <strong>{{empreendimento.status}}</strong></span>
+                                    </div>
                                     <div class="row center">                                        
                                         <a data-ng-href="#!" id="btn-ver-proposta" data-ng-click="openModal(1, empreendimento)" class="btn modal-trigger blue white-text valign col s12 m6 l5 push-l1 push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Proposta</a>
                                         <a data-ng-href="#!" id="btn-detalhes" data-ng-click="openModal(3, empreendimento)" class="btn blue valign white-text accent-5 col s12 m6 l5  push-l1  push-m1   truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Detalhes</a> 
-                                        <a data-ng-href="#!" id="btn-add-avaliador" class="btn blue valign white-text accent-5 col s12 m6 l5 push-l1 push-m1  truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(4, empreendimento)" data-ng-disabled="isAvaliadorListEmpty()"><span style="font-size: 16pt">+</span> Avaliador</a> 
-                                        <a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l5 push-l1 push-m1  truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>                                                                                                                                                                
+                                        <a data-ng-href="#!" id="btn-add-avaliador" class="btn blue valign white-text accent-5 col s12 m6 l5 push-l1 push-m1 truncate" data-ng-class="{'disabled': empreendimento.status == 'Reprovado' || empreendimento.status == 'Aprovado'}" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(4, empreendimento)" data-ng-disabled="isAvaliadorListEmpty()"><span style="font-size: 16pt">+</span> Avaliador</a> 
+                                        <a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l5 push-l1 push-m1  truncate" data-ng-class="{'disabled': empreendimento.status == 'Reprovado' || empreendimento.status == 'Aprovado'}" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>                                                                                                                                                                
                                     </div>
                                 </div>
                             </div>
@@ -204,29 +207,16 @@
                                         </div>
                                         <div class="col s12 m6 l6">
                                             <label for="edital">Edital&nbsp;<span class="orange-text">(Obrigat&oacute;rio)</span></label>
-                                            <select id="edital" class="browser-default" name="edital">
+                                            <select id="edital" class="browser-default" name="edital" data-ng-model="empreendimento.edital.id">
                                                 <option value="" disabled="">Selecione...</option>                                                
-                                                <c:forEach items="${editalList}" var="edital">
-                                                    <c:if test="${empreendimento.edital.id eq edital.id}">
-                                                        <option selected="" value="${edital.id}">${edital.nome}</option>
-                                                    </c:if>
-                                                    <c:if test="${empreendimento.edital.id != edital.id}">
-                                                        <option value="${edital.id}">${edital.nome}</option>
-                                                    </c:if>
-                                                </c:forEach>
+                                                <!--<option data-ng-repeat="edital in editalList" data-ng-selected="empreendimento.edital.id === edital.id" value="{{edital.id}}">{{edital.nome}}</option>-->
+                                                <option selected="" value="{{empreendimento.edital.id}}">{{empreendimento.edital.nome}}</option>
                                             </select>
 
                                             <label for="ramo">Ramo de Atividade&nbsp;<span class="orange-text">(Obrigat&oacute;rio)</span></label>
-                                            <select id="ramo" class="browser-default" name="ramoAtividade">
+                                            <select id="ramo" class="browser-default" name="ramoAtividade" data-ng-model="empreendimento.ramoAtividade.id">
                                                 <option value="" disabled="">Selecione...</option>                                                
-                                                <c:forEach items="${ramoList}" var="ramo">
-                                                    <c:if test="${empreendimento.ramoAtividade.id eq ramo.id}">
-                                                        <option selected="" value="${ramo.id}">${ramo.nome}</option>
-                                                    </c:if>
-                                                    <c:if test="${empreendimento.ramoAtividade.id != ramo.id}">
-                                                        <option value="${ramo.id}">${ramo.nome}</option>
-                                                    </c:if>
-                                                </c:forEach>
+                                                <option selected="" value="{{empreendimento.ramoAtividade.id}}">{{empreendimento.ramoAtividade.nome}}</option>
                                             </select>                                                      
                                         </div>
                                     </div>
@@ -235,13 +225,13 @@
                                     <div class="row">                        
                                         <div class="col s12 m6 l6">                          
                                             <div class="input-field">
-                                                <input type="text" name="cnpj" id="razaoSocial" placeholder="ex.: 12.345.678/0001" value="${empreendimento.cnpj}">
+                                                <input type="text" name="cnpj" id="razaoSocial" placeholder="ex.: 12.345.678/0001" data-ng-model="empreendimento.cnpj">
                                                 <label for="cnpj">CNPJ</label>
                                             </div>                           
                                         </div>  
 
                                         <div class="input-field col s12 m6 l6">
-                                            <textarea name="missao" class="materialize-textarea" id="missao" style="max-height: 105px; overflow-y: auto;"  placeholder="Limite máximo de 120 caracteres">${empreendimento.missao}</textarea>
+                                            <textarea name="missao" class="materialize-textarea" id="missao" style="max-height: 105px; overflow-y: auto;"  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.missao"></textarea>
                                             <label for="missao">Miss&atilde;o</label>
                                         </div>
 
@@ -251,14 +241,14 @@
 
                                         <div class="col s12 m6 l6"> 
                                             <div class="input-field">
-                                                <input value="${empreendimento.inscricaoEstadual}" type="text" name="inscricaoEstadual" id="inscricaoEstadual" placeholder="ex.: 4125-55"/>
+                                                <input data-ng-model="empreendimento.inscricaoEstadual" type="text" name="inscricaoEstadual" id="inscricaoEstadual" placeholder="ex.: 4125-55"/>
                                                 <label for="inscricaoEstadual">Inscrição Estadual</label>
                                             </div>                            
                                         </div>                          
 
                                         <div class="col s12 m6 l6">
                                             <div class="input-field">
-                                                <textarea name="visao" class="materialize-textarea" id="visao" style="max-height: 105px; overflow-y: auto;"  placeholder="Limite máximo de 120 caracteres">${empreendimento.visao}</textarea>
+                                                <textarea name="visao" class="materialize-textarea" id="visao" style="max-height: 105px; overflow-y: auto;"  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.visao"></textarea>
                                                 <label for="visao">Vis&atilde;o</label>
                                             </div>
                                         </div>
@@ -268,14 +258,14 @@
                                     <div class="row">
                                         <div class="col s12 m6 l6">
                                             <div class="input-field">
-                                                <input value="${empreendimento.inscricaoMunicipal}" type="text" name="inscricaoMunicipal" id="inscricaoEstadual" placeholder="ex.: 4125-55"/>
+                                                <input data-ng-model="empreendimento.inscricaoMunicipal" type="text" name="inscricaoMunicipal" id="inscricaoMunicipal" placeholder="ex.: 4125-55"/>
                                                 <label for="inscricaoMunicipal">Inscrição Municipal</label>
                                             </div> 
                                         </div>
 
                                         <div class="col s12 m6 l6">
                                             <div class="input-field">
-                                                <textarea name="valores" class="materialize-textarea" id="visao" style="max-height: 105px; overflow-y: auto; "  placeholder="Limite máximo de 120 caracteres">${empreendimento.valores}</textarea>
+                                                <textarea name="valores" class="materialize-textarea" id="visao" style="max-height: 105px; overflow-y: auto; "  placeholder="Limite máximo de 120 caracteres" data-ng-model="empreendimento.valores"></textarea>
                                                 <label for="valores">Valores</label>
                                             </div>
                                         </div>
@@ -284,32 +274,32 @@
                                     <div class="row">
                                         <div class="col s12 m6 l6  grey  lighten-4">
                                             <div class="input-field">
-                                                <input value="<fmt:formatDate pattern="dd/MM/yyyy" value="${empreendimento.dataAbertura}"/>" name="dataAbertura" type="text" class="data" placeholder="dd/mm/aaaa" id="dataAbertura"/>
+                                                <input data-ng-model="empreendimento.dataAbertura" name="dataAbertura" type="text" class="data" placeholder="dd/mm/aaaa" id="dataAbertura"/>
                                                 <label for="dataAbertura">Data de Abertura</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col s12 m6 l6  grey  lighten-4">
                                                 <div class="input-field">
-                                                    <input value="<fmt:formatDate pattern="dd/MM/yyyy" value="${empreendimento.dataIngresso}"/>" name="dataIngresso" type="text" class="data" placeholder="dd/mm/aaaa" id="dataIngresso"/>
+                                                    <input data-ng-model="empreendimento.dataIngresso" name="dataIngresso" type="text" class="data" placeholder="dd/mm/aaaa" id="dataIngresso"/>
                                                     <label for="dataIngresso">Data de Ingresso</label>
-
-
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col s12 m6 l6 grey  lighten-4">
-                                            <label for="prevGraduacao">Data de Previsão da Gradua&ccedil;&atilde;o</label>
-                                            <input value="<fmt:formatDate pattern="dd/MM/yyyy" value="${empreendimento.dataPrevisaoGraduacao}"/>" name="dataPrevisaoGraduacao" id="prevGraduacao" type="text" class="data" placeholder="dd/mmm/aaaa"/>
+                                        <div class="col s12 m6 l6 grey  lighten-4">                                            
+                                            <div class="input-field">
+                                                <input data-ng-model="empreendimento.dataPrevisaoGraduacao" name="dataPrevisaoGraduacao" id="dataPrevisaoGraduacao" type="text" class="data" placeholder="dd/mmm/aaaa"/>
+                                                <label for="dataPrevisaoGraduacao">Data de Previsão da Gradua&ccedil;&atilde;o</label>
+                                            </div>
                                         </div>
 
                                         <div class="s12 m6 l6">
                                             <div class="center">
                                                 <a href="<c:url value="/incubadora/empreendimento"/>" style="margin-top: 5%; margin-right: 2%;" class="btn-floating btn-small waves-effect waves-light  orange darken-4"><i class="material-icons">undo</i></a>
-                                                <button type="submit" style="margin-top: 5%" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons">done</i></button>                                        
+                                                <button data-ng-click="updateEmpreendimento(empreendimento)" style="margin-top: 5%" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons">done</i></button>                                        
                                             </div>
                                         </div>
 

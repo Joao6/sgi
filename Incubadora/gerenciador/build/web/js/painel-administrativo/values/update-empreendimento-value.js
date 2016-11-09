@@ -10,7 +10,8 @@
         url_change_state: '/gerenciador/empreendimento/change-state',
         url_agendar_apresentacao: '/gerenciador/empreendimento/agendar-apresentacao',
         url_get_avaliadores: '/gerenciador/incubadora/all/avaliadores',
-        url_add_avaliadores: '/gerenciador/empreendimento/add/avaliadores'
+        url_add_avaliadores: '/gerenciador/empreendimento/add/avaliadores',
+        url_update_empreendimento_by_gestor: '/gerenciador/empreendimento/update/api'
     });
 })();
 

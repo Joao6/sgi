@@ -21,6 +21,12 @@ h5{
     box-shadow: 50px 50px 55px #888888;
 }
 
+.disabled{
+    cursor: not-allowed;
+    background-color: grey;
+    pointer-events: none;
+    cursor: default;
+}
 
 .collection{
     border:0px !important;

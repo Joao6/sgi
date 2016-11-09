@@ -58,6 +58,10 @@
           return $http.post('/gerenciador/empreendimento/add/empreendedores', empreendimento, HEADERS);
         };
         
+        var _updateEmpreendimento = function(empreendimento){
+          return $http.post(UpdateValues.url_update_empreendimento_by_gestor, empreendimento, HEADERS);  
+        };
+        
         return {            
             getEmpreendimento: _getEmpreendimento,
             getRamos: _getRamos,
@@ -71,7 +75,8 @@
             agendarApresentacao: _agendarApresentacao,
             associarAvaliadores: _associarAvaliadores,
             getEmpreendedores: _getEmpreendedores,
-            associarEmpreendedores: _associarEmpreendedores
+            associarEmpreendedores: _associarEmpreendedores,
+            updateEmpreendimento: _updateEmpreendimento
         };
     });
 })();
