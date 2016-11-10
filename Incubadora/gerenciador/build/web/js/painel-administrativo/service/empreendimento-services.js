@@ -8,8 +8,8 @@
             },
             dataType: "json"};
 
-        var _getEmpreendimentos = function () {
-            return $http.get(EmpreendimentoValues.url_get_empreendimetos, HEADERS);
+        var _getEmpreendimentos = function (status) {
+            return $http.get(EmpreendimentoValues.url_get_empreendimetos + status, HEADERS);
         };
 
         var _getEmpreendimento = function (id) {

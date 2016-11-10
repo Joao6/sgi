@@ -12,6 +12,8 @@
         <title>Empreendimentos</title>
 
         <%@include file="../../templates/basic-style.jsp" %>
+        <link rel="stylesheet" href="<c:url value="/css/materializeGeeksLabs.css"/>" />
+                
         <style>
             label,
             label:hover,

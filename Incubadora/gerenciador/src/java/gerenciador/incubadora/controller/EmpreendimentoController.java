@@ -270,13 +270,14 @@ public class EmpreendimentoController {
         return mv;
     }
 
-    @RequestMapping(value = "/empreendimentos/api", method = RequestMethod.GET)
+    @RequestMapping(value = "/empreendimentos/api/{status}", method = RequestMethod.GET)
     @ResponseBody
-    public String getEmpreendimentos(HttpServletResponse response) {
+    public String getEmpreendimentos(@RequestBody @PathVariable String status, HttpServletResponse response) {
         String empreendimentoJSON = null;
 
         try {
             Map<String, Object> criteria = new HashMap<String, Object>();
+            criteria.put("Status", status);
             List<Empreendimento> empreendimentoList = ServiceLocator.getEmpreendimentoService().readByCriteria(criteria);
             Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm").create();
             empreendimentoJSON = g.toJson(empreendimentoList);

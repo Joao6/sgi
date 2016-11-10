@@ -2,7 +2,7 @@
 
 (function () {
    angular.module('painelAdmin').value('EmpreendimentoValues', {
-      url_get_empreendimetos: '/gerenciador/empreendimentos/api',
+      url_get_empreendimetos: '/gerenciador/empreendimentos/api/',
       url_get_ramo_atividade: '/gerenciador/ramo/atividade/all',
       url_get_editais: '/gerenciador/edital/aberto/all',
       url_save_empreendimento: '/gerenciador/empreendimento/novo',

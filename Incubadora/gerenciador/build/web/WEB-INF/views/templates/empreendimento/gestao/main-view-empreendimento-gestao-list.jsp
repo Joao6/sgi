@@ -340,9 +340,37 @@
                         </div>
                     </div>
 
-                    <div class="card-content">
-                        <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos cadastrados!</strong></h6>          
 
+
+
+                    <div class="card-content">
+
+
+                        <!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <ul class="tabs tab-profile z-depth-1 blue">
+                            <li class="tab col s3"><a class="white-text waves-effect waves-light active" data-ng-click="atualizaEmpreendimentos('Em Andamento')" href="#EmAndamento"><i class="mdi-editor-border-color"></i> Em Andamento</a>
+                            </li>
+                            <li class="tab col s3"><a class="white-text waves-effect waves-light" data-ng-click="atualizaEmpreendimentos('Finalizado')" href="#Finalizados"><i class="mdi-action-done-all"></i> Finalizados</a>
+                            </li>                                          
+                        </ul>
+                        <!-- Empreendimentos em Andamento-->
+                        <div id="EmAndamento" class="tab-content col s12  grey lighten-4">
+
+                        </div>
+                        <!-- Empreendimentos Finalizados -->
+                        <div id="Finalizados" class="tab-content col s12  grey lighten-4">
+
+                        </div>    
+                        <!--// BARRA DE PROGRESSO PARA A CONCLUSÃO DO MÉTODO -->
+                        <div class="row" data-ng-show="showProgress">
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                        </div>
+
+                        <!--/ profile-page-wall-share -->
+                        <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos nesta seção!</strong></h6>          
+                        <!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
 
                         <ul class="collection card" data-ng-hide="isEmpreendimentoListEmpty()">
 
@@ -382,17 +410,17 @@
                                         <p class="left-align col l12 m12 s12 push-l1">Convém adicionar <strong>avaliadores</strong> para avaliar este empreendimento.</p>                                                                   
                                     </div>
                                     <!--FIM-->
-                                    
-                                    <!--SUGERE AO ADM DAR O RESULTADO FINAL AO EMPREENDIMENTO-->
-                                        <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Avaliação Realizada'">
 
-                                            <p class="center-align purple  accent-5 col s12 m12 l12" style="padding-bottom: 0.1rem !important">           
-                                                <a href="#!" class="btn circle blue white-text center" style="border-radius: 0px !important; height: 22px !important; line-height: inherit !important">Dica</a>
-                                                <br/>
-                                            </p>
-                                            <p class="left-align col l12 m12 s12 push-l1">Agora você deve dar um <strong>resultado final</strong> para este empreendimento.</p>                                                                   
-                                        </div>
-                                        <!--FIM-->
+                                    <!--SUGERE AO ADM DAR O RESULTADO FINAL AO EMPREENDIMENTO-->
+                                    <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Avaliação Realizada'">
+
+                                        <p class="center-align purple  accent-5 col s12 m12 l12" style="padding-bottom: 0.1rem !important">           
+                                            <a href="#!" class="btn circle blue white-text center" style="border-radius: 0px !important; height: 22px !important; line-height: inherit !important">Dica</a>
+                                            <br/>
+                                        </p>
+                                        <p class="left-align col l12 m12 s12 push-l1">Agora você deve dar um <strong>resultado final</strong> para este empreendimento.</p>                                                                   
+                                    </div>
+                                    <!--FIM-->
 
                                     <div class="row">
                                         <span class="col s12 m6 l6">Status:&nbsp; <strong>{{empreendimento.status}}</strong></span>

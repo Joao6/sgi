@@ -59,35 +59,41 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     var status = $("#status").val();
     var idEmpreendimento = $("#empreendimento-id").val();
     $scope.apresentacaoNegocio.empreendimento.id = idEmpreendimento;
+    $scope.atualizaEmpreendimentos = {};
 
 
     var app = this;
 
-    function _getEmpreendimentos() {
+    $scope.atualizaEmpreendimentos = function (status) {
         try {
-            EmpreendimentoService.getEmpreendimentos().success(function (data) {
+            $scope.showProgress = true;
+            EmpreendimentoService.getEmpreendimentos(status).success(function (data) {
                 $scope.empreendimentoList = data;
                 console.log($scope.empreendimentoList);
+                $scope.showProgress = false;
+            }).error(function () {
+                $scope.showProgress = false;
+                Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
+            });
+        } catch (e) {
+            $scope.showProgress = false;
+            Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'red rounded');
+            console.log(e);
+        }
+
+    };
+    $scope.atualizaEmpreendimentos("Em Andamento");
+
+
+
+    $scope.empreendimento = function (id) {
+        try {
+            EmpreendimentoService.getEmpreendimento(id).success(function (data) {
+                $scope.empreendimento = data;
             }).error(function () {
                 Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
             });
         } catch (e) {
-            Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
-            console.log(e);
-        }
-
-    }
-
-    _getEmpreendimentos();
-    
-    $scope.empreendimento = function (id){
-        try {
-            EmpreendimentoService.getEmpreendimento(id).success(function (data){
-                $scope.empreendimento = data;
-            }).error(function(){
-                Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
-            });
-        }catch (e){
             Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
             console.log(e);
         }
@@ -174,8 +180,11 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.remover = function (id) {
         try {
             EmpreendimentoService.remover(id).success(function () {
-                _getEmpreendimentos();
+//                _getEmpreendimentos();
                 Materialize.toast('Empreendimento removido com sucesso!', 4000, 'green rounded');
+                setTimeout(function () {
+                    window.location.href = '/gerenciador/incubadora/empreendimento';
+                }, 1000);
             }).error(function () {
                 Materialize.toast('Erro ao tentar excluir empeendimento.', 4000, 'orange rounded');
             });
@@ -360,7 +369,8 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
         } else {
             if ($scope.empreendimento.avaliadorList.length > 0) {
-                _getEmpreendimentos();
+//                _getEmpreendimentos();
+                $scope.atualizaEmpreendimentos("Em Andamento");
                 // Garante que somente os avaliadores que não estão associados ao empreendimento
                 // Sejam exibidos no Select.
                 var aux = [];
@@ -377,7 +387,8 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 //            $("#modal-" + id).openModal(configModal);
 
             if ($scope.empreendimento.empreendedorList.length > 0) {
-                _getEmpreendimentos();
+//                _getEmpreendimentos();
+//                $scope.atualizaEmpreendimentos("Em Andamento");
                 // Garante que somente os empreendedores que não estão associados ao empreendimento
                 // Sejam exibidos no Select.
                 var aux = [];
@@ -398,16 +409,22 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     $scope.agendarApresentacao = function (apresentacao) {
         try {
+            $scope.showProgress = true;
             apresentacao.id = $scope.empreendimento.id;
             EmpreendimentoService.agendarApresentacao(apresentacao).success(function () {
                 var index = statusList.indexOf($scope.empreendimento.status);
                 if (index < statusList.length) {
-                    $scope.nextStatus = statusList[index + 1];                    
+                    $scope.nextStatus = statusList[index + 1];
                     $scope.setStatus($scope.empreendimento.id);
                 }
                 Materialize.toast('Apresentação Agendada - Aguarde um instante...', 4000, 'green rounded');
-                $("#modal-apresentacao").closeModal(configModal);
+                setTimeout(function () {
+                    $scope.showProgress = false;
+                    $("#modal-apresentacao").closeModal(configModal);
+                }, 3000);
+
             }).error(function () {
+                $scope.showProgress = false;
                 Materialize.toast('Erro ao tentar agendar Apresentação', 4000, 'orange rounded');
             });
         } catch (e) {
@@ -428,11 +445,12 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     $scope.setStatus = function (id) {
         var emp = {id: id, status: $scope.nextStatus};
-        try {            
+        try {
             $scope.showProgress = true;
             EmpreendimentoService.alterarStatus(emp)
-                    .success(function () {                        
-                        _getEmpreendimentos();
+                    .success(function () {
+//                        _getEmpreendimentos();
+                        $scope.atualizaEmpreendimentos("Em Andamento");
                         $scope.showProgress = false;
                         $("#modal-2").closeModal(configModal);
                         $("#modal-11").closeModal(configModal);
@@ -450,7 +468,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
         try {
             EmpreendimentoService.alterarStatus(emp)
                     .success(function () {
-                        _getEmpreendimentos();
+//                        _getEmpreendimentos();
                         //$("#modal-2").closeModal(configModal);
                     }).error(function () {
                 Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');
@@ -465,7 +483,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
         try {
             EmpreendimentoService.alterarStatus(emp)
                     .success(function () {
-                        _getEmpreendimentos();
+//                        _getEmpreendimentos();
                         $("#modal-7").closeModal(configModal);
                     }).error(function () {
                 Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');
@@ -503,7 +521,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.associarAvaliadores = function () {
         try {
             EmpreendimentoService.associarAvaliadores($scope.empreendimento).success(function () {
-                _getEmpreendimentos();
+//                _getEmpreendimentos();
                 _getAvaliadores();
                 Materialize.toast('Avaliadores associados com sucesso!', 4000, 'green rounded');
                 $("#modal-4").closeModal(configModal);
@@ -573,7 +591,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.associarEmpreendedores = function () {
         try {
             EmpreendimentoService.associarEmpreendedores($scope.empreendimento).success(function () {
-                _getEmpreendimentos();
+//                _getEmpreendimentos();
                 _getEmpreendedores();
                 Materialize.toast('Empreendedores associados com sucesso!', 4000, 'green rounded');
                 $("#modal-5").closeModal(configModal);

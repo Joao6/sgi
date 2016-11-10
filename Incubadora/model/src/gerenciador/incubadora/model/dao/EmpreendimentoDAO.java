@@ -286,6 +286,15 @@ public class EmpreendimentoDAO implements BaseDAO<Empreendimento> {
             if (criterionStatusIlike != null && !criterionStatusIlike.isEmpty()) {
                 sql += " AND status ilike '" + criterionStatusIlike + "'";
             }
+            
+            String criterionStatus = (String)criteria.get("Status");
+            if(criterionStatus != null && !criterionStatus.isEmpty()){
+                if(criterionStatus.equals("Em Andamento")){
+                    sql += " AND status != 'Aprovado' AND status != 'Reprovado'";
+                }else if(criterionStatus.equals("Finalizado")){
+                    sql += " AND status = 'Aprovado' or status = 'Reprovado'";
+                }
+            }
 
         }
 

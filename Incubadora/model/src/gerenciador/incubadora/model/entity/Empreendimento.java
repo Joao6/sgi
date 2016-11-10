@@ -15,7 +15,7 @@ public class Empreendimento extends BaseEntity {
     public static final String EMPREENDIMENTO_STATUS_AV_REALIZADA = "Avaliação Realizada";
     public static final String EMPREENDIMENTO_STATUS_APROVADO = "Aprovado";
     public static final String EMPREENDIMENTO_STATUS_REPROVADO = "Não Aprovado";
-    public static final String EMPREENDIMENTO_STATUS_CANCELADO = "Cancelado";
+    public static final String EMPREENDIMENTO_STATUS_CANCELADO = "Cancelado";    
 
     public static final String EMPREENDIMENTO_PATH_LOGO_DEFAULT = "C:\\imagens\\empreendimento\\default.png";
     @DateTimeFormat(pattern = "dd/MM/yyyy")
