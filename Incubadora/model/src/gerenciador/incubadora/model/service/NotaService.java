@@ -139,6 +139,21 @@ public class NotaService implements BaseNotaService {
         conn.close();
         return notaAvaliador;
     }
+
+    @Override
+    public Long getQtdAvaliacoes(Long idEmpreendimento) throws Exception {
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        Long qtd = null;
+        try {
+            NotaDAO dao = new NotaDAO();
+            qtd = dao.getQtdAvaliacoes(idEmpreendimento, conn);
+            conn.close();
+        } catch (Exception ex) {          
+            conn.close();
+            throw ex;
+        }
+        return qtd;
+    }
     
    
 }

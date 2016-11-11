@@ -9,6 +9,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     this.MESSAGE_GET_EMPREENDIMENTOS_ERROR = "Erro ao tentar receber empreendimentos.";
     this.MESSAGE_GET_AVALIADORES_ERROR = "Erro ao tentar receber avaliadores.";
     this.MESSAGE_GET_EMPREENDEDORES_ERROR = "Erro ao tentar receber empreendedores.";
+    this.MESSAGE_GET_QTD_AVALIACOES = "Erro ao tentar receber número de avaliações.";
     this.MESSAGE_GET_SERVER_BAD_CONNECTION = "Erro ao tentar comunicar com o servidor.";
     this.MESSAGE_EDITAL_GET_ERROR = "Erro ao tentar obter lista de Editais em abterto.";
     this.MESSAGE_RAMOS_GET_ERROR = "Erro ao tentar obter lista de Ramos de Atividade.";
@@ -34,6 +35,10 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.nextStatus = 'Alterar Status';
     $scope.statusResult = 'Reprovado';
     $scope.showProgress = false;
+    $scope.andamento = {};
+    $scope.finalizado = {};
+    $scope.qtdAvaliacao = {};
+    var STATUS_BUSCA = 'Em Andamento';
     var statusList = [];
     var configModal = {
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -59,12 +64,11 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     var status = $("#status").val();
     var idEmpreendimento = $("#empreendimento-id").val();
     $scope.apresentacaoNegocio.empreendimento.id = idEmpreendimento;
-    $scope.atualizaEmpreendimentos = {};
 
 
     var app = this;
 
-    $scope.atualizaEmpreendimentos = function (status) {
+    function _getEmpreendimentos(status) {
         try {
             $scope.showProgress = true;
             EmpreendimentoService.getEmpreendimentos(status).success(function (data) {
@@ -81,9 +85,33 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
             console.log(e);
         }
 
-    };
-    $scope.atualizaEmpreendimentos("Em Andamento");
+    }
+    ;
+    _getEmpreendimentos("Em Andamento");
 
+
+    $scope.finalizado = function () {
+        _getEmpreendimentos("Finalizado");
+        STATUS_BUSCA = "Finalizado";
+    };
+
+    $scope.andamento = function () {
+        _getEmpreendimentos("Em Andamento");
+        STATUS_BUSCA = "Em Andamento";
+    };
+
+    function _getQtdAvaliacoes(id) {
+        try {
+            EmpreendimentoService.getQtdAvaliacoes(id).success(function (data) {
+                $scope.qtdAvaliacao = data;
+            }).error(function () {
+                Materialize.toast(app.MESSAGE_GET_QTD_AVALIACOES, 4000, 'orange rounded');
+            });
+        } catch (e) {
+            Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'red rounded');
+            console.log(e);
+        };
+    }
 
 
     $scope.empreendimento = function (id) {
@@ -180,11 +208,15 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.remover = function (id) {
         try {
             EmpreendimentoService.remover(id).success(function () {
-//                _getEmpreendimentos();
+                if (STATUS_BUSCA === 'Em Andamento') {
+                    _getEmpreendimentos('Em Andamento');
+                } else {
+                    _getEmpreendimentos('Finalizado');
+                }
                 Materialize.toast('Empreendimento removido com sucesso!', 4000, 'green rounded');
-                setTimeout(function () {
-                    window.location.href = '/gerenciador/incubadora/empreendimento';
-                }, 1000);
+//                setTimeout(function () {
+//                    window.location.href = '/gerenciador/incubadora/empreendimento';
+//                }, 1000);
             }).error(function () {
                 Materialize.toast('Erro ao tentar excluir empeendimento.', 4000, 'orange rounded');
             });
@@ -367,10 +399,17 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
             }
 
+        } else if (id === 12) {
+            _getQtdAvaliacoes(empreendimento.id);
+            $("#modal-" + id).openModal(configModal);
+
         } else {
             if ($scope.empreendimento.avaliadorList.length > 0) {
-//                _getEmpreendimentos();
-                $scope.atualizaEmpreendimentos("Em Andamento");
+                if (STATUS_BUSCA === 'Em Andamento') {
+                    _getEmpreendimentos('Em Andamento');
+                } else {
+                    _getEmpreendimentos('Finalizado');
+                }
                 // Garante que somente os avaliadores que não estão associados ao empreendimento
                 // Sejam exibidos no Select.
                 var aux = [];
@@ -387,8 +426,11 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 //            $("#modal-" + id).openModal(configModal);
 
             if ($scope.empreendimento.empreendedorList.length > 0) {
-//                _getEmpreendimentos();
-//                $scope.atualizaEmpreendimentos("Em Andamento");
+                if (STATUS_BUSCA === 'Em Andamento') {
+                    _getEmpreendimentos('Em Andamento');
+                } else {
+                    _getEmpreendimentos('Finalizado');
+                }
                 // Garante que somente os empreendedores que não estão associados ao empreendimento
                 // Sejam exibidos no Select.
                 var aux = [];
@@ -449,8 +491,11 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
             $scope.showProgress = true;
             EmpreendimentoService.alterarStatus(emp)
                     .success(function () {
-//                        _getEmpreendimentos();
-                        $scope.atualizaEmpreendimentos("Em Andamento");
+                        if (STATUS_BUSCA === 'Em Andamento') {
+                            _getEmpreendimentos('Em Andamento');
+                        } else {
+                            _getEmpreendimentos('Finalizado');
+                        }
                         $scope.showProgress = false;
                         $("#modal-2").closeModal(configModal);
                         $("#modal-11").closeModal(configModal);
@@ -468,7 +513,11 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
         try {
             EmpreendimentoService.alterarStatus(emp)
                     .success(function () {
-//                        _getEmpreendimentos();
+                        if (STATUS_BUSCA === 'Em Andamento') {
+                            _getEmpreendimentos('Em Andamento');
+                        } else {
+                            _getEmpreendimentos('Finalizado');
+                        }
                         //$("#modal-2").closeModal(configModal);
                     }).error(function () {
                 Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');
@@ -483,7 +532,11 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
         try {
             EmpreendimentoService.alterarStatus(emp)
                     .success(function () {
-//                        _getEmpreendimentos();
+                        if (STATUS_BUSCA === 'Em Andamento') {
+                            _getEmpreendimentos('Em Andamento');
+                        } else {
+                            _getEmpreendimentos('Finalizado');
+                        }
                         $("#modal-7").closeModal(configModal);
                     }).error(function () {
                 Materialize.toast('Erro ao tentar alterar o status do empreendimento', 4000, 'orange rounded');
@@ -521,7 +574,11 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.associarAvaliadores = function () {
         try {
             EmpreendimentoService.associarAvaliadores($scope.empreendimento).success(function () {
-//                _getEmpreendimentos();
+                if (STATUS_BUSCA === 'Em Andamento') {
+                    _getEmpreendimentos('Em Andamento');
+                } else {
+                    _getEmpreendimentos('Finalizado');
+                }
                 _getAvaliadores();
                 Materialize.toast('Avaliadores associados com sucesso!', 4000, 'green rounded');
                 $("#modal-4").closeModal(configModal);
@@ -591,7 +648,11 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.associarEmpreendedores = function () {
         try {
             EmpreendimentoService.associarEmpreendedores($scope.empreendimento).success(function () {
-//                _getEmpreendimentos();
+                if (STATUS_BUSCA === 'Em Andamento') {
+                    _getEmpreendimentos('Em Andamento');
+                } else {
+                    _getEmpreendimentos('Finalizado');
+                }
                 _getEmpreendedores();
                 Materialize.toast('Empreendedores associados com sucesso!', 4000, 'green rounded');
                 $("#modal-5").closeModal(configModal);

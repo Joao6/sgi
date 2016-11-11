@@ -146,25 +146,24 @@ public class NotaDAO implements BaseDAO<Nota> {
         ps.execute();
         ps.close();
     }
-    
-    public void updateNotaEmpreendimento(Nota e, Connection conn) throws Exception{
-        
+
+    public void updateNotaEmpreendimento(Nota e, Connection conn) throws Exception {
+
         String sql = "DELETE FROM nota WHERE nota.empreendimento_fk=? AND nota.avaliador_fk=?;";
         PreparedStatement ps = conn.prepareStatement(sql);
         int i = 0;
         ps.setLong(++i, e.getEmpreendimento().getId());
         ps.setLong(++i, e.getAvaliador().getId());
         ps.execute();
-        ps.close();                        
+        ps.close();
     }
 
     public Map<String, Double> getAvaliacao(Long idEmpreendimento, Connection conn) throws Exception {
-        
+
         Map<String, Double> avaliacao = new HashMap<String, Double>();
- 
+
         String sql = "select e.nome,(sum(n.nota)*100)/(count(e.id)*10) as nota from nota n left join criterio_avaliacao ca ON ca.id = n.criterio_avaliacao_fk "
                 + "left join eixo e ON e.id = ca.eixo_fk where n.empreendimento_fk=? group by e.id order by e.id";
-        
 
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setLong(1, idEmpreendimento);
@@ -176,25 +175,41 @@ public class NotaDAO implements BaseDAO<Nota> {
         rs.close();
         ps.close();
         return avaliacao;
-    }       
-    
-    public Map<String, Double> getNotaAvaliador(Long idAvaliador, Long idEmpreendimento, Connection conn) throws Exception{
+    }
+
+    public Map<String, Double> getNotaAvaliador(Long idAvaliador, Long idEmpreendimento, Connection conn) throws Exception {
         Map<String, Double> notaAvaliador = new HashMap<String, Double>();
-        
+
         String sql = "select ca.nome, n.nota from nota n join criterio_avaliacao ca on n.criterio_avaliacao_fk=ca.id and n.avaliador_fk=? and n.empreendimento_fk=?";
-        
+
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setLong(1, idAvaliador);
         ps.setLong(2, idEmpreendimento);
-        
+
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             notaAvaliador.put(rs.getString("nome"), rs.getDouble("nota"));
         }
         rs.close();
         ps.close();
         return notaAvaliador;
     }
-    
+
+    public Long getQtdAvaliacoes(Long idEmpreendimento, Connection conn) throws Exception {
+        Long qtd = null;
+        String sql = "select count(*) count from (select distinct avaliador_fk from nota where empreendimento_fk=?) t1";
+
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, idEmpreendimento);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            qtd = rs.getLong("count");
+        } else {
+            qtd = 0L;
+        }
+
+        return qtd;
+    }
 
 }

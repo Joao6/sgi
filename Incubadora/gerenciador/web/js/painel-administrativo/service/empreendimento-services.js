@@ -11,6 +11,10 @@
         var _getEmpreendimentos = function (status) {
             return $http.get(EmpreendimentoValues.url_get_empreendimetos + status, HEADERS);
         };
+        
+        var _getQtdAvaliacoes = function (id){
+            return $http.get(EmpreendimentoValues.url_get_qtd_avaliacoes + id, HEADERS);
+        };
 
         var _getEmpreendimento = function (id) {
             return $http.get(EmpreendimentoValues.url_get_empreendimento_by_id + id, HEADERS);
@@ -78,7 +82,8 @@
             agendarApresentacao: _agendarApresentacao,
             associarAvaliadores: _associarAvaliadores,
             getEmpreendedores: _getEmpreendedores,
-            associarEmpreendedores: _associarEmpreendedores
+            associarEmpreendedores: _associarEmpreendedores,
+            getQtdAvaliacoes: _getQtdAvaliacoes
         };
 
     });

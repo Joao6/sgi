@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -220,8 +221,8 @@ public class EmpreendimentoController {
     public ModelAndView updateEmpreendimento(@PathVariable Long id) {
         ModelAndView mv;
         try {
-            Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);            
-            
+            Empreendimento empreendimento = ServiceLocator.getEmpreendimentoService().readById(id);
+
             List<RamoAtividade> ramoAtividadeList = ServiceLocator.getRamoAtividade().readByCriteria(new HashMap<String, Object>());
             mv = new ModelAndView("/empreendimento/gestao/new");
 
@@ -522,7 +523,7 @@ public class EmpreendimentoController {
                     Empreendimento empreendimentoAux = new Empreendimento();
                     empreendimentoAux.setId(id);
                     notaDelete.setEmpreendimento(empreendimentoAux);
-                    
+
                     ServiceLocator.getNotaService().updateNotaEmpreendimento(notaDelete);
 
                     for (int i = 0; i < criterioID.length; i++) {
@@ -910,7 +911,7 @@ public class EmpreendimentoController {
             } else if (apresentacaoNegocio == null) {
                 mv = new ModelAndView("empreendimento/empreendedor/proposta-new");
                 mv.addObject("empreendimento", empreendimento);
-            }else if (apresentacaoNegocio != null && novaProposta == 1){
+            } else if (apresentacaoNegocio != null && novaProposta == 1) {
                 mv = new ModelAndView("empreendimento/empreendedor/proposta-new");
                 mv.addObject("empreendimento", empreendimento);
             }
@@ -1061,10 +1062,10 @@ public class EmpreendimentoController {
         }
         return empreendimentos;
     }
-    
+
     @RequestMapping(value = "/empreendimento/update/api", method = RequestMethod.POST)
     @ResponseBody
-    public void updateEmpreendimentoByGestor(@RequestBody String empreendimento, HttpServletResponse response){
+    public void updateEmpreendimentoByGestor(@RequestBody String empreendimento, HttpServletResponse response) {
         try {
             Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
             Empreendimento empUpdate = g.fromJson(empreendimento, Empreendimento.class);
@@ -1078,6 +1079,22 @@ public class EmpreendimentoController {
             e.printStackTrace();
             response.setStatus(500);
         }
+    }
+
+    @RequestMapping(value = "/empreendimento/qtd-avaliacoes/{idEmpreendimento}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getQtdAvaliacoesEmpreendimento(@RequestBody @PathVariable Long idEmpreendimento, HttpServletResponse response) {
+        String qtd = null;
+        try {                                   
+            Long qtde = ServiceLocator.getNotaService().getQtdAvaliacoes(idEmpreendimento);            
+            Gson g = new Gson();
+            qtd = g.toJson(qtde);
+            response.setStatus(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(500);
+        }
+        return qtd;
     }
 
     private class Apresentacao {

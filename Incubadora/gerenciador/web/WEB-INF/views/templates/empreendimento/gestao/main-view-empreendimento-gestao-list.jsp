@@ -328,6 +328,7 @@
                     </div>
                     <!-- FIM MODAL DESCRIÇÂO RESULTADO -->
 
+                    <!--MODAL DESMARCAR APRESENTAÇÃO-->
                     <div class="modal" style="background-color: #FFF !important" id="modal-11">
                         <div class="modal-body card white">
                             <h5>Aguarde um instante...</h5>
@@ -339,7 +340,25 @@
                             </div>
                         </div>
                     </div>
+                    <!--FIM-->
 
+                    <!--MODAL VISUALIZAR ANDAMENTO DA AVALIAÇÃO-->
+                    <div class="modal" style="background-color: #FFF !important" id="modal-12">
+                        <div class="card-title card grey lighten-4">
+                            <h5>Andamento da avaliação do empreendimento {{empreendimento.nome}}.</h5>
+                        </div>
+                        <div class="modal-body white">
+                            <blockquote class="grey lighten-3">
+                                <br/>
+                                <p style="font-size: 12pt;">Até o momento <strong>{{qtdAvaliacao}}</strong> avaliadores concluiram suas respectivas avaliações à este empreendimento de um total de <strong>{{empreendimento.avaliadorList.length}}</strong> avaliadores.</p>
+                                <br/>
+                            </blockquote>
+                        </div>
+                        <div class="row">
+                            <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                        </div>
+                    </div>
+                    <!--FIM-->
 
 
 
@@ -348,9 +367,9 @@
 
                         <!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
                         <ul class="tabs tab-profile z-depth-1 blue">
-                            <li class="tab col s3"><a class="white-text waves-effect waves-light active" data-ng-click="atualizaEmpreendimentos('Em Andamento')" href="#EmAndamento"><i class="mdi-editor-border-color"></i> Em Andamento</a>
+                            <li class="tab col s3"><a class="white-text waves-effect waves-light active" data-ng-click="andamento()" href="#EmAndamento"><i class="mdi-editor-border-color"></i> Em Andamento</a>
                             </li>
-                            <li class="tab col s3"><a class="white-text waves-effect waves-light" data-ng-click="atualizaEmpreendimentos('Finalizado')" href="#Finalizados"><i class="mdi-action-done-all"></i> Finalizados</a>
+                            <li class="tab col s3"><a class="white-text waves-effect waves-light" data-ng-click="finalizado()" href="#Finalizados"><i class="mdi-action-done-all"></i> Finalizados</a>
                             </li>                                          
                         </ul>
                         <!-- Empreendimentos em Andamento-->
@@ -369,8 +388,8 @@
                         </div>
 
                         <!--/ profile-page-wall-share -->
-                        <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos nesta seção!</strong></h6>          
                         <!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <h6 data-ng-show="isEmpreendimentoListEmpty()" class="center-align" style="text-transform: uppercase;"><strong>N&atilde;o existem empreendimentos nesta seção!</strong></h6>          
 
                         <ul class="collection card" data-ng-hide="isEmpreendimentoListEmpty()">
 
@@ -422,6 +441,17 @@
                                     </div>
                                     <!--FIM-->
 
+                                    <!--SUGERE AO ADM VERIFICAR A SITUAÇÃO ATUAL DA AVALIAÇÂO DO EMPREENDIMENTO-->
+                                    <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Apresentação Realizada' && empreendimento.avaliadorList.length > 0">
+
+                                        <p class="center-align purple  accent-5 col s12 m12 l12" style="padding-bottom: 0.1rem !important">           
+                                            <a href="#!" data-ng-click="openModal(12, empreendimento)" class="btn circle blue white-text center" style="border-radius: 0px !important; height: 22px !important; line-height: inherit !important">visualizar</a>
+                                            <br/>
+                                        </p>
+                                        <p class="left-align col l12 m12 s12 push-l1">Clique no botão acima para visualizar como está a avaliação deste empreendimento.</p>                                                                   
+                                    </div>
+                                    <!--FIM-->
+
                                     <div class="row">
                                         <span class="col s12 m6 l6">Status:&nbsp; <strong>{{empreendimento.status}}</strong></span>
                                         <span class="col s12 m6 l6">Ramo de Atividade:&nbsp; <strong>{{empreendimento.ramoAtividade.nome}}</strong></span>                                               
@@ -432,7 +462,7 @@
                                         <hr class="divider white" style="border: 0px"/>                               
                                         <!--<a data-ng-href="#!" id="btn-ver-proposta" data-ng-click="openModal(1, empreendimento)" class="btn modal-trigger blue white-text valign col s12 m6 l3 push-l1 push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Proposta</a>-->
                                         <!--<a data-ng-href="#!" id="btn-detalhes" data-ng-click="openModal(3, empreendimento)" class="btn blue valign white-text accent-5 col s12 m6 l3  push-l1  push-m1  tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Detalhes</a>--> 
-                                        <a data-ng-href="#!" id="btn-status" data-ng-click="openModal(2, empreendimento)" data-ng-if="!validStatus(empreendimento, 'Avaliação Realizada')" class="btn blue valign white-text accent-5 col s12 m6 l6  push-l3  push-m2 center truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
+                                        <a data-ng-href="#!" id="btn-status" data-ng-click="openModal(2, empreendimento)" data-ng-if="!validStatus(empreendimento, 'Avaliação Realizada')" class="btn blue valign white-text accent-5 col s12 m6 l6  push-l3  push-m3 center truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
                                             <span data-ng-if="validStatus(empreendimento, 'Apresentação Agendada')"><span class="hide-on-small-only">Alterar</span> Status</span> 
                                             <span data-ng-if="!validStatus(empreendimento, 'Apresentação Agendada')">Agendar Apresentação</span> 
                                         </a>                                                                                
