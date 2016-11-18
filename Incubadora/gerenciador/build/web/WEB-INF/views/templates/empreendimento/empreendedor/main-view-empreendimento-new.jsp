@@ -26,7 +26,7 @@
                         <div class="col s12 m6 l6">
                            <div class="input-field">
                               <input type="text" name="nome" id="nome" placeholder="ex.: BuskImóveis" data-ng-required="true" data-ng-model="empreendimento.nome"/>
-                              <label for="nome" class="grey-text">Nome&nbsp;<span class="orange-text">(Obrigat&oacute;rio)</span></label>
+                              <label for="nome" class="grey-text">Nome do Empreendimento&nbsp;<span class="orange-text">(Obrigat&oacute;rio)</span></label>
                            </div>
 
                            <div class="input-field">

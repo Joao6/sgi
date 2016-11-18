@@ -114,41 +114,41 @@
                     <!-- FIM MODAL DETALHES EMPREENDIMENTO -->
 
                     <!-- MODAL AVALIADORES -->
-                    <div class="modal" style="background-color: #FFF !important" id="modal-4">
-                        <div class="modal-body card white">
-                            <div class="row">
-                                <div class="card">
-                                    <div class="card s12 m12 l12 center-align" style="padding-top: 1%; padding-bottom: 1%">
-                                        <h6 style="font-size: 15pt">Associar Avaliadores</h6>
-                                    </div>
-                                    <form name="formAvalidor">
-                                        <div class="card select-group card-content s12 m12 l12">
-                                            <label for="avalidor" style="font-size: 13pt">Escolha os Avaliadores</label>
-                                            <div class="input-field responsavel-field">
-                                                <select id="avaliador" class="browser-default" data-ng-model="avaliador.id" data-ng-change="addAvaliador(avaliador)">
-                                                    <option value="">Selecione</option>
-                                                    <option data-ng-repeat="avaliador in avaliadores" value="{{avaliador.id}}">{{avaliador.nome}} {{avaliador.sobrenome}}</option>
-                                                </select>        
+                <div class="modal" style="background-color: #FFF !important" id="modal-4">
+                    <div class="modal-body card white">
+                        <div class="row">
+                            <div class="card">
+                                <div class="card s12 m12 l12 center-align" style="padding-top: 1%; padding-bottom: 1%">
+                                    <h6 style="font-size: 15pt">Associar Avaliadores</h6>
+                                </div>
+                                <form name="formAvalidor">
+                                    <div class="card select-group card-content s12 m12 l12">
+                                        <label for="avalidor" style="font-size: 13pt">Escolha os Avaliadores</label>
+                                        <div class="input-field responsavel-field">
+                                            <select id="avaliador" class="browser-default" data-ng-model="avaliador.id" data-ng-change="addAvaliador(avaliador)">
+                                                <option value="">Selecione</option>
+                                                <option data-ng-repeat="avaliador in avaliadores" value="{{avaliador.id}}">{{avaliador.nome}} {{avaliador.sobrenome}}</option>
+                                            </select>        
 
-                                                <div class="chip pratica-chip" data-ng-repeat="avaliador in empreendimento.avaliadorList"> 
-                                                    <span>
-                                                        <img data-ng-src="/gerenciador/img/ico-responsavel.png" alt="{{avaliador.nome}}">
-                                                        <a data-ng-href="/gerenciador/avaliador/{{avaliador.id}}/view/notas/by/empreendimento/{{empreendimento.id}}"  class="white-text">{{avaliador.nome}}</a>
-                                                    </span>
-                                                    <i class="material-icons" data-ng-click="removeAvaliador(avaliador.id)">close</i>
-                                                </div>
-                                            </div>                              
-                                            <button class="btn green lighten-1 large" data-ng-click="associarAvaliadores()" data-ng-disabled="empreendimento.avaliadorList.length < 1" style="width: 100%">Associar Avaliadores</button>
-                                        </div>   
-                                    </form>
+                                            <div class="chip pratica-chip" data-ng-repeat="avaliador in empreendimento.avaliadorList"> 
+                                                <span>
+                                                    <img data-ng-src="/gerenciador/img/ico-responsavel.png" alt="{{avaliador.nome}}">
+                                                    <a data-ng-href="/gerenciador/avaliador/{{avaliador.id}}/view/notas/by/empreendimento/{{empreendimento.id}}"  class="white-text">{{avaliador.nome}}</a>
+                                                </span>
+                                                <i class="material-icons" data-ng-click="removeAvaliador(avaliador.id)">close</i>
+                                            </div>
+                                        </div>                              
+                                        <button class="btn green lighten-1 large" data-ng-click="associarAvaliadores()" data-ng-disabled="empreendimento.avaliadorList.length < 1" style="width: 100%">Associar Avaliadores</button>
+                                    </div>   
+                                </form>
 
-                                </div>                                       
-                                <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
-                            </div>
-                        </div>       
+                            </div>                                       
+                            <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                        </div>
+                    </div>       
 
-                    </div>               
-                    <!-- FIM MODAL AVALIADORES -->
+                </div>               
+                <!-- FIM MODAL AVALIADORES -->
 
                     <!-- MODAL EMPREENDEDORES (JP) -->
                     <div class="modal" style="background-color: #FFF !important" id="modal-5">
@@ -360,24 +360,20 @@
                     </div>
                     <!--FIM-->
 
-
-
                     <div class="card-content">
-
-
                         <!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
-                        <ul class="tabs tab-profile z-depth-1 blue">
-                            <li class="tab col s3"><a class="white-text waves-effect waves-light active" data-ng-click="andamento()" href="#EmAndamento"><i class="mdi-editor-border-color"></i> Em Andamento</a>
+                        <ul class="tabs z-depth-1 blue">
+                            <li class="tab col s3"><a class="white-text waves-effect waves-light active" data-ng-click="andamento()" href="#EmAndamento"><i class="mdi-editor-border-color"></i> Em Processo Seletivo</a>
                             </li>
-                            <li class="tab col s3"><a class="white-text waves-effect waves-light" data-ng-click="finalizado()" href="#Finalizados"><i class="mdi-action-done-all"></i> Finalizados</a>
+                            <li class="tab col s3"><a class="white-text waves-effect waves-light" data-ng-click="finalizado()" href="#Finalizados"><i class="mdi-action-done-all"></i> Incubados</a>
                             </li>                                          
                         </ul>
                         <!-- Empreendimentos em Andamento-->
-                        <div id="EmAndamento" class="tab-content col s12  grey lighten-4">
+                        <div id="EmAndamento" class=" col s12  grey lighten-4">
 
                         </div>
                         <!-- Empreendimentos Finalizados -->
-                        <div id="Finalizados" class="tab-content col s12  grey lighten-4">
+                        <div id="Finalizados" class=" col s12  grey lighten-4">
 
                         </div>    
                         <!--// BARRA DE PROGRESSO PARA A CONCLUSÃO DO MÉTODO -->
@@ -406,6 +402,7 @@
                                 </div>
 
                                 <div class="empreendimento card-content">
+
                                     <!--MOSTRA O HORÁRIO DA APRESENTAÇÂO DO EMPREENDIMENTO CASO JÁ ESTEJA AGENDADA-->
                                     <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Apresentação Agendada' && empreendimento.dataHoraApresentacao !== undefined">
 
@@ -418,29 +415,7 @@
                                         <p class="left-align col l2 m6 l5 push-l1">Local: <strong>{{empreendimento.localApresentacao}}</strong></p>                              
                                     </div>
                                     <!--FIM-->
-
-                                    <!--SUGERE AO ADM ADICIONAR AVALIADORES PARA AVALIAR O EMPREENDIMENTO-->
-                                    <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.avaliadorList < 1 && empreendimento.status == 'Apresentação Realizada'">
-
-                                        <p class="center-align purple  accent-5 col s12 m12 l12" style="padding-bottom: 0.1rem !important">           
-                                            <a href="<c:url value="/incubadora/empreendimento/{{empreendimento.id}}/atualizar"/>" class="btn circle blue white-text center" style="border-radius: 0px !important; height: 22px !important; line-height: inherit !important">Adicionar</a>
-                                            <br/>
-                                        </p>
-                                        <p class="left-align col l12 m12 s12 push-l1">Convém adicionar <strong>avaliadores</strong> para avaliar este empreendimento.</p>                                                                   
-                                    </div>
-                                    <!--FIM-->
-
-                                    <!--SUGERE AO ADM DAR O RESULTADO FINAL AO EMPREENDIMENTO-->
-                                    <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Avaliação Realizada'">
-
-                                        <p class="center-align purple  accent-5 col s12 m12 l12" style="padding-bottom: 0.1rem !important">           
-                                            <a href="#!" class="btn circle blue white-text center" style="border-radius: 0px !important; height: 22px !important; line-height: inherit !important">Dica</a>
-                                            <br/>
-                                        </p>
-                                        <p class="left-align col l12 m12 s12 push-l1">Agora você deve dar um <strong>resultado final</strong> para este empreendimento.</p>                                                                   
-                                    </div>
-                                    <!--FIM-->
-
+                                    
                                     <!--SUGERE AO ADM VERIFICAR A SITUAÇÃO ATUAL DA AVALIAÇÂO DO EMPREENDIMENTO-->
                                     <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Apresentação Realizada' && empreendimento.avaliadorList.length > 0">
 
@@ -455,66 +430,78 @@
                                     <div class="row">
                                         <span class="col s12 m6 l6">Status:&nbsp; <strong>{{empreendimento.status}}</strong></span>
                                         <span class="col s12 m6 l6">Ramo de Atividade:&nbsp; <strong>{{empreendimento.ramoAtividade.nome}}</strong></span>                                               
-                                    </div>                                    
-
-                                    <div class="row center">   
-                                        <a data-ng-href="/gerenciador/avaliacao/empreendimento/{{empreendimento.id}}" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" class="btn center yellow black-text col s12 m12 l12">Ver avalia&ccedil;&atilde;o</a>
-                                        <hr class="divider white" style="border: 0px"/>                               
-                                        <!--<a data-ng-href="#!" id="btn-ver-proposta" data-ng-click="openModal(1, empreendimento)" class="btn modal-trigger blue white-text valign col s12 m6 l3 push-l1 push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Proposta</a>-->
-                                        <!--<a data-ng-href="#!" id="btn-detalhes" data-ng-click="openModal(3, empreendimento)" class="btn blue valign white-text accent-5 col s12 m6 l3  push-l1  push-m1  tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Detalhes</a>--> 
-                                        <a data-ng-href="#!" id="btn-status" data-ng-click="openModal(2, empreendimento)" data-ng-if="!validStatus(empreendimento, 'Avaliação Realizada')" class="btn blue valign white-text accent-5 col s12 m6 l6  push-l3  push-m3 center truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">
-                                            <span data-ng-if="validStatus(empreendimento, 'Apresentação Agendada')"><span class="hide-on-small-only">Alterar</span> Status</span> 
-                                            <span data-ng-if="!validStatus(empreendimento, 'Apresentação Agendada')">Agendar Apresentação</span> 
-                                        </a>                                                                                
-
-                                        <!--<a data-ng-href="#!" id="btn-add-avaliador" class="btn blue valign white-text accent-5 col s12 m6 l3 push-l2 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(4, empreendimento)" data-ng-disabled="isAvaliadorListEmpty()"><span style="font-size: 16pt">+</span> Avaliador</a>--> 
-                                        <!--<a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l3 push-12 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>-->                                                                                                                                                                
-                                    </div>                                    
-                                    <!--NESTA DIV CONTEM OS BOTOES ONDE O GESTOR IRÁ APROVAR OU REPROVAR UM EMPREENDIMENTO-->
-                                    <div class="row center" style="margin-top: -2%;">                                                                                
-                                        <button data-ng-if="empreendimento.status == 'Avaliação Realizada'"  id="btn-aprovar" data-ng-click="openModal(8, empreendimento)" class="btn green valign white-text accent-5 col s12 m6 l5 push-l1 push-m3 truncate" data-ng-disabled="validStatusReprovado(empreendimento, 'Aprovado')" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Aprovar</button>                                        
-                                        <button data-ng-if="empreendimento.status == 'Avaliação Realizada'" id="btn-reprovar" data-ng-click="openModal(7, empreendimento)" class="btn red valign white-text accent-5 col s12 m6 l5 push-l1 push-m3 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Reprovar</button>                                                                                
-                                        <button data-ng-if="validStatusResult(empreendimento)" class="btn center yellow black-text col s12 m12 l12" style="margin-top: 0.6rem;" data-ng-click="openModal(10, empreendimento)">Ver descrição do resultado final</button>
                                     </div>
+
                                     <div class="row hide-on-small-only">                                
                                         <hr class="divider white" style="border: 0px"/>
                                         <ul clss="col s12 m12 l12">                                            
                                             <li class="col s2 m2 l2 marginTimeLine">                                 
-                                                <button class="btn-floating circle"  data-ng-class="{'green': empreendimento.apresentacaoNegocio.miniCurriculo !== undefined, 'grey':empreendimento.apresentacaoNegocio.miniCurriculo === undefined}" style="height: 27px; width: 27px; line-height: normal;">
+                                                <button class="btn-floating circle"  data-ng-class="{'green': empreendimento.apresentacaoNegocio.miniCurriculo !== undefined, 'grey':empreendimento.apresentacaoNegocio.miniCurriculo === undefined}" style="height: 26px; width: 26px; line-height: normal;">
                                                     1
                                                 </button>
-                                                <p class="hide-on-small-only" style="margin-top: 0.3rem">Proposta Enviada</p>
+                                                <p class="hide-on-small-only nameTimeLine" style="margin-top: 0.3rem">Proposta Enviada</p>
                                             </li>
                                             <li class="col s2 m2 l2 marginTimeLine">                                 
-                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Apresentação Agendada'), 'grey':!validStatus(empreendimento, 'Apresentação Agendada')}" style="height: 27px; width: 27px; line-height: normal;">
+                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Apresentação Agendada'), 'grey':!validStatus(empreendimento, 'Apresentação Agendada')}" style="height: 26px; width: 26px; line-height: normal;">
                                                     2
                                                 </button>
-                                                <p class="hide-on-small-only" style="margin-top: 0.3rem">Apresenta&ccedil;&atilde;o Agendada</p>
+                                                <p class="hide-on-small-only nameTimeLine" style="margin-top: 0.3rem">Apresenta&ccedil;&atilde;o Agendada</p>
                                             </li>
                                             <li class="col s2 m2 l2 marginTimeLine">                                 
-                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Apresentação Realizada'), 'grey':!validStatus(empreendimento, 'Apresentação Realizada')}" style="height: 27px; width: 27px; line-height: normal;">
+                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Apresentação Realizada'), 'grey':!validStatus(empreendimento, 'Apresentação Realizada')}" style="height: 26px; width: 26px; line-height: normal;">
                                                     3
                                                 </button>
-                                                <p class="hide-on-small-only" style="margin-top: 0.3rem">Apresenta&ccedil;&atilde;o Realizada</p>
+                                                <p class="hide-on-small-only nameTimeLine" style="margin-top: 0.3rem">Apresenta&ccedil;&atilde;o Realizada</p>
                                             </li>
                                             <li class="col s2 m2 l2 marginTimeLine">                                 
-                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Avaliação Realizada'), 'grey':!validStatus(empreendimento, 'Avaliação Realizada')}" style="height: 27px; width: 27px; line-height: normal;">
+                                                <button class="btn-floating circle" data-ng-class="{'green': !booleanAvaliador(empreendimento), 'grey':booleanAvaliador(empreendimento)}" style="height: 26px; width: 26px; line-height: normal;">
                                                     4
                                                 </button>
-                                                <p class="hide-on-small-only" style="margin-top: 0.3rem">Avalia&ccedil;&atilde;o Realizada</p>
+                                                <p class="hide-on-small-only nameTimeLine" style="margin-top: 0.3rem">Associar Avaliadores</p>
                                             </li>
-                                            <li class="col s2 m2 l2">                                 
-                                                <button class="btn-floating circle" data-ng-class="{'red': validStatusReprovado(empreendimento), 'green': validStatusAprovado(empreendimento), 'grey': !validStatus(empreendimento, 'Aprovado')}" style="height: 27px; width: 27px; line-height: normal;">
+                                            <li class="col s2 m2 l2 marginTimeLine">                                 
+                                                <button class="btn-floating circle" data-ng-class="{'green': validStatus(empreendimento, 'Avaliação Realizada'), 'grey':!validStatus(empreendimento, 'Avaliação Realizada')}" style="height: 26px; width: 26px; line-height: normal;">
                                                     5
                                                 </button>
-                                                <p class="hide-on-small-only" style="margin-top: 0.3rem">
+                                                <p class="hide-on-small-only nameTimeLine" style="margin-top: 0.3rem">Avalia&ccedil;&atilde;o Realizada</p>
+                                            </li>
+                                            <li class="col s2 m2 l2">                                 
+                                                <button class="btn-floating circle" data-ng-class="{'red': validStatusReprovado(empreendimento), 'green': validStatusAprovado(empreendimento), 'grey': !validStatus(empreendimento, 'Aprovado')}" style="height: 26px; width: 26px; line-height: normal;">
+                                                    6
+                                                </button>
+                                                <p class="hide-on-small-only nameTimeLine" style="margin-top: 0.3rem">
                                                     <span data-ng-if="validStatusAprovado(empreendimento)">Aprovado</span>
                                                     <span data-ng-if="validStatusReprovado(empreendimento)">Reprovado</span>
                                                     <span data-ng-if="!validStatus(empreendimento, 'Aprovado')">Resultado Final</span>
                                                 </p>
                                             </li>                             
                                         </ul>
+                                    </div>                                                                                             
+
+
+                                    <div class="row center">   
+                                        <a data-ng-href="/gerenciador/avaliacao/empreendimento/{{empreendimento.id}}" data-ng-if="validStatus(empreendimento, 'Avaliação Realizada')" class="btn center yellow black-text col s12 m12 l12">Ver avalia&ccedil;&atilde;o</a>
+                                        <hr class="divider white" style="border: 0px"/>                               
+                                        <!--<a data-ng-href="#!" id="btn-ver-proposta" data-ng-click="openModal(1, empreendimento)" class="btn modal-trigger blue white-text valign col s12 m6 l3 push-l1 push-m1 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Proposta</a>-->
+                                        <!--<a data-ng-href="#!" id="btn-detalhes" data-ng-click="openModal(3, empreendimento)" class="btn blue valign white-text accent-5 col s12 m6 l3  push-l1  push-m1  tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;">Detalhes</a>--> 
+                                        <a data-ng-href="#!" id="btn-status" data-ng-click="openModal(2, empreendimento)" data-ng-if="!validStatus(empreendimento, 'Avaliação Realizada') && validAndamento(empreendimento)" class="btn blue valign white-text accent-5 col s12 m6 l6  push-l3  push-m3 center truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">                                             
+                                            <span data-ng-if="validStatus(empreendimento, 'Apresentação Agendada')"><span class="hide-on-small-only">Alterar</span> Status</span> 
+                                            <span data-ng-if="!validStatus(empreendimento, 'Apresentação Agendada')">Agendar Apresentação</span> 
+                                        </a>                                                                                
+                                        <a data-ng-href="#!" id="btn-add-avaliador" data-ng-click="openModal(4, empreendimento)" data-ng-if="validStatus(empreendimento, 'Apresentação Realizada') && booleanAvaliador(empreendimento)" class="btn blue valign white-text accent-5 col s12 m6 l6  push-l3  push-m3 center truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">                                             
+                                            <span class="hide-on-small-only">Associar Avaliadores</span> 
+                                        </a>                                                                                
+
+                                        <!--<a data-ng-href="#!" id="btn-add-avaliador" class="btn blue valign white-text accent-5 col s12 m6 l3 push-l2 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(4, empreendimento)" data-ng-disabled="isAvaliadorListEmpty()"><span style="font-size: 16pt">+</span> Avaliador</a>--> 
+                                        <!--<a data-ng-href="#!" id="btn-add-empreendedor" class="btn blue white-text accent-5 col s12 m6 l3 push-12 push-m3 tooltipped truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px;" data-ng-click="openModal(5, empreendimento)" data-ng-disabled="isEmpreendedorListEmpty()"><span style="font-size: 16pt">+</span> Empreendedor</a>-->                                                                                                                                                                
+                                    </div>                                    
+                                    <!--NESTA DIV CONTEM OS BOTOES ONDE O GESTOR IRÁ APROVAR OU REPROVAR UM EMPREENDIMENTO-->
+                                    <div class="row center" style="margin-top: -2%;">                                              
+                                        <button data-ng-if="empreendimento.status == 'Avaliação Realizada'"  id="btn-aprovar" data-ng-click="openModal(8, empreendimento)" class="btn green valign white-text accent-5 col s12 m6 l5 push-l1 push-m3 truncate" data-ng-disabled="validStatusReprovado(empreendimento, 'Aprovado')" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Aprovar</button>                                        
+                                        <button data-ng-if="empreendimento.status == 'Avaliação Realizada'" id="btn-reprovar" data-ng-click="openModal(7, empreendimento)" class="btn red valign white-text accent-5 col s12 m6 l5 push-l1 push-m3 truncate" style="margin-right: 1rem; margin-top: 0.6rem; border-radius: 0px">Reprovar</button>                                                                                
+                                        <button data-ng-if="validStatusResult(empreendimento)" class="btn center yellow black-text col s12 m12 l12" style="margin-top: 0.6rem;" data-ng-click="openModal(10, empreendimento)">Ver descrição do resultado final</button>
                                     </div>
+
                                 </div>
                             </li>                        
                         </ul>

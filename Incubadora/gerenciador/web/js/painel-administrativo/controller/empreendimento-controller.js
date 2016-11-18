@@ -38,6 +38,8 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
     $scope.andamento = {};
     $scope.finalizado = {};
     $scope.qtdAvaliacao = {};
+    $scope.booleanAvaliador = {};
+    $scope.validAndamento = {};
     var STATUS_BUSCA = 'Em Andamento';
     var statusList = [];
     var configModal = {
@@ -233,6 +235,25 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     $scope.isAvaliadorListEmpty = function () {
         return $scope.avaliadorList.length < 1;
+    };
+    
+    $scope.booleanAvaliador = function(empreendimento){
+        return empreendimento.avaliadorList.length < 1;
+    };
+    
+    $scope.validAndamento = function(empreendimento){
+        var retorno;
+        if(statusList.indexOf(empreendimento.status) <= statusList.indexOf('Apresentação Agendada')){
+            retorno = true;
+        }else if(empreendimento.status === 'Apresentação Realizada'){
+            retorno  = false;
+        }
+        
+        if(empreendimento.avaliadorList.length > 0 && empreendimento.status === 'Apresentação Realizada'){
+            retorno =  true;
+        }
+        
+        return retorno;
     };
 
     $scope.addAvaliador = function (avaliador) {

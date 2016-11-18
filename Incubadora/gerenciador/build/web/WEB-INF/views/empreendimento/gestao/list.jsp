@@ -13,92 +13,8 @@
 
         <%@include file="../../templates/basic-style.jsp" %>
         <link rel="stylesheet" href="<c:url value="/css/materializeGeeksLabs.css"/>" />
-                
-        <style>
-            label,
-            label:hover,
-            label:visited{
-                color: blue !important;
-            }
-            h5{
-                padding: 1%;
-            }
-
-            .collection .collection-item {
-                background-color: rgba(96, 125, 139, 0.12);
-                line-height: 1.5rem;
-                padding: 10px 20px;
-                margin-bottom: 1.2%;
-                border-bottom: 1px solid #e0e0e0;
-
-            }
-
-            #btn-fechar:hover{
-                box-shadow: 50px 50px 55px #888888;
-            }
 
 
-            .collection{
-                border:0px !important;
-                border-left: 0px !important;
-                border-right: 0px !important;
-                padding-left: 1%;
-                padding-right: 1%;
-                padding-top: 1%;
-
-            }
-
-            blockquote{
-                border-color: #7986cb;
-            }
-
-            .pratica-field,
-            .responsavel-field{
-                background-color: transparent !important;
-                padding-bottom: 2% !important;
-            }
-
-
-            .card.select-group{
-                background-color: rgba(58, 124, 183, 0.09) !important;
-            }
-            .chip {
-                display: inline-block;
-                height: 32px;
-                font-size: 13px;
-                font-weight: 500;
-                color: rgb(255, 255, 255);
-                line-height: 32px;
-                padding: 0 12px;
-                border-radius: 16px;
-                background-color: rgba(96, 125, 139, 0.52);
-                margin-right: 1%;
-                margin-top: 2%;
-            }
-
-            .chip span a:hover{
-                color:#eeff41 !important;
-            }
-
-            .progress {
-                position: relative;
-                height: 5px;
-                display: block;
-                width: 100%;
-                background-color: rgba(236, 229, 172, 0.43);
-                border-radius: 2px;
-                margin: 0.5rem 0 1rem 0;
-                overflow: hidden;
-            }
-
-            .progress .indeterminate {
-                background-color: rgb(234, 202, 24);
-            }
-            
-            .marginTimeLine{
-                margin-right: 1.3rem;
-            }
-        </style>
         <%@include file="../../templates/basic-script.jsp" %>
         <script src="<c:url value="/js/painel-administrativo/values/empreendimento-values.js"/>"></script>
         <script src="<c:url value="/js/painel-administrativo/service/empreendimento-services.js"/>"></script>
@@ -115,8 +31,8 @@
 
                 $('.time').mask('00:00');
             });
-//            $('#textarea1').val('New Text');
-//            $('#textarea1').trigger('autoresize');
+            //            $('#textarea1').val('New Text');
+            //            $('#textarea1').trigger('autoresize');
         </script>
 
     </head>
