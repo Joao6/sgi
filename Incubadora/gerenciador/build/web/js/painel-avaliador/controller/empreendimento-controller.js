@@ -59,9 +59,9 @@
         //openModal (JP)
         $scope.openModal = function (id, empreendimentoId) {
             delete $scope.empreendimento;
-            $scope.empreendimento = _getEmpreendimento(empreendimentoId);
-            $scope.apresentacaoNegocio = $scope.empreendimento.apresentacaoNegocio;
-            var index = 0;
+            _getEmpreendimento(empreendimentoId);
+            
+            
             $("#modal-" + id).openModal(configModal);
         };
         //openModal (JP)
@@ -85,10 +85,11 @@
         }
 
 
-        function _getEmpreendimento() {
+        function _getEmpreendimento(idEmpreendimento) {
             try {
                 EmpreendimentoAPI.getEmpreendimento(idEmpreendimento).success(function (data) {
                     $scope.empreendimento = data;
+                    $scope.apresentacaoNegocio = $scope.empreendimento.apresentacaoNegocio;
                 }).error(function () {
                     Materialize.toast(app.MESSAGE_GET_EMPREENDIMENTOS_ERROR, 4000, 'orange rounded');
                 });
@@ -98,6 +99,7 @@
             }
 
         }
+        
         if (idEmpreendimento !== undefined && idEmpreendimento !== "") {
             _getEmpreendimento();
         }

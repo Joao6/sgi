@@ -80,7 +80,8 @@
                                     <div class="row center">
                                         <hr class="divider white" style="border: 0px"/>
                                         <a href="/gerenciador/avaliador/empreendimento/${empreendimento.id}/avaliar" class="btn blue valign col s12 m4 l4 push-l1 push-m1 truncate" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Avaliar</a>
-                                        <a href="#" id="btn-informacoes" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" data-ng-click="openModal(1, ${empreendimento.id})" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a> 
+                                        <a href="#" id="btn-informacoes" class="btn yellow valign black-text accent-5 col s12 m4 l4 push-l2 push-m2 truncate" data-ng-click="openModal(1, ${empreendimento.id})" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Visualizar Informações</a>                                                                                 
+                                        <!--<a data-ng-if="verificaNota(${empreendimento.id})" href="#" id="btn-informacoes" class="btn blue valign white-text accent-5 col s12 m6 l6 push-l3 push-m3 truncate" data-ng-click="openModal(4, ${empreendimento.id})" style="margin-left: 1rem; margin-top: 0.6rem; border-radius: 0px">Enviar Avaliação</a>-->                                         
                                     </div>
                                     <div class="row hide-on-small-only">
                                         <hr class="divider white" style="border: 0px"/>

@@ -1,7 +1,7 @@
 /* global angular */
 
 (function () {
-   angular.module('painelEmpreendedor').factory('EmpreendimentoAPI', function (EmpValues, $http) {
+   angular.module('painelAvaliador').factory('EmpreendimentoAPI', function (EmpValues, $http) {
       var HEADERS = {headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             "Accept": "application/json;charset=utf-8"

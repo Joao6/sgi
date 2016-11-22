@@ -1,4 +1,4 @@
-label,
+/*label,
 label:hover,
 label:visited{
     color: blue !important;
@@ -124,4 +124,102 @@ blockquote{
     will-change: left, right; }
 
 .tabs .tab {
-    padding: 0; }
+    padding: 0; }*/
+
+
+
+
+a.white-text.waves-effect.waves-light.active {
+}
+.tabs .tab a {
+    color: #00bcd4;
+    display: block;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: color 0.28s ease;
+    -moz-transition: color 0.28s ease;
+    -o-transition: color 0.28s ease;
+    -ms-transition: color 0.28s ease;
+    transition: color 0.28s ease;
+}
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    will-change: opacity, transform;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+.white-text {
+    color: #FFFFFF !important;
+}
+a {
+    text-decoration: none;
+}
+a {
+    color: #039be5;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+a {
+    background-color: transparent;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/*Inherited from li.tab.col.s3*/
+.tabs .tab {
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 48px;
+    height: 48px;
+    padding: 0 20px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    width: 15%;
+}
+ul li {
+    list-style-type: none;
+}
+user agent stylesheet
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+/*Inherited from ul.tabs.tab-profile.z-depth-1.light-blue*/
+.tabs {
+    position: relative;
+    height: 48px;
+    background-color: #fff;
+    margin: 0 auto;
+    width: 100%;
+    white-space: nowrap;
+}
+ul {
+    list-style-type: none;
+}
+user agent stylesheet
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
