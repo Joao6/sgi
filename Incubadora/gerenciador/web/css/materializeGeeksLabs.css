@@ -78,13 +78,13 @@ blockquote{
     background-color: rgb(234, 202, 24);
 }
 
-.marginTimeLine{
+*/.marginTimeLine{
     margin-right: 0rem;
 }
 
 .nameTimeLine{
-    font-size: 11pt;               
-}
+    font-size: 10pt;       
+}/*
 
 .tabs {
     position: relative;

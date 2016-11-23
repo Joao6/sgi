@@ -390,15 +390,14 @@
                         <ul class="collection card" data-ng-hide="isEmpreendimentoListEmpty()">
 
                             <li class="collection-item" data-ng-repeat="empreendimento in empreendimentoList| orderBy:'nome'">
-                                <div class="card-panel valign-wrapper">
+                                <div class=" row card-panel valign-wrapper">
                                     <span class="valign-wrapper">
                                         <i class="material-icons valign">business</i>&nbsp;&nbsp;&nbsp;
                                         <a href="#!" id="emp-{{empreendimento.id}}" class="emp-accordion-link"><span data-ng-bind="empreendimento.nome" class="valign" style="font-size: 14pt;"></span></a>
-                                    </span>
-                                    <!-- #################################################################################-->
+                                    </span>                                    
 
-                                    <a href="<c:url value="/incubadora/empreendimento/{{empreendimento.id}}/atualizar"/>" data-ng-click="empreendimento(empreendimento.id)" id="btn-excluir-empreendimento"  class="btn-floating circle blue waves-effect waves-light grey-text"  style="right: 7rem; position: absolute"><i class="material-icons">mode_edit</i></a>
-                                    <a data-ng-href="#!" id="btn-excluir-empreendimento" data-ng-click="openModal(6, empreendimento)" class="btn-floating circle red waves-effect waves-light grey-text"  style="right: 4rem; position: absolute"><i class="material-icons">clear</i></a>
+                                    <a href="<c:url value="/incubadora/empreendimento/{{empreendimento.id}}/atualizar"/>" data-ng-click="empreendimento(empreendimento.id)" id="btn-excluir-empreendimento"  class="btn-floating circle blue waves-effect waves-light grey-text"  style="right: 7rem; position: absolute; top: auto;"><i class="material-icons">mode_edit</i></a>
+                                    <a data-ng-href="#!" id="btn-excluir-empreendimento" data-ng-click="openModal(6, empreendimento)" class="btn-floating circle red waves-effect waves-light grey-text"  style="right: 4rem; position: absolute; top: auto;"><i class="material-icons">clear</i></a>                                    
                                 </div>
 
                                 <div class="empreendimento card-content">

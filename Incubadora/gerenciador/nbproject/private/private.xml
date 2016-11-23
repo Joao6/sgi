@@ -12,12 +12,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/js/painel-avaliador/value/empreendimento-value.js</file>
-            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/templates/empreendimento/avaliador/main-view-empreendimento-avaliador-list.jsp</file>
-            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/js/painel-avaliador/service/empreendimento-services.js</file>
-            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/js/painel-avaliador/controller/empreendimento-controller.js</file>
-            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/empreendimento/avaliador/list.jsp</file>
-            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/src/java/gerenciador/incubadora/controller/EmpreendimentoController.java</file>
+            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/empreendimento/gestao/list.jsp</file>
+            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/WEB-INF/views/templates/empreendimento/gestao/main-view-empreendimento-gestao-list.jsp</file>
+            <file>file:/C:/Users/rafael-pc/Desktop/SGI%20João%20Pedro/local/Incubadora/gerenciador/web/css/materializeGeeksLabs.css</file>
         </group>
     </open-files>
 </project-private>
