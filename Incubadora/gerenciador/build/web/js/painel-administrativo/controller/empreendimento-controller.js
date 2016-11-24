@@ -594,6 +594,7 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
 
     $scope.associarAvaliadores = function () {
         try {
+            $scope.showProgress = true;
             EmpreendimentoService.associarAvaliadores($scope.empreendimento).success(function () {
                 if (STATUS_BUSCA === 'Em Andamento') {
                     _getEmpreendimentos('Em Andamento');
@@ -602,11 +603,14 @@ angular.module('painelAdmin').controller('EmpreendimentoCtrl', function ($scope,
                 }
                 _getAvaliadores();
                 Materialize.toast('Avaliadores associados com sucesso!', 4000, 'green rounded');
+                $scope.showProgress = false;
                 $("#modal-4").closeModal(configModal);
             }).error(function () {
                 Materialize.toast('Erro ao tentar associar Avaliadores!', 4000, 'orange rounded');
+                $scope.showProgress = false;
             });
         } catch (e) {
+            $scope.showProgress = false;
             console.log(e);
             Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION);
         }

@@ -114,41 +114,47 @@
                     <!-- FIM MODAL DETALHES EMPREENDIMENTO -->
 
                     <!-- MODAL AVALIADORES -->
-                <div class="modal" style="background-color: #FFF !important" id="modal-4">
-                    <div class="modal-body card white">
-                        <div class="row">
-                            <div class="card">
-                                <div class="card s12 m12 l12 center-align" style="padding-top: 1%; padding-bottom: 1%">
-                                    <h6 style="font-size: 15pt">Associar Avaliadores</h6>
-                                </div>
-                                <form name="formAvalidor">
-                                    <div class="card select-group card-content s12 m12 l12">
-                                        <label for="avalidor" style="font-size: 13pt">Escolha os Avaliadores</label>
-                                        <div class="input-field responsavel-field">
-                                            <select id="avaliador" class="browser-default" data-ng-model="avaliador.id" data-ng-change="addAvaliador(avaliador)">
-                                                <option value="">Selecione</option>
-                                                <option data-ng-repeat="avaliador in avaliadores" value="{{avaliador.id}}">{{avaliador.nome}} {{avaliador.sobrenome}}</option>
-                                            </select>        
+                    <div class="modal" style="background-color: #FFF !important" id="modal-4">
+                        <div class="modal-body card white">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="card s12 m12 l12 center-align" style="padding-top: 1%; padding-bottom: 1%">
+                                        <h6 style="font-size: 15pt">Associar Avaliadores</h6>
+                                    </div>
+                                    <form name="formAvalidor">
+                                        <div class="card select-group card-content s12 m12 l12">
+                                            <label for="avalidor" style="font-size: 13pt">Escolha os Avaliadores</label>
+                                            <div class="input-field responsavel-field">
+                                                <select id="avaliador" class="browser-default" data-ng-model="avaliador.id" data-ng-change="addAvaliador(avaliador)">
+                                                    <option value="">Selecione</option>
+                                                    <option data-ng-repeat="avaliador in avaliadores" value="{{avaliador.id}}">{{avaliador.nome}} {{avaliador.sobrenome}}</option>
+                                                </select>        
 
-                                            <div class="chip pratica-chip" data-ng-repeat="avaliador in empreendimento.avaliadorList"> 
-                                                <span>
-                                                    <img data-ng-src="/gerenciador/img/ico-responsavel.png" alt="{{avaliador.nome}}">
-                                                    <a data-ng-href="/gerenciador/avaliador/{{avaliador.id}}/view/notas/by/empreendimento/{{empreendimento.id}}"  class="white-text">{{avaliador.nome}}</a>
-                                                </span>
-                                                <i class="material-icons" data-ng-click="removeAvaliador(avaliador.id)">close</i>
+                                                <div class="chip pratica-chip" data-ng-repeat="avaliador in empreendimento.avaliadorList"> 
+                                                    <span>
+                                                        <img data-ng-src="/gerenciador/img/ico-responsavel.png" alt="{{avaliador.nome}}">
+                                                        <a data-ng-href="/gerenciador/avaliador/{{avaliador.id}}/view/notas/by/empreendimento/{{empreendimento.id}}"  class="white-text">{{avaliador.nome}}</a>
+                                                    </span>
+                                                    <i class="material-icons" data-ng-click="removeAvaliador(avaliador.id)">close</i>
+                                                </div>
+                                            </div>                              
+                                            <button class="btn green lighten-1 large" data-ng-click="associarAvaliadores()" data-ng-disabled="empreendimento.avaliadorList.length < 1" style="width: 100%">Associar Avaliadores</button>
+                                            <!--// BARRA DE PROGRESSO PARA A CONCLUSÃO DO MÉTODO -->
+                                            <div class="row" data-ng-show="showProgress">
+                                                <div class="progress">
+                                                    <div class="indeterminate"></div>
+                                                </div>
                                             </div>
-                                        </div>                              
-                                        <button class="btn green lighten-1 large" data-ng-click="associarAvaliadores()" data-ng-disabled="empreendimento.avaliadorList.length < 1" style="width: 100%">Associar Avaliadores</button>
-                                    </div>   
-                                </form>
+                                        </div>   
+                                    </form>
 
-                            </div>                                       
-                            <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
-                        </div>
-                    </div>       
+                                </div>                                       
+                                <button class="btn orange modal-close center large" style="width: 100% !important; margin-top: 1rem; border-color: transparent">Fechar</button>
+                            </div>
+                        </div>       
 
-                </div>               
-                <!-- FIM MODAL AVALIADORES -->
+                    </div>               
+                    <!-- FIM MODAL AVALIADORES -->
 
                     <!-- MODAL EMPREENDEDORES (JP) -->
                     <div class="modal" style="background-color: #FFF !important" id="modal-5">
@@ -395,9 +401,10 @@
                                         <i class="material-icons valign">business</i>&nbsp;&nbsp;&nbsp;
                                         <a href="#!" id="emp-{{empreendimento.id}}" class="emp-accordion-link"><span data-ng-bind="empreendimento.nome" class="valign" style="font-size: 14pt;"></span></a>
                                     </span>                                    
-
-                                    <a href="<c:url value="/incubadora/empreendimento/{{empreendimento.id}}/atualizar"/>" data-ng-click="empreendimento(empreendimento.id)" id="btn-excluir-empreendimento"  class="btn-floating circle blue waves-effect waves-light grey-text"  style="right: 7rem; position: absolute; top: auto;"><i class="material-icons">mode_edit</i></a>
-                                    <a data-ng-href="#!" id="btn-excluir-empreendimento" data-ng-click="openModal(6, empreendimento)" class="btn-floating circle red waves-effect waves-light grey-text"  style="right: 4rem; position: absolute; top: auto;"><i class="material-icons">clear</i></a>                                    
+                                    <div class="row">
+                                        <a href="<c:url value="/incubadora/empreendimento/{{empreendimento.id}}/atualizar"/>" data-ng-click="empreendimento(empreendimento.id)" id="btn-excluir-empreendimento"  class="btn-floating circle blue waves-effect waves-light grey-text" style="right: 8rem; position: absolute;"><i class="material-icons">mode_edit</i></a>
+                                        <a data-ng-href="#!" id="btn-excluir-empreendimento" data-ng-click="openModal(6, empreendimento)" class="btn-floating circle red waves-effect waves-light grey-text" style="right: 5rem; position: absolute; "><i class="material-icons">clear</i></a>                                    
+                                    </div>
                                 </div>
 
                                 <div class="empreendimento card-content">
@@ -414,7 +421,7 @@
                                         <p class="left-align col l2 m6 l5 push-l1">Local: <strong>{{empreendimento.localApresentacao}}</strong></p>                              
                                     </div>
                                     <!--FIM-->
-                                    
+
                                     <!--SUGERE AO ADM VERIFICAR A SITUAÇÃO ATUAL DA AVALIAÇÂO DO EMPREENDIMENTO-->
                                     <div class="row yellow accent-2 center-align" data-ng-if="empreendimento.status == 'Apresentação Realizada' && empreendimento.avaliadorList.length > 0">
 

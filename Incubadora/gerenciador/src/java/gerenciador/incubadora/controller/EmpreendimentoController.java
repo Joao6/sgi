@@ -8,6 +8,7 @@ import gerenciador.incubadora.model.dao.CriterioAvaliacaoDAO;
 import gerenciador.incubadora.model.dao.EditalDAO;
 import gerenciador.incubadora.model.dao.EmpreendimentoDAO;
 import gerenciador.incubadora.model.dao.NotaDAO;
+import gerenciador.incubadora.model.dao.UsuarioDAO;
 import gerenciador.incubadora.model.entity.ApresentacaoNegocio;
 import gerenciador.incubadora.model.entity.Avaliacao;
 import gerenciador.incubadora.model.entity.Avaliador;
@@ -17,6 +18,7 @@ import gerenciador.incubadora.model.entity.Eixo;
 import gerenciador.incubadora.model.entity.Empreendedor;
 import gerenciador.incubadora.model.entity.Empreendimento;
 import gerenciador.incubadora.model.entity.Endereco;
+import gerenciador.incubadora.model.entity.Gestor;
 import gerenciador.incubadora.model.entity.Nota;
 import gerenciador.incubadora.model.entity.RamoAtividade;
 import gerenciador.incubadora.model.entity.Usuario;
@@ -750,6 +752,13 @@ public class EmpreendimentoController {
             Gson g = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm").create();
             Empreendimento e = g.fromJson(empreendimento, type);
             ServiceLocator.getEmpreendimentoService().update(e);
+            String texto = "Olá! Viemos por meio deste email, notificar que você foi adicionado como avaliador"
+                    + " no empreendimento '" +e.getNome() + "'. Por favor, acesse o sistema para maiores informações."
+                    + " Após a apresentação do empreendimento, você deverá avaliar o empreendimento atribuindo notas a cada critério de avaliação."
+                    + " Atenciosamente, Gestão INTEF!";
+            for(Avaliador aux : e.getAvaliadorList()){
+                ServiceLocator.getEmailService().sendEmail(aux.getEmail(), "Você foi adicionado como avaliador de um empreendimento!", texto);
+            }
             response.setStatus(200);
         } catch (Exception e) {
             e.printStackTrace();
@@ -838,9 +847,9 @@ public class EmpreendimentoController {
             Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             Empreendimento e = g.fromJson(empreendimento, type);
             ServiceLocator.getEmpreendimentoService().updateStatusEmpreendimento(e.getId(), e.getStatus());
-
+            Empreendimento eTotal = ServiceLocator.getEmpreendimentoService().readById(e.getId());
             EmpreendimentoService es = new EmpreendimentoService();
-            es.sendEmailStatus(e);
+            es.sendEmailStatus(eTotal);
             response.setStatus(200);
         } catch (Exception e) {
             response.setStatus(500);
@@ -850,7 +859,7 @@ public class EmpreendimentoController {
 
     @RequestMapping(value = "/empreendimento/agendar-apresentacao", method = RequestMethod.POST)
     @ResponseBody
-    public void agendarAvaliacao(@RequestBody String apresentacao, HttpSession session, HttpServletResponse response) {
+    public void agendarApresentacao(@RequestBody String apresentacao, HttpSession session, HttpServletResponse response) {
 
         try {
             Type type = new TypeToken<Apresentacao>() {
@@ -1010,6 +1019,16 @@ public class EmpreendimentoController {
             emp.setStatus(Empreendimento.EMPREENDIMENTO_STATUS_ENVIADA);
             ServiceLocator.getEmpreendimentoService().update(emp);
 
+            Map<String, Object> criteria = new HashMap<String, Object>();
+            criteria.put(UsuarioDAO.CRITERION_TIPO_USUARIO_EQ, "1");
+            List<Usuario> admList = ServiceLocator.getUsuarioService().readByCriteria(criteria);
+            String texto = "Olá Gestor! Notificamos-lhe que o empreendedor responsável pelo empreendimento " + emp.getNome() + " acabou de cadastrar uma proposta em nosso sistema. "
+                    + "A partir de agora poderá se dar inicio ao processo seletivo deste empreendimento. "
+                    + "Obrigado!";
+            for (Usuario aux : admList) {
+                ServiceLocator.getEmailService().sendEmail(aux.getEmail(), "Proposta Enviada", texto);
+            }
+
             response.setStatus(200);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1085,8 +1104,8 @@ public class EmpreendimentoController {
     @ResponseBody
     public String getQtdAvaliacoesEmpreendimento(@RequestBody @PathVariable Long idEmpreendimento, HttpServletResponse response) {
         String qtd = null;
-        try {                                   
-            Long qtde = ServiceLocator.getNotaService().getQtdAvaliacoes(idEmpreendimento);            
+        try {
+            Long qtde = ServiceLocator.getNotaService().getQtdAvaliacoes(idEmpreendimento);
             Gson g = new Gson();
             qtd = g.toJson(qtde);
             response.setStatus(200);

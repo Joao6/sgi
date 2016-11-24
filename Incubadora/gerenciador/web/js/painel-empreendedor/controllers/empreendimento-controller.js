@@ -26,6 +26,7 @@ angular.module('painelEmpreendedor').controller('EmpreendimentoCtrl', function (
     var statusList = [];
     $scope.empreendimento = {};
     $scope.rowsPerPage = 5;
+    $scope.showProgress = false;
 
     var configModal = {
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -224,12 +225,17 @@ angular.module('painelEmpreendedor').controller('EmpreendimentoCtrl', function (
 
     $scope.addApNegocio = function (apresentacaoNegocio) {
         try {
+            $scope.showProgress = true;
+            angular.element(document.getElementById('btn-salvar-apNegocio'))[0].disabled = true;
             EmpreendimentoService.addApNegocio(apresentacaoNegocio).success(function () {
+                $scope.showProgress = false;
                 window.location.href = '/gerenciador/empreendedor/empreendimentos';
             }).error(function () {
                 Materialize.toast('Erro ao tentar salvar dados!', 4000, 'orange rounded');
+                $scope.showProgress = false;
             });
         } catch (e) {
+            $scope.showProgress = false;
             console.log(e);
             Materialize.toast(app.MESSAGE_GET_SERVER_BAD_CONNECTION, 4000, 'red rounded');
         }

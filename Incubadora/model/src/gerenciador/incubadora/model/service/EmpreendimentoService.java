@@ -22,12 +22,11 @@ import java.util.Map;
 
 public class EmpreendimentoService implements BaseEmpreendimentoService {
 
-
     @Override
     public void create(Empreendimento e) throws Exception {
         Connection conn = ConnectionManager.getInstance().getConnection();
         try {
-            EmpreendimentoDAO dao = new EmpreendimentoDAO();     
+            EmpreendimentoDAO dao = new EmpreendimentoDAO();
             dao.create(e, conn);
             conn.commit();
             conn.close();
@@ -85,7 +84,7 @@ public class EmpreendimentoService implements BaseEmpreendimentoService {
         return empreendimentoList;
     }
 
-     @Override
+    @Override
     public void update(Empreendimento e) throws Exception {
         Connection conn = ConnectionManager.getInstance().getConnection();
         try {
@@ -201,9 +200,9 @@ public class EmpreendimentoService implements BaseEmpreendimentoService {
         }
 
     }
-    
-    public void sendEmailStatus(Empreendimento e) throws Exception{        
-        try{
+
+    public void sendEmailStatus(Empreendimento e) throws Exception {
+        try {
             //envia um email notificando a mudança de status
             Map<String, Object> criteria = new HashMap<String, Object>();
             criteria.put(EmpreendimentoEmpreendedorDAO.CRITERION_EMPREENDIMENTO_ID, e.getId());
@@ -218,11 +217,16 @@ public class EmpreendimentoService implements BaseEmpreendimentoService {
                         + "alterado durante o processo de seleção."
                         + " Acompanhe mais de perto o processo de seleção do seu empreendimento"
                         + " através do nosso sitema."
-                        + " O status atual de seu empreendimento é: '"+ status+"'."
+                        + " O status atual de seu empreendimento é: '" + status + "'."
                         + " Atenciosamente, Gestão da Incubadora.";
+
+                if (status.equals("Apresentação Agendada")) {
+                    texto += " A apresentação está agendada para " + e.getDataHoraApresentacao() + " - " + e.getLocalApresentacao() + "."
+                            + " Favor acessar o sistema para maiores informações!";
+                }
                 ServiceLocator.getEmailService().sendEmail(destino, assunto, texto);
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
@@ -320,10 +324,9 @@ public class EmpreendimentoService implements BaseEmpreendimentoService {
                 errors.put("hora", ErrorMessage.HORA_INVALIDA);
             }
         }
-        
-        
+
         String local = (String) fields.get("local");
-        if(local == null || local.isEmpty()){
+        if (local == null || local.isEmpty()) {
             errors.put("lcoal", ErrorMessage.CAMPO_OBRIGATORIO);
         }
 
